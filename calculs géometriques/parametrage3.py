@@ -6,21 +6,29 @@ import shapely.geometry as geom
 Paramètres 
 '''
 
-LongCC = 1000; #CC pour chambre climatique en cm
-LargCC = 500;
-HautCC = 400;
-O = [0,0,0]; # centre du repère lié à la chambre
+#CC = chambre climatique
+LongCC = 1000 #  cm
+LargCC =  500 #  cm
+HautCC =  400 #  cm
 
-LongM = 500; #M pour maison
-LargM = 250;
-HautM = 380;
+# centre du repère lié à la chambre
+OCC = [0,0,0]
 
-LongS = 100; #Longeur de la source
-LargS = 100; 
-HautS = 100;
+# M = maison
+LongM = 500 # cm
+LargM = 250 # cm
+HautM = 380 # cm
+
+# S = source
+LongS = 100 # cm
+LargS = 100 # cm
+HautS = 100 # cm
 
 
 def creerPoint(x, y, z):
+    '''
+    Ça met les 3 coordonnées dans une matrice colonne 3x1 (numpy.matrix)
+    '''
     return np.matrix([[x], [y], [z]])
 
 def getCoordonnees(point):
