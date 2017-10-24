@@ -77,20 +77,63 @@ def sommetsDeLaSource(centreSource, theta, phi, dimensionsSource):  # p comme pr
     return B
 
 
+# deprecated
 def appartientVolumeMaison(point):
     """
     Fonction qui teste si un point est dans le volume de la maisonnette.
     """
+    print("deprecated!!!!!!!!!!!!!!!!!!!!!!!!!!!!1")
     x, y, z = getCoordonnees(point)
     return (LongCC - LongM) <= x <= LongCC and ((LargCC - LargM) / 2) <= y <= (
     LargCC - ((LargCC - LargM) / 2)) and 0 <= z <= HautM
 
 
+def appartientVolumePaveALOrigine(point, dimensions):
+    '''
+    Fonction qui teste si un point est dans le volume d'un pavé localisé à l'origine.
+    :param dimensions: (dictionnaire) longueur, largeur, hauteur du pave de la source
+    :return: False/True
+    '''
+
+    demiLong = dimensions['longuer'] / 2
+    demiLarg = dimensions['largeur'] / 2
+    demiHaut = dimensions['hauteur'] / 2
+
+    x, y, z = getCoordonnees(point)
+
+    return -demiLong <= x <= demiLong and -demiLarg <= y <= demiLarg and demiHaut <= z <= demiHaut
+
+
+def appartientVolumePaveDeplace(point, centre, dimensions):
+    '''
+    Fonction qui teste si un point est dans le volume d'un pavé localisé à l'origine.
+    :param dimensions: (dictionnaire) longueur, largeur, hauteur du pave de la source
+    :param centre: centre du pavé repéré dans le sys de coordonnées globale
+    :return: False/True
+    '''
+    return appartientVolumePaveALOrigine(point - centre, dimensions)
+
+
+def appartientVolumePaveAPartirDuCoinMini(point, pointMini, dimensions):
+    '''
+    Fonction qui teste si un point est dans le volume d'un pavé dont le point Mini est donné.
+    :param dimensions: (dictionnaire) longueur, largeur, hauteur du pave de la source
+    :param pointMini: sommet le plus proche de l'origine dans le sys de coordonnées globale
+    :return: False/True
+    '''
+
+    long = dimensions['longuer']
+    larg = dimensions['largeur']
+    haut = dimensions['hauteur']
+
+    x, y, z = getCoordonnees(point - pointMini)
+
+    return 0 <= x <= long and 0 <= y <= larg and 0 <= z <= haut
+
+
 """
 Fonction qui teste si un point est à l'intérieur de la chambre climatique
 """
-
-
 def estDansLaChambreClimatique(point):
     x, y, z = getCoordonnees(point)
     return 0 < x < LongCC and 0 < y < LargCC and 0 < z < HautCC
@@ -235,45 +278,6 @@ def ConflitDePosition(centreSoleil, theta, phi, Pa, n):
               ("ok" if not toucheSoleil else "!").center(len("mur")) + " " * 2 + \
               "".join(toucheCable))
     print()
-
-
-"""
-ConflitDePosition(xp,yp,zp,theta,phi,
-                  xa11,ya11,za11,
-                  xa12,ya12,za12,
-                  xa21,ya21,za21,
-                  xa22,ya22,za22,
-                  xa31,ya31,za31,
-                  xa32,ya32,za32,
-                  xa41,ya41,za41,
-                  xa42,ya42,za42,
-                  n)
-"""
-
-Pa = (creerPoint(0, 0, 400), \
-      creerPoint(0, 0, 0), \
-      creerPoint(0, 500, 400), \
-      creerPoint(0, 500, 0), \
-      creerPoint(1000, 0, 400), \
-      creerPoint(1000, 0, 0), \
-      creerPoint(1000, 500, 400), \
-      creerPoint(1000, 500, 0))
-
-# ConflitDePosition(100,100,300,0.52,0.24,Pa,1000)
-
-"""
-ConflitDePosition(creerPoint(100,100,300),0,0,Pa,1000)
-ConflitDePosition(creerPoint(600,250,200),0,0,Pa,1000)
-ConflitDePosition(creerPoint(100,50,100),0,0,Pa,1000)
-ConflitDePosition(creerPoint(100,200,40),0,0,Pa,1000)
-"""
-
-# print(appartientVolumeSoleil(creerPoint(0,0,0), creerPoint(0,0,0), 0, 0))
-# print(appartientVolumeSoleil(creerPoint(40,40,40), creerPoint(200,200,200), 0, 0))
-# print(appartientVolumeSoleil(creerPoint(200,200,200), creerPoint(200,200,200), 0, 0))
-# print(appartientVolumeSoleil(creerPoint(200,200,200), creerPoint(200,200,200), math.pi/4, math.pi/4))
-# print(appartientVolumeSoleil(creerPoint(205,205,205), creerPoint(200,200,200), math.pi/4, math.pi/4))
-
 
 
 
