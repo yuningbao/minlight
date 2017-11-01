@@ -1,42 +1,66 @@
-import  math
-from math import cos, sin
-
-import numpy as np
-from numpy import matrix
+from numpy import cos, sin, pi, matrix, sqrt
 
 import shapely.geometry as geom
 
 
-def creerPoint(x, y, z):
+def point_3d(x, y, z):
     '''
-    Ça met les 3 coordonnées dans une matrice colonne 3x1 (numpy.matrix)
+    Retourne une matrice colonne 3x1 (numpy.matrix).
+    [x, y, z]^T
+    :return: matrice (numpy.matrix) colonne 3x1
     '''
     return matrix([[x], [y], [z]])
 
 
-def getCoordonnees(point):
+def get_coordonnees(point):
     '''
-    Ça prend une matrice colonne 3x1 (numpy.matrix) et retourne une tuple (x,y,z)
+    Prend un point_3d et retourne une tuple (x,y,z).
+    :param point: matrice (numpy.matrix) colonne 3x1
     '''
     return point.item(0), point.item(1), point.item(2)
 
 
-def distance2points(ax, ay, az, bx, by, bz):
-    '''Distance euclidiainne en 3D entre 2 points.'''
-    l = math.sqrt((ax - bx) ** 2 + (ay - by) ** 2 + (az - bz) ** 2);
-    return l
-
-
-def distance2points(A, B):
-    '''Distance euclidiainne en 3D entre 2 points (A et B son matrices 3x1).'''
-    ax, ay, az = getCoordonnees(A)
-    bx, by, bz = getCoordonnees(B)
-    return distance2points(ax, ay, az, bx, by, bz)
-
-
-# ancien 'anglesToPos'
-def sommetsDeLaSource(centreSource, theta, phi, dimensionsSource):  # p comme prime
+def distance_2_points(A, B):
     '''
+    Distance euclidiainne en 3D entre 2 points.
+    :param A: matrice (numpy.matrix) colonne 3x1
+    :param B: matrice (numpy.matrix) colonne 3x1
+    '''
+    ax, ay, az = get_coordonnees(A)
+    bx, by, bz = get_coordonnees(B)
+
+    ecart_x = ax - bx
+    ecart_y = ay - by
+    ecart_z = az - bz
+
+    return sqrt(ecart_x ** 2 + ecart_y ** 2 + ecart_z ** 2);
+
+
+def sommets_pave_origine(dimensions):
+
+    # dimensions
+    long = dimensions['longuer']
+    larg = dimensions['largeur']
+    haut = dimensions['hauteur']
+
+    # sommets (coins) du pavé centré dans l'origine
+    B11 = point_3d(- long/2, - larg/2, + haut/2)
+    B12 = point_3d(- long/2, - larg/2, - haut/2)
+    B21 = point_3d(- long/2, + larg/2, + haut/2)
+    B22 = point_3d(- long/2, + larg/2, - haut/2)
+    B31 = point_3d(+ long/2, - larg/2, + haut/2)
+    B32 = point_3d(+ long/2, - larg/2, - haut/2)
+    B41 = point_3d(+ long/2, + larg/2, + haut/2)
+    B42 = point_3d(+ long/2, + larg/2, - haut/2)
+
+    # sommets (coins) de la source repérés par rapport à son centre
+    B_source = [B11, B12, B21, B22, B31, B32, B41, B42]
+
+
+def sommets_pave(centre, theta, phi, dimensionsSource):  # p comme prime
+    '''
+    *** ancien 'anglesToPos' ***
+    
     On suppose qu'on veut orienter le centre de la source par des angles 
     et la position du centre, on calcule les positios des sommets (les coins de la source).
     :param centreSoleil: centre de la source dans le système de repère de la chambre

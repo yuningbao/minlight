@@ -1,0 +1,3 @@
+https://toblerity.org/shapely/manual.html
+http://docs.enthought.com/mayavi/mayavi/
+https://matplotlib.org/gallery/index.html
