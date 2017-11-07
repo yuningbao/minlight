@@ -1,4 +1,7 @@
 from numpy import cos, sin, pi, matrix, sqrt
+from numpy.linalg import pinv
+import numpy as np
+from pprint import pprint
 
 import shapely.geometry as geom
 
@@ -12,12 +15,49 @@ def point_3d(x, y, z):
     return matrix([[x], [y], [z]])
 
 
-def get_coordonnees(point):
+def get_coordonnees_point_3d(point):
     '''
     Prend un point_3d et retourne une tuple (x,y,z).
     :param point: matrice (numpy.matrix) colonne 3x1
     '''
     return point.item(0), point.item(1), point.item(2)
+
+
+def vecteur_3d(x, y, z):
+    '''
+    Retourne une matrice colonne 3x1 (numpy.matrix).
+    [x, y, z]^T
+    :return: matrice (numpy.matrix) colonne 3x1
+    '''
+    return matrix([[x], [y], [z]])
+
+
+def get_coordonnees_vecteur_3d(vecteur):
+    '''
+    Prend un point_3d et retourne une tuple (x,y,z).
+    :param point: matrice (numpy.matrix) colonne 3x1
+    '''
+    return vecteur.item(0), vecteur.item(1), vecteur.item(2)
+
+
+def rpy_angles(row, pitch, yaw):
+    return {'yaw' : yaw, 'pitch' : pitch, 'row' : row}
+
+
+def get_ypr_angles(angles):
+    return angles['yaw'], angles['pitch'], angles['row']
+
+
+def get_rpy_angles(angles):
+    return angles['row'], angles['pitch'], angles['yaw']
+
+
+def dimensions_pave(longueur, largeur, hauteur):
+    return {'longueur' : longueur, 'largeur' : largeur, 'hauteur' : hauteur}
+
+
+def get_dimensions_pave(dimensions):
+    return dimensions['longueur'], dimensions['largeur'], dimensions['hauteur']
 
 
 def distance_2_points(A, B):
@@ -26,8 +66,8 @@ def distance_2_points(A, B):
     :param A: matrice (numpy.matrix) colonne 3x1
     :param B: matrice (numpy.matrix) colonne 3x1
     '''
-    ax, ay, az = get_coordonnees(A)
-    bx, by, bz = get_coordonnees(B)
+    ax, ay, az = get_coordonnees_point_3d(A)
+    bx, by, bz = get_coordonnees_point_3d(B)
 
     ecart_x = ax - bx
     ecart_y = ay - by
@@ -36,29 +76,81 @@ def distance_2_points(A, B):
     return sqrt(ecart_x ** 2 + ecart_y ** 2 + ecart_z ** 2);
 
 
-def sommets_pave_origine(dimensions):
+def matrice_rotation_x(angle):
+    s, c = sin(angle), cos(angle)
+    return matrix([
+        [1, 0,  0],
+        [0, c, -s],
+        [0, s,  c]
+    ])
 
+
+def matrice_rotation_y(angle):
+    s, c = sin(angle), cos(angle)
+    return matrix([
+        [ c, 0, s],
+        [ 0, 1, 0],
+        [-s, 0, c]
+    ])
+
+
+def matrice_rotation_z(angle):
+    s, c = sin(angle), cos(angle)
+    return matrix([
+        [c, -s, 0],
+        [s,  c, 0],
+        [0,  0, 1]
+    ])
+
+
+def matrice_rotation_z1_y2_x3(angles):
+    yaw, pitch, row = get_ypr_angles(angles)
+    return matrice_rotation_z(yaw) * matrice_rotation_y(pitch) * matrice_rotation_x(row)
+
+
+def matrice_rotation_x1_y2_z3(angles):
+    row, pitch, yaw = get_rpy_angles(angles)
+    return matrice_rotation_x(row) * matrice_rotation_y(pitch) * matrice_rotation_z(yaw)
+
+
+def generer_noms_sommets_pave():
+    return ['S000', 'S100', 'S010', 'S110', 'S001', 'S101', 'S011', 'S111']
+
+
+def generer_dictionnaire_sommets(sommets):
+    return {nom : sommet for nom, sommet in zip(generer_noms_sommets_pave(), sommets)}
+
+
+def get_points_ancrage_ordones(configs_ancrage):
+    return [configs_ancrage[nom] for nom in generer_noms_sommets_pave()]
+
+
+def sommets_pave_origine(dimensions):
     # dimensions
-    long = dimensions['longuer']
-    larg = dimensions['largeur']
-    haut = dimensions['hauteur']
+    long, larg, haut = get_dimensions_pave(dimensions)
 
     # sommets (coins) du pavé centré dans l'origine
-    B11 = point_3d(- long/2, - larg/2, + haut/2)
-    B12 = point_3d(- long/2, - larg/2, - haut/2)
-    B21 = point_3d(- long/2, + larg/2, + haut/2)
-    B22 = point_3d(- long/2, + larg/2, - haut/2)
-    B31 = point_3d(+ long/2, - larg/2, + haut/2)
-    B32 = point_3d(+ long/2, - larg/2, - haut/2)
-    B41 = point_3d(+ long/2, + larg/2, + haut/2)
-    B42 = point_3d(+ long/2, + larg/2, - haut/2)
+    S000 = point_3d(+ long/2, - larg/2, - haut/2)
+    S100 = point_3d(- long/2, - larg/2, - haut/2)
+    S010 = point_3d(+ long/2, + larg/2, - haut/2)
+    S110 = point_3d(- long/2, + larg/2, - haut/2)
+    S001 = point_3d(+ long/2, - larg/2, + haut/2)
+    S101 = point_3d(- long/2, - larg/2, + haut/2)
+    S011 = point_3d(+ long/2, + larg/2, + haut/2)
+    S111 = point_3d(- long/2, + larg/2, + haut/2)
 
     # sommets (coins) de la source repérés par rapport à son centre
-    B_source = [B11, B12, B21, B22, B31, B32, B41, B42]
+    return [S000, S100, S010, S110, S001, S101, S011, S111]
 
 
-def sommets_pave(centre, theta, phi, dimensionsSource):  # p comme prime
+def sommets_pave(centre, ypr_angles, dimensions):
     '''
+    convention utilisé pour les rotations : z-y’-x″ (intrinsic rotations) = Yaw, pitch, and roll rotations
+    http://planning.cs.uiuc.edu/node102.html
+    http://planning.cs.uiuc.edu/node104.html
+    https://en.wikipedia.org/wiki/Euler_angles#Tait.E2.80.93Bryan_angles
+    https://en.wikipedia.org/wiki/Euler_angles#Rotation_matrix
+    
     *** ancien 'anglesToPos' ***
     
     On suppose qu'on veut orienter le centre de la source par des angles 
@@ -70,321 +162,278 @@ def sommets_pave(centre, theta, phi, dimensionsSource):  # p comme prime
     :return: liste des sommets de la source par rapport au système de repère de la chambre
     '''
 
-    demiLong = dimensionsSource['longuer'] / 2
-    demiLarg = dimensionsSource['largeur'] / 2
-    demiHaut = dimensionsSource['hauteur'] / 2
-
+    # Sommets
     # sommets (coins) de la source repérés par rapport à son centre
-    B11 = creerPoint(- demiLong, - demiLarg, + demiHaut)
-    B12 = creerPoint(- demiLong, - demiLarg, - demiHaut)
-    B21 = creerPoint(- demiLong, + demiLarg, + demiHaut)
-    B22 = creerPoint(- demiLong, + demiLarg, - demiHaut)
-    B31 = creerPoint(+ demiLong, - demiLarg, + demiHaut)
-    B32 = creerPoint(+ demiLong, - demiLarg, - demiHaut)
-    B41 = creerPoint(+ demiLong, + demiLarg, + demiHaut)
-    B42 = creerPoint(+ demiLong, + demiLarg, - demiHaut)
+    S_origine = sommets_pave_origine(dimensions)
 
-    # sommets (coins) de la source repérés par rapport à son centre
-    B_source = [B11, B12, B21, B22, B31, B32, B41, B42]
+    # matrice de rotation
+    Rot = matrice_rotation_z1_y2_x3(ypr_angles)
 
-    # matrice de rotation du système de la source
-    Rot = matrix([[ cos(theta) * cos(phi), -cos(theta) * sin(phi), sin(theta)],
-                  [          1 * sin(phi),           1 * cos(phi),          0],
-                  [-sin(theta) * cos(phi),  sin(theta) * sin(phi), cos(theta)]])
+    # rotation
+    S_origine_rot = [Rot * s for s in S_origine]
 
-    # les sommets rotationés
-    B_source_rot = [Rot.dot(b) for b in B_source]
+    # translation
+    S = [s + centre for s in S_origine_rot]
 
-    # les sommets par rapport à la chambre
-    B = [centreSource + b for b in B_source_rot]
-
-    return B
+    return S
 
 
-# deprecated
-def appartientVolumeMaison(point):
-    """
-    Fonction qui teste si un point est dans le volume de la maisonnette.
-    """
-    print("deprecated!!!!!!!!!!!!!!!!!!!!!!!!!!!!1")
-    x, y, z = getCoordonnees(point)
-    return (LongCC - LongM) <= x <= LongCC and ((LargCC - LargM) / 2) <= y <= (
-    LargCC - ((LargCC - LargM) / 2)) and 0 <= z <= HautM
-
-
-def appartientVolumePaveALOrigine(point, dimensions):
+def point_appartient_pave_origine(point, dimensions):
     '''
     Fonction qui teste si un point est dans le volume d'un pavé localisé à l'origine.
     :param dimensions: (dictionnaire) longueur, largeur, hauteur du pave de la source
     :return: False/True
     '''
+    long, larg, haut = get_dimensions_pave(dimensions)
 
-    demiLong = dimensions['longuer'] / 2
-    demiLarg = dimensions['largeur'] / 2
-    demiHaut = dimensions['hauteur'] / 2
+    demi_long, demi_larg, demi_haut = long/2, larg/2, haut/2
 
-    x, y, z = getCoordonnees(point)
+    x, y, z = get_coordonnees_point_3d(point)
 
-    return -demiLong <= x <= demiLong and -demiLarg <= y <= demiLarg and demiHaut <= z <= demiHaut
+    return -demi_long <= x <= demi_long and \
+           -demi_larg <= y <= demi_larg and \
+           -demi_haut <= z <= demi_haut
 
 
-def appartientVolumePaveDeplace(point, centre, dimensions):
+def point_appartient_pave(point, centre, ypr_angles, dimensions):
     '''
     Fonction qui teste si un point est dans le volume d'un pavé localisé à l'origine.
     :param dimensions: (dictionnaire) longueur, largeur, hauteur du pave de la source
     :param centre: centre du pavé repéré dans le sys de coordonnées globale
     :return: False/True
     '''
-    return appartientVolumePaveALOrigine(point - centre, dimensions)
+    point_repere_translate = point - centre
+
+    yaw, pitch, row = get_ypr_angles(ypr_angles)
+
+    angles_opposes = rpy_angles(row = -row, pitch = -pitch, yaw = -yaw)
+
+    rot = matrice_rotation_x1_y2_z3(angles_opposes)
+
+    point_repere_pave = rot * point_repere_translate
+
+    return point_appartient_pave_origine(point_repere_pave, dimensions)
 
 
-def appartientVolumePaveAPartirDuCoinMini(point, pointMini, dimensions):
+def point_appartient_pave_droit_S000(point, S000, dimensions):
     '''
     Fonction qui teste si un point est dans le volume d'un pavé dont le point Mini est donné.
     :param dimensions: (dictionnaire) longueur, largeur, hauteur du pave de la source
     :param pointMini: sommet le plus proche de l'origine dans le sys de coordonnées globale
     :return: False/True
     '''
+    long, larg, haut = get_dimensions_pave(dimensions)
 
-    long = dimensions['longuer']
-    larg = dimensions['largeur']
-    haut = dimensions['hauteur']
-
-    x, y, z = getCoordonnees(point - pointMini)
+    x, y, z = get_coordonnees_point_3d(point - S000)
 
     return 0 <= x <= long and 0 <= y <= larg and 0 <= z <= haut
 
 
-"""
-Fonction qui teste si un point est à l'intérieur de la chambre climatique
-"""
-def estDansLaChambreClimatique(point):
-    x, y, z = getCoordonnees(point)
-    return 0 < x < LongCC and 0 < y < LargCC and 0 < z < HautCC
+def vecteur_difference_2_points(depart, arrive):
+    return arrive - depart
 
 
-"""
-Fonction qui teste si un point est dans le volume du soleil
-"""
+def norme_vecteur(vecteur):
+    x, y, z = get_coordonnees_vecteur_3d(vecteur)
+    return sqrt(x**2 + y**2 + z**2)
 
 
-def appartientVolumeSoleil(point, centre, theta, phi):
-    def matriceRotation(angle, vecteur):
-        norme = vecteur / np.linalg.norm(vecteur)
-        x, y, z = getCoordonnees(norme)
-        c = math.cos(angle)
-        s = math.sin(angle)
-        r11 = x ** 2 + (1 - x ** 2) * c
-        r12 = x * y * (1 - c) - z * s
-        r13 = x * z * (1 - c) + y * s
+def direction_difference_2_points(depart, arrive):
+    vec = vecteur_difference_2_points(depart, arrive)
 
-        r21 = x * y * (1 - c) + z * s
-        r22 = y ** 2 + (1 - y ** 2) * c
-        r23 = y * z * (1 - c) - x * s
+    x, y, z = get_coordonnees_vecteur_3d(vec)
 
-        r31 = x * z * (1 - c) - y * s
-        r32 = y * z * (1 - c) + x * s
-        r33 = z ** 2 + (1 - z ** 2) * c
+    norme = norme_vecteur(vec)
 
-        return np.matrix([[r11, r12, r13],
-                          [r21, r22, r23],
-                          [r31, r32, r33]])
+    xn, yn, zn = x/norme, y/norme, z/norme
 
-    Ry = matriceRotation(theta, np.matrix([[0], [1], [0]]))
-    Rz = matriceRotation(phi, np.matrix([[0], [0], [1]]))
-
-    R = np.dot(Ry, Rz)
-    T = -centre
-
-    TR = np.concatenate((R, T), axis=1)
-    ligne_homogene = np.matrix([[0, 0, 0, 1]])
-    TRhomogene = np.concatenate((TR, ligne_homogene), axis=0)
-
-    pointHomogene = np.concatenate((point, np.matrix([[1]])), axis=0)
-
-    pointHomogeneRelatif = np.dot(TRhomogene, pointHomogene)
-
-    pointRelatif = np.matrix([[pointHomogeneRelatif.item(0)],
-                              [pointHomogeneRelatif.item(1)],
-                              [pointHomogeneRelatif.item(2)]])
-
-    print(point)
-    print(pointHomogene)
-    print(centre)
-    print(Ry)
-    print(Rz)
-    print(R)
-    print(TR)
-    print(TRhomogene)
-    print(pointHomogeneRelatif)
-    print(pointRelatif)
-
-    x, y, z = getCoordonnees(pointRelatif)
-
-    demiLong = LongS / 2
-    demiLarg = LargS / 2
-    demiHaut = HautS / 2
-
-    return -demiLong <= x <= demiLong and -demiLarg <= y <= demiLarg and -demiHaut <= z <= demiHaut
+    return vecteur_3d(xn, yn, zn)
 
 
-"""
-On calcule le vecteur normalisé entre les points d'encrages et les 
-sommets de la sources c'est cette fonction qu'il faut modifier pour 
-tester plusieurs configuration
-"""
 
 
-def vecteursAtoB(Pa, centreSoleil, theta, phi):
-    L = anglesToPos(centreSoleil, theta, phi)
-    D = [distance2points(p.item(0), p.item(1), p.item(2), l.item(0), l.item(1), l.item(2)) for p, l in zip(Pa, L)]
-    V = [(l - pa) / d for l, pa, d in zip(L, Pa, D)]
-    return (V, D)
+def creer_vecteurs_cables(points_ancrage, sommets_source):
+
+    return [vecteur_difference_2_points(pa, ss)
+            for pa, ss
+            in zip(points_ancrage, sommets_source)]
 
 
-'''
-Cette fonction teste si pour une position voulue (xp,yp,zp) 
-et theta, phi, les câbles entre dans la maisonnette, par la 
-suite il faudrait tester si les câbles entrent dans la source 
-et s'ils se touchent
-'''
+def longueurs_utiles_cables(les_vecteurs_cable):
+    return [norme_vecteur(vc) for vc in les_vecteurs_cable]
 
 
-def ConflitDePosition(centreSoleil, theta, phi, Pa, n):
-    V, D = vecteursAtoB(Pa, centreSoleil, theta, phi);
+def generator_points_discretisation_cable(point_ancrage, vecteur_cable, N):
+    return (point_ancrage + (i/N)*vecteur_cable
+            for i in range(1, N))
 
-    ListeNumero = (11, 12, 21, 22, 31, 32, 41, 42);
 
-    print("Centre : " + str(tuple(centreSoleil.tolist())))
-    print("Angles : " + str((theta, phi)))
+# pas encore utilisé
+def tester_interdictions_points(generator_points, tests_interdictions):
+    resultats = {t['nom'] : t['message_ok'] for t in tests_interdictions}
+    for p in generator_points:
+        for t in tests_interdictions:
+            fonction = t['fonction']
+            args     = t['args']
+            if fonction.__call__(p, **args):
+                resultats[t['nom']] = t['message_probleme']
+    return resultats
 
-    """
-    Pour chaque câble on discrétise en n nombre de point, 
-    et on les teste, ce n'est pas la plus optimal mais 
-    ça peu le faire pour l'instant.
-    """
 
-    print(" " * len("Cable xx : ") + " " * 2 + \
-          "maisonette" + " " * 2 + \
-          "murs" + " " * 2 + \
-          "soleil" + " " * 2 + \
-          "instersections cables")
-    for v, d, pa, num in zip(V, D, Pa, ListeNumero):
-        toucheMaisonette = False
-        toucheSoleil = False
-        interieur = False
+def verifier_cables(cables, maisonette, source, chambre, N_discretisation = 300):
+    S000_maisonette, dimensions_maisonette = maisonette['S000'], maisonette['dimensions']
 
-        for k in range(1, n):
-            sommet = pa + v * (k / n) * d;
+    centre_source, ypr_angles_source, dimensions_source = source['centre'], source['ypr_angles'], source['dimensions']
 
-            toucheMaisonette = appartientVolumeMaison(sommet)
-            toucheSoleil = appartientVolumeSoleil(sommet, centreSoleil, theta, phi)
-            interieur = estDansLaChambreClimatique(sommet)
+    dimensions_chambre = chambre['dimensions']
 
-            if toucheMaisonette or not interieur:
-                break
+    generators_points = {}
+    for cable in cables:
+        nom, point_ancrage, vecteur = cable['nom'], cable['point_ancrage'], cable['vecteur']
 
-        toucheCable = []
-        for v2, d2, pa2, num2 in zip(V, D, Pa, ListeNumero):
-            if num != num2:
-                b = pa + v * d
-                b2 = pa2 + v2 * d2
-                cable1 = geom.LineString([getCoordonnees(pa), getCoordonnees(b)])
-                cable2 = geom.LineString([getCoordonnees(pa2), getCoordonnees(b2)])
-                i = cable1.intersection(cable2)
-                toucheCable.append((" ! " if i.geom_type == 'Point' else "   "))
-            else:
-                toucheCable.append(' m ')
+        generators_points[nom] = generator_points_discretisation_cable(point_ancrage, vecteur, N_discretisation)
 
-        print("Cable " + str(num) + " : " + " " * 2 + \
-              ("ok" if not toucheMaisonette else "!").center(len("maisonette")) + " " * 2 + \
-              ("ok" if interieur else "!").center(len("murs")) + " " * 2 + \
-              ("ok" if not toucheSoleil else "!").center(len("mur")) + " " * 2 + \
-              "".join(toucheCable))
-    print()
+    bilan = {}
+    for nom, gen in generators_points.items():
+        message = \
+            {
+                'maisonette' : 'ok',
+                'source'     : 'ok',
+                'chambre'    : 'ok',
+                'croisement' : '?'
+            }
+
+        for point in gen:
+            # maisonette
+            if point_appartient_pave_droit_S000(point, S000_maisonette, dimensions_maisonette):
+                message['maisonette'] = '!'
+
+            # source
+            if point_appartient_pave(point, centre_source, ypr_angles_source, dimensions_source):
+                message['source'] = '!'
+
+            #chambre
+            if not point_appartient_pave_droit_S000(p, point_3d(0,0,0), dimensions_chambre):
+                message['chambre'] = '!'
+
+            # ajouter les croisements
+
+        bilan[nom] = message
+
+    return bilan
+
+
+def verifier_position(maisonette, source, chambre, configs_ancrage, print_results=False):
+    sommets_source = sommets_pave(centre     = source['centre'    ],
+                                  ypr_angles = source['ypr_angles'],
+                                  dimensions = source['dimensions'])
+
+    points_ancrage = get_points_ancrage_ordones(configs_ancrage)
+
+    vecteurs_cables = creer_vecteurs_cables(points_ancrage, sommets_source)
+
+    cables = [{'nom' : nom, 'point_ancrage' : pa, 'vecteur' : vec}
+              for nom, pa, vec
+              in zip(generer_noms_sommets_pave(), points_ancrage, vecteurs_cables)]
+
+    bilan_cables = verifier_cables(cables, maisonette, source, chambre)
+
+    # verifier si source touche murs
+    # verifier si source touche maisonette
+    # verifier si source touche evap
+
+    if print_results:
+        print('Bilan des résultats des cãbles')
+        pprint(bilan_cables)
+
+
+
+
+
 
 
 
 ### Calcul des tensions dans les câbles :
 
 # Matrices pour le produit vectoriel ;
-Ex = np.matrix([[0, 1, 0], \
-                [0, 0, 1]])
-Ey = np.matrix([[1, 0, 0], \
-                [0, 0, 1]])
-Ez = np.matrix([[1, 0, 0], \
-                [0, 1, 0]])
-E = np.matrix([[0, -1], \
-               [1, 0]])
+Ex = matrix([[0, 1, 0],
+             [0, 0, 1]])
 
-Hx = np.dot(np.dot(np.transpose(Ex), np.transpose(E)), Ex)
-Hy = np.dot(np.dot(-np.transpose(Ey), np.transpose(E)), Ey)
-Hz = np.dot(np.dot(np.transpose(Ez), np.transpose(E)), Ez)
+Ey = matrix([[1, 0, 0],
+             [0, 0, 1]])
 
+Ez = matrix([[1, 0, 0],
+             [0, 1, 0]])
 
-def matriceRotation(angle, vecteur):
-    norme = vecteur / np.linalg.norm(vecteur)
-    x, y, z = getCoordonnees(norme)
-    c = math.cos(angle)
-    s = math.sin(angle)
-    r11 = x ** 2 + (1 - x ** 2) * c
-    r12 = x * y * (1 - c) - z * s
-    r13 = x * z * (1 - c) + y * s
+E  = matrix([[0, -1],
+             [1, 0]])
 
-    r21 = x * y * (1 - c) + z * s
-    r22 = y ** 2 + (1 - y ** 2) * c
-    r23 = y * z * (1 - c) - x * s
+Hx = ( Ex.T * E.T) * Ex
+Hy = (-Ey.T * E.T) * Ey
+Hz = ( Ez.T * E.T) * Ez
 
-    r31 = x * z * (1 - c) - y * s
-    r32 = y * z * (1 - c) + x * s
-    r33 = z ** 2 + (1 - z ** 2) * c
+def matrice_torsion(source, configs_ancrage):
 
-    return np.matrix([[r11, r12, r13],
-                      [r21, r22, r23],
-                      [r31, r32, r33]])
+    # comment ça marche
+    # point d'application des tensions ?
+    # momments ?
+    # centre de gravité
 
+    sommets_source = sommets_pave(centre     = source['centre'    ],
+                                  ypr_angles = source['ypr_angles'],
+                                  dimensions = source['dimensions'])
 
-def matrice_torsion(centreSoleil, theta, phi, Pa):
-    V, D = vecteursAtoB(Pa, centreSoleil, theta, phi)
-    B = anglesToPos(centreSoleil, theta, phi)
+    points_ancrage = get_points_ancrage_ordones(configs_ancrage)
 
-    Mx = [np.dot(np.transpose(b), np.dot(Hx, v * d)) for v, b, d in zip(V, B, D)]
-    My = [np.dot(np.transpose(b), np.dot(Hy, v * d)) for v, b, d in zip(V, B, D)]
-    Mz = [np.dot(np.transpose(b), np.dot(Hz, v * d)) for v, b, d in zip(V, B, D)]
+    vecteurs_cables = creer_vecteurs_cables(points_ancrage, sommets_source)
 
-    Fx = [v[0][0] for v in zip(V)]
-    Fy = [v[0][1] for v in zip(V)]
-    Fz = [v[0][2] for v in zip(V)]
+    Mx = [ss.T * (Hx * vc) for vc, ss in zip(vecteurs_cables, sommets_source)]
+    My = [ss.T * (Hy * vc) for vc, ss in zip(vecteurs_cables, sommets_source)]
+    Mz = [ss.T * (Hz * vc) for vc, ss in zip(vecteurs_cables, sommets_source)]
 
-    W = np.matrix([Fx, Fy, Fz, Mx, My, Mz])
+    # à quoi ça sert ?
+    Fx = [v[0][0] for v in zip(vecteurs_cables)]
+    Fy = [v[0][1] for v in zip(vecteurs_cables)]
+    Fz = [v[0][2] for v in zip(vecteurs_cables)]
+
+    # ça devrait pas etre pour chaque cable ?
+    W = matrix([Fx, Fy, Fz, Mx, My, Mz])
 
     return W
 
 
-print(matrice_torsion(creerPoint(100, 200, 100), 0, 0, Pa))
+print(matrice_torsion(source, configs_ancrage))
 
 masse = 50  # en kg
-B = anglesToPos(creerPoint(100, 200, 300), 0, 0)
+
+S = sommets_pave(source['centre'], source['ypr_angles'], source['dimensions'])
+
 g = 9.81
 
 fx = 0
 fy = 0
 fz = masse * g
-Force = creerPoint(fx, fy, fz)
-MomentPoids_P = creerPoint(0, 0, 0)
-"""Si d'autre actions extérieur il faudra mettre des moments qui s'appliquent en P
-mx = [np.dot(np.transpose(MCentre),np.dot(Hx,F))]
-my = [np.dot(np.transpose(MCentre),np.dot(Hy,F))]
-mz = [np.dot(np.transpose(MCentre),np.dot(Hz,F))]"""
+
+Force = vecteur_3d(fx, fy, fz)
+MomentPoids_P = vecteur_3d(0, 0, 0)  # ça suppose un bilan fait à partir du centre de masse
+
+"""
+Si d'autre actions extérieur il faudra mettre des moments qui s'appliquent en P
+mx = [(MCentre.T * (Hx * F))]
+my = [(MCentre.T * (Hy * F))]
+mz = [(MCentre.T * (Hz * F))]
+"""
 
 forceExt = np.concatenate((Force, MomentPoids_P), axis=0)
 
 
 def vecteurTension(centreSoleil, theta, phi, Pa):
     W = matrice_torsion(centreSoleil, theta, phi, Pa)
-    T = -np.dot(np.linalg.pinv(W), (forceExt))
+    T = - pinv(W) * forceExt
     # il y a une infinité de solutions utiliser la pseudo inverse permet d'avoir les tensions minimales
     return T
+
+
 
 
 
