@@ -267,7 +267,7 @@ def tester_interdictions_points(generator_points, tests_interdictions):
 
 
 def verifier_cables(cables, maisonette, source, chambre, N_discretisation = 300):
-    S000_maisonette, dimensions_maisonette = maisonette['S000'], maisonette['dimensions']
+    centre_maisonette, dimensions_maisonette = maisonette['centre'], maisonette['dimensions']
 
     centre_source, ypr_angles_source, dimensions_source = source['centre'], source['ypr_angles'], source['dimensions']
 
@@ -291,7 +291,7 @@ def verifier_cables(cables, maisonette, source, chambre, N_discretisation = 300)
 
         for point in gen:
             # maisonette
-            if point_appartient_pave_droit_S000(point, S000_maisonette, dimensions_maisonette):
+            if point_appartient_pave_droit_S000(point, centre_maisonette, dimensions_maisonette):
                 message['maisonette'] = '!'
 
             # source

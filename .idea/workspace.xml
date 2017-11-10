@@ -4,10 +4,9 @@
     <bookmark url="file://$PROJECT_DIR$/src/calculs/outils.py" description="    points_ancrage = get_points_ancrage_ordones(co..." line="316" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e6884895-be16-46aa-8b0d-97e9cae7a772" name="Default" comment="...">
+    <list default="true" id="e6884895-be16-46aa-8b0d-97e9cae7a772" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/calculs/outils.py" afterPath="$PROJECT_DIR$/src/calculs/outils.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/calculs/trash.py" afterPath="$PROJECT_DIR$/src/calculs/trash.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -25,8 +24,8 @@
       <file leaf-file-name="outils.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/calculs/outils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="250" column="0" lean-forward="true" selection-start-line="250" selection-start-column="0" selection-end-line="250" selection-end-column="0" />
+            <state relative-caret-position="85">
+              <caret line="293" column="72" lean-forward="false" selection-start-line="293" selection-start-column="72" selection-end-line="293" selection-end-column="72" />
               <folding>
                 <element signature="e#0#44#0" expanded="true" />
               </folding>
@@ -348,7 +347,14 @@
       <option name="project" value="LOCAL" />
       <updated>1510064277622</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="...">
+      <created>1510352666705</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1510352666705</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TodoView" selected-index="3">
@@ -654,8 +660,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/calculs/outils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="250" column="0" lean-forward="true" selection-start-line="250" selection-start-column="0" selection-end-line="250" selection-end-column="0" />
+        <state relative-caret-position="85">
+          <caret line="293" column="72" lean-forward="false" selection-start-line="293" selection-start-column="72" selection-end-line="293" selection-end-column="72" />
           <folding>
             <element signature="e#0#44#0" expanded="true" />
           </folding>
