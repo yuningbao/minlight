@@ -1,36 +1,35 @@
-from parametres import *
-from outils import *
-from numpy import pi
+from outils2 import *
+from entites import *
 
-maisonette = {
-      'centre' :
-            point_3d(
+maisonette = Pave(
+      centre = Vecteur3D(
                   x = 3500 + 5000/2,
-                  y = 2500,
-                  z = 2000
-            ),
-      'dimensions' :
-            dimensions_pave(
-                  longueur = 5000,
-                  largeur  = 2500,
-                  hauteur  = 2900
-            )
-}
+                  y = 5000/2,
+                  z = 2900/2
+      ),
+      ypr_angles = TupleAnglesRotation(0,0,0),
+      dimensions = DimensionsPave(
+            longueur = 5000,
+            largeur  = 2500,
+            hauteur  = 2900
+      )
+)
 
-dimensions_source = dimensions_pave(
+dimensions_source = DimensionsPave(
       longueur = 600,
       largeur  = 1600,
       hauteur  = 1600
 )
 
-chambre = {
-      'dimensions' :
-            dimensions_pave(
-                  longueur = 8500,
-                  largeur  = 5000,
-                  hauteur  = 4000
-            )
-}
+chambre = Pave(
+      centre = Vecteur3D(0,0,0),
+      ypr_angles = TupleAnglesRotation(0,0,0),
+      dimensions = DimensionsPave(
+            longueur = 8500,
+            largeur  = 5000,
+            hauteur  = 4000
+      )
+)
 
 ancrage_x = 3500
 ancrage_y = 5000
