@@ -66,15 +66,15 @@ def verifier_cables(cables, maisonette, source, dimensions_chambre, N_discretisa
 
         for point in cable.get_generator_points_discretisation(N_discretisation):
             # maisonette
-            if point_appartient_pave(point, maisonette):
+            if maisonette.point_appartient_pave(point):
                 message['maisonette'] = '!'
 
             # source
-            if point_appartient_pave(point, source):
+            if source.point_appartient_pave(point):
                 message['source'] = '!'
 
             # chambre
-            if not point_appartient_pave(point, chambre):
+            if not chambre.point_appartient_pave(point):
                 message['chambre'] = '!'
 
             # ajouter les croisements
