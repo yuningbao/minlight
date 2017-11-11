@@ -1,1 +1,1 @@
-__all__ = ['bancDeTests', 'outils', 'parametres']
+__all__ = ['bancDeTests', 'outils', 'parametres', 'entites']

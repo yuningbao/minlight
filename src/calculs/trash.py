@@ -105,12 +105,22 @@ def vecteurTension(centreSoleil, theta, phi, Pa):
 
 
 
-
-
-
-
 class Vecteur(numpy.matrix):
     def __new__(cls, x, y, z):
         # note that we have to send cls to super's __new__, even though we gave it to super already.
         # I think this is because __new__ is technically a staticmethod even though it should be a classmethod
         return super(Vecteur, cls).__new__(cls, "{}; {}; {}".format(x, y, z))
+
+
+
+
+# pas encore utilisé
+def tester_interdictions_points(generator_points, tests_interdictions):
+    resultats = {t['nom']: t['message_ok'] for t in tests_interdictions}
+    for p in generator_points:
+        for t in tests_interdictions:
+            fonction = t['fonction']
+            args = t['args']
+            if fonction.__call__(p, **args):
+                resultats[t['nom']] = t['message_probleme']
+    return resultats
