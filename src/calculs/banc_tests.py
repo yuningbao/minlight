@@ -1,27 +1,82 @@
-from .parametres import *
-from .outils import *
+from parametres import *
+from outils import *
+from numpy import pi
 
-"""
-Pa(  xp,  yp,  zp, theta, phi,
-   xa11,ya11,za11,
-   xa12,ya12,za12,
-   xa21,ya21,za21,
-   xa22,ya22,za22,
-   xa31,ya31,za31,
-   xa32,ya32,za32,
-   xa41,ya41,za41,
-   xa42,ya42,za42,
-   n)
-"""
+maisonette = {
+      'centre' :
+            point_3d(
+                  x = 3500 + 5000/2,
+                  y = 2500,
+                  z = 2000
+            ),
+      'dimensions' :
+            dimensions_pave(
+                  longueur = 5000,
+                  largeur  = 2500,
+                  hauteur  = 2900
+            )
+}
 
-Pa = (creerPoint(0, 0, 400), \
-      creerPoint(0, 0, 0), \
-      creerPoint(0, 500, 400), \
-      creerPoint(0, 500, 0), \
-      creerPoint(1000, 0, 400), \
-      creerPoint(1000, 0, 0), \
-      creerPoint(1000, 500, 400), \
-      creerPoint(1000, 500, 0))
+dimensions_source = dimensions_pave(
+      longueur = 600,
+      largeur  = 1600,
+      hauteur  = 1600
+)
+
+chambre = {
+      'dimensions' :
+            dimensions_pave(
+                  longueur = 8500,
+                  largeur  = 5000,
+                  hauteur  = 4000
+            )
+}
+
+ancrage_x = 3500
+ancrage_y = 5000
+ancrage_z = 4000
+
+configs_ancrage = {
+      'S000' : point_3d(        0,         0,         0),
+      'S100' : point_3d(ancrage_x,         0,         0),
+      'S010' : point_3d(        0, ancrage_y,         0),
+      'S110' : point_3d(ancrage_x, ancrage_y,         0),
+      'S001' : point_3d(        0,         0, ancrage_z),
+      'S101' : point_3d(ancrage_x,         0, ancrage_z),
+      'S011' : point_3d(        0, ancrage_y, ancrage_z),
+      'S111' : point_3d(ancrage_x, ancrage_y, ancrage_z)
+}
+
+space_recherche = space_recherche(
+      space_rho   = intervalle_lineaire_pas(min= 0, max= 3750, pas=  250),
+      space_phi   = intervalle_lineaire_pas(min= 0, max= pi/2, pas= pi/60),
+      space_theta = intervalle_lineaire_pas(min= 0, max= pi,   pas= pi/30)
+)
+
+systeme_spherique_baie_vitree = \
+      systeme_spherique(
+            centre     = point_3d(
+                  x = 3500,
+                  y = 5000/2,
+                  z = 2900/2
+            ),
+            ypr_angles = ypr_angles(
+                  yaw   = pi,
+                  pitch = 0,
+                  row   = 0
+            )
+      )
+
+limites = trouver_angles_limites(
+      space_recherche,
+      maisonette,
+      dimensions_source,
+      chambre,
+      configs_ancrage,
+      systeme_spherique_baie_vitree
+)
+
+pprint(limites)
 
 # ConflitDePosition(100,100,300,0.52,0.24,Pa,1000)
 

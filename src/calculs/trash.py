@@ -100,3 +100,17 @@ def vecteurTension(centreSoleil, theta, phi, Pa):
     T = - pinv(W) * forceExt
     # il y a une infinité de solutions utiliser la pseudo inverse permet d'avoir les tensions minimales
     return T
+
+
+
+
+
+
+
+
+
+class Vecteur(numpy.matrix):
+    def __new__(cls, x, y, z):
+        # note that we have to send cls to super's __new__, even though we gave it to super already.
+        # I think this is because __new__ is technically a staticmethod even though it should be a classmethod
+        return super(Vecteur, cls).__new__(cls, "{}; {}; {}".format(x, y, z))

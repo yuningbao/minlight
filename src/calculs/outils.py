@@ -41,7 +41,7 @@ def get_coordonnees_vecteur_3d(vecteur):
 
 
 def rpy_angles(row, pitch, yaw):
-    return {'yaw' : yaw, 'pitch' : pitch, 'row' : row}
+    return {'yaw': yaw, 'pitch': pitch, 'row': row}
 
 
 def get_ypr_angles(angles):
@@ -53,7 +53,7 @@ def get_rpy_angles(angles):
 
 
 def dimensions_pave(longueur, largeur, hauteur):
-    return {'longueur' : longueur, 'largeur' : largeur, 'hauteur' : hauteur}
+    return {'longueur': longueur, 'largeur': largeur, 'hauteur': hauteur}
 
 
 def get_dimensions_pave(dimensions):
@@ -67,6 +67,7 @@ def vecteur_difference_2_points(depart, arrive):
 def norme_vecteur(vecteur):
     return sqrt(vecteur.T * vecteur)
 
+
 def distance_2_points(A, B):
     '''
     Distance euclidiainne en 3D entre 2 points.
@@ -79,17 +80,17 @@ def distance_2_points(A, B):
 def matrice_rotation_x(angle):
     s, c = sin(angle), cos(angle)
     return matrix([
-        [1, 0,  0],
+        [1, 0, 0],
         [0, c, -s],
-        [0, s,  c]
+        [0, s, c]
     ])
 
 
 def matrice_rotation_y(angle):
     s, c = sin(angle), cos(angle)
     return matrix([
-        [ c, 0, s],
-        [ 0, 1, 0],
+        [c, 0, s],
+        [0, 1, 0],
         [-s, 0, c]
     ])
 
@@ -98,8 +99,8 @@ def matrice_rotation_z(angle):
     s, c = sin(angle), cos(angle)
     return matrix([
         [c, -s, 0],
-        [s,  c, 0],
-        [0,  0, 1]
+        [s, c, 0],
+        [0, 0, 1]
     ])
 
 
@@ -118,7 +119,7 @@ def generer_noms_sommets_pave():
 
 
 def generer_dictionnaire_sommets(sommets):
-    return {nom : sommet for nom, sommet in zip(generer_noms_sommets_pave(), sommets)}
+    return {nom: sommet for nom, sommet in zip(generer_noms_sommets_pave(), sommets)}
 
 
 def get_points_ancrage_ordones(configs_ancrage):
@@ -130,14 +131,14 @@ def sommets_pave_origine(dimensions):
     long, larg, haut = get_dimensions_pave(dimensions)
 
     # sommets (coins) du pavé centré dans l'origine
-    S000 = point_3d(+ long/2, - larg/2, - haut/2)
-    S100 = point_3d(- long/2, - larg/2, - haut/2)
-    S010 = point_3d(+ long/2, + larg/2, - haut/2)
-    S110 = point_3d(- long/2, + larg/2, - haut/2)
-    S001 = point_3d(+ long/2, - larg/2, + haut/2)
-    S101 = point_3d(- long/2, - larg/2, + haut/2)
-    S011 = point_3d(+ long/2, + larg/2, + haut/2)
-    S111 = point_3d(- long/2, + larg/2, + haut/2)
+    S000 = point_3d(+ long / 2, - larg / 2, - haut / 2)
+    S100 = point_3d(- long / 2, - larg / 2, - haut / 2)
+    S010 = point_3d(+ long / 2, + larg / 2, - haut / 2)
+    S110 = point_3d(- long / 2, + larg / 2, - haut / 2)
+    S001 = point_3d(+ long / 2, - larg / 2, + haut / 2)
+    S101 = point_3d(- long / 2, - larg / 2, + haut / 2)
+    S011 = point_3d(+ long / 2, + larg / 2, + haut / 2)
+    S111 = point_3d(- long / 2, + larg / 2, + haut / 2)
 
     # sommets (coins) de la source repérés par rapport à son centre
     return [S000, S100, S010, S110, S001, S101, S011, S111]
@@ -150,9 +151,9 @@ def sommets_pave(centre, ypr_angles, dimensions):
     http://planning.cs.uiuc.edu/node104.html
     https://en.wikipedia.org/wiki/Euler_angles#Tait.E2.80.93Bryan_angles
     https://en.wikipedia.org/wiki/Euler_angles#Rotation_matrix
-    
+
     *** ancien 'anglesToPos' ***
-    
+
     On suppose qu'on veut orienter le centre de la source par des angles 
     et la position du centre, on calcule les positios des sommets (les coins de la source).
     :param centreSoleil: centre de la source dans le système de repère de la chambre
@@ -186,7 +187,7 @@ def point_appartient_pave_origine(point, dimensions):
     '''
     long, larg, haut = get_dimensions_pave(dimensions)
 
-    demi_long, demi_larg, demi_haut = long/2, larg/2, haut/2
+    demi_long, demi_larg, demi_haut = long / 2, larg / 2, haut / 2
 
     x, y, z = get_coordonnees_point_3d(point)
 
@@ -206,7 +207,7 @@ def point_appartient_pave(point, centre, ypr_angles, dimensions):
 
     yaw, pitch, row = get_ypr_angles(ypr_angles)
 
-    angles_opposes = rpy_angles(row = -row, pitch = -pitch, yaw = -yaw)
+    angles_opposes = rpy_angles(row=-row, pitch=-pitch, yaw=-yaw)
 
     rot = matrice_rotation_x1_y2_z3(angles_opposes)
 
@@ -225,7 +226,6 @@ def point_appartient_pave_droit_S000(point, centre, dimensions):
     return point_appartient_pave_origine(point - centre, dimensions)
 
 
-
 def direction_difference_2_points(depart, arrive):
     vec = vecteur_difference_2_points(depart, arrive)
 
@@ -233,13 +233,12 @@ def direction_difference_2_points(depart, arrive):
 
     norme = norme_vecteur(vec)
 
-    xn, yn, zn = x/norme, y/norme, z/norme
+    xn, yn, zn = x / norme, y / norme, z / norme
 
     return vecteur_3d(xn, yn, zn)
 
 
 def creer_vecteurs_cables(points_ancrage, sommets_source):
-
     return [vecteur_difference_2_points(pa, ss)
             for pa, ss
             in zip(points_ancrage, sommets_source)]
@@ -250,23 +249,23 @@ def longueurs_utiles_cables(les_vecteurs_cable):
 
 
 def generator_points_discretisation_cable(point_ancrage, vecteur_cable, N):
-    return (point_ancrage + (i/N)*vecteur_cable
+    return (point_ancrage + (i / N) * vecteur_cable
             for i in range(1, N))
 
 
 # pas encore utilisé
 def tester_interdictions_points(generator_points, tests_interdictions):
-    resultats = {t['nom'] : t['message_ok'] for t in tests_interdictions}
+    resultats = {t['nom']: t['message_ok'] for t in tests_interdictions}
     for p in generator_points:
         for t in tests_interdictions:
             fonction = t['fonction']
-            args     = t['args']
+            args = t['args']
             if fonction.__call__(p, **args):
                 resultats[t['nom']] = t['message_probleme']
     return resultats
 
 
-def verifier_cables(cables, maisonette, source, chambre, N_discretisation = 300):
+def verifier_cables(cables, maisonette, source, chambre, N_discretisation=300):
     centre_maisonette, dimensions_maisonette = maisonette['centre'], maisonette['dimensions']
 
     centre_source, ypr_angles_source, dimensions_source = source['centre'], source['ypr_angles'], source['dimensions']
@@ -283,10 +282,10 @@ def verifier_cables(cables, maisonette, source, chambre, N_discretisation = 300)
     for nom, gen in generators_points.items():
         message = \
             {
-                'maisonette' : 'ok',
-                'source'     : 'ok',
-                'chambre'    : 'ok',
-                'croisement' : '?'
+                'maisonette': 'ok',
+                'source': 'ok',
+                'chambre': 'ok',
+                'croisement': '?'
             }
 
         for point in gen:
@@ -298,11 +297,11 @@ def verifier_cables(cables, maisonette, source, chambre, N_discretisation = 300)
             if point_appartient_pave(point, centre_source, ypr_angles_source, dimensions_source):
                 message['source'] = '!'
 
-            #chambre
-            if not point_appartient_pave_droit_S000(p, point_3d(0,0,0), dimensions_chambre):
+            # chambre
+            if not point_appartient_pave_droit_S000(p, point_3d(0, 0, 0), dimensions_chambre):
                 message['chambre'] = '!'
 
-            # ajouter les croisements
+                # ajouter les croisements
 
         bilan[nom] = message
 
@@ -310,15 +309,15 @@ def verifier_cables(cables, maisonette, source, chambre, N_discretisation = 300)
 
 
 def verifier_position(maisonette, source, chambre, configs_ancrage, print_results=False):
-    sommets_source = sommets_pave(centre     = source['centre'    ],
-                                  ypr_angles = source['ypr_angles'],
-                                  dimensions = source['dimensions'])
+    sommets_source = sommets_pave(centre=source['centre'],
+                                  ypr_angles=source['ypr_angles'],
+                                  dimensions=source['dimensions'])
 
     points_ancrage = get_points_ancrage_ordones(configs_ancrage)
 
     vecteurs_cables = creer_vecteurs_cables(points_ancrage, sommets_source)
 
-    cables = [{'nom' : nom, 'point_ancrage' : pa, 'vecteur' : vec}
+    cables = [{'nom': nom, 'point_ancrage': pa, 'vecteur': vec}
               for nom, pa, vec
               in zip(generer_noms_sommets_pave(), points_ancrage, vecteurs_cables)]
 
@@ -333,40 +332,39 @@ def verifier_position(maisonette, source, chambre, configs_ancrage, print_result
         pprint(bilan_cables)
 
 
+def maxTheta(r, phi, maisonette, source, chambre, configs_ancrag)
+    # r : distance entre centre de la face de la maisonette et le centre de la source, r des coordonnes spheriques
+    # phi : angle verticale , coordonnes spheriques
+    # centreRotation:
+    # maisonette
+    # source
+    # chambre
 
-def maxTheta(r, phi, maisonette,source,chambre,configs_ancrag)
-#r : distance entre centre de la face de la maisonette et le centre de la source, r des coordonnes spheriques
-#phi : angle verticale , coordonnes spheriques
-#centreRotation:
-#maisonette
-#source
-#chambre
 
+    wallCentre = creerPoint(LargCC / 2, LongM, HautM / 2)  # milieu du mur d'interet
 
-    wallCentre = creerPoint(LargCC/2,LongM,HautM/2) # milieu du mur d'interet
+    sourceCentreReference = creerPoint(LargCC / 2 + r, LongM, HautM / 2) - wallCentre
 
-    sourceCentreReference = creerPoint(LargCC/2 + r,LongM,HautM/2) - wallCentre
-
-    maxTheta = [][] #stores a max theta for each phi
+    maxTheta = [][]  # stores a max theta for each phi
     for i in range(90):
         for j in range(90):
             maxTheta[i][j] = 90
 
     for phiDegrees in range(90):
         for thetaDegrees in range(90):
-                phi = math.radians(phiDegrees)
-                theta = math.radians(thetaDegrees)
-                rotationMatrixTheta = np.matrix([[1,0,0],[0,cos(theta),-sin(theta)],[0,sin(theta),cos(theta)]])
-                rotationMatrixPhi = np.matrix([[cos(phi),-sin(phi),0],[sin(phi),cos(phi),0],[0,0,1]])
-                sourceRotated = rotationMatrixTheta*rotationMatrixPhi*sourceCentreReference
-                directionNormale = sourceRotated - wallCentres
-                directionNormale = directionNormale/norme_vecteur(directionNormale)
-                roll = arctan(directionNormale[1]/directionNormale[0])
-                pitch = arctan(sqrt(directionNormale[0]**2  + directionNormale[1]**2 )/directionNormale[2])
-                if(verifySource(sourceCentre,roll,pitch))#a faire
-                    continue
-                maxTheta[phiDegrees] = thetaDegrees
-                break
+            phi = math.radians(phiDegrees)
+            theta = math.radians(thetaDegrees)
+            rotationMatrixTheta = np.matrix([[1, 0, 0], [0, cos(theta), -sin(theta)], [0, sin(theta), cos(theta)]])
+            rotationMatrixPhi = np.matrix([[cos(phi), -sin(phi), 0], [sin(phi), cos(phi), 0], [0, 0, 1]])
+            sourceRotated = rotationMatrixTheta * rotationMatrixPhi * sourceCentreReference
+            directionNormale = sourceRotated - wallCentres
+            directionNormale = directionNormale / norme_vecteur(directionNormale)
+            roll = arctan(directionNormale[1] / directionNormale[0])
+            pitch = arctan(sqrt(directionNormale[0] ** 2 + directionNormale[1] ** 2) / directionNormale[2])
+            if (verifySource(sourceCentre, roll, pitch))  # a faire
+                continue
+            maxTheta[phiDegrees] = thetaDegrees
+            break
 
 
 

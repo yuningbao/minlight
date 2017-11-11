@@ -19,4 +19,3 @@ HautM = 380  # cm
 LongS = 100  # cm
 LargS = 100  # cm
 HautS = 100  # cm
-
