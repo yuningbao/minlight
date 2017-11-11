@@ -228,10 +228,19 @@ class Cable():
 class Pave():
     noms_sommets_pave = ('S000', 'S100', 'S010', 'S110', 'S001', 'S101', 'S011', 'S111')
 
+
     def __init__(self, centre, ypr_angles, dimensions):
         self.centre     = centre
         self.ypr_angles = ypr_angles
         self.dimensions = dimensions
+
+
+    def changer_systeme_repere_pave_vers_globale(self, point):
+        # matrice de rotation
+        Rot = self._ypr_angles.get_matrice_rotation()
+
+        return Rot * point + self._centre
+
 
     def sommets_pave_origine(self):
         # dimensions
@@ -250,6 +259,7 @@ class Pave():
         # sommets (coins) de la source repérés par rapport à son centre
         return [S000, S100, S010, S110, S001, S101, S011, S111]
 
+
     def sommets_pave(self):
         '''
         convention utilisé pour les rotations : z-y’-x″ (intrinsic rotations) = Yaw, pitch, and roll rotations
@@ -260,29 +270,51 @@ class Pave():
 
         On suppose qu'on veut orienter le centre de la source par des angles 
         et la position du centre, on calcule les positios des sommets (les coins de la source).
-        :param centreSoleil: centre de la source dans le système de repère de la chambre
-        :param theta: remplir...
-        :param phi: remplir...
-        :param dimensionsSource: (dictionnaire) longueur, largeur, hauteur du pave de la source
         :return: liste des sommets de la source par rapport au système de repère de la chambre
         '''
 
         # Sommets
         S_origine = self.sommets_pave_origine()
 
-        # matrice de rotation
-        Rot = self._ypr_angles.get_matrice_rotation()
+        return [self.changer_systeme_repere_pave_vers_globale(s) for s in S_origine]
 
-        # rotation
-        S_origine_rot = [Rot * s for s in S_origine]
-
-        # translation
-        S = [s + self._centre for s in S_origine_rot]
-
-        return S
 
     def get_dictionnaire_sommets(self):
         return {nom: sommet for nom, sommet in zip(self.noms_sommets_pave, self.sommets_pave())}
+
+
+    @staticmethod
+    def point_appartient_pave_origine(point, dimensions):
+        '''
+        Fonction qui teste si un point est dans le volume d'un pavé localisé à l'origine.
+        :param dimensions: (dictionnaire) longueur, largeur, hauteur du pave de la source
+        :return: False/True
+        '''
+        long, larg, haut = dimensions.get_tuple_dimensions()
+
+        demi_long, demi_larg, demi_haut = long / 2, larg / 2, haut / 2
+
+        x, y, z = point.get_coordonnes()
+
+        return -demi_long <= x <= demi_long and \
+               -demi_larg <= y <= demi_larg and \
+               -demi_haut <= z <= demi_haut
+
+
+    def point_appartient_pave(self, point):
+        '''
+        Fonction qui teste si un point est dans le volume d'un pavé localisé à l'origine.
+        :param dimensions: (dictionnaire) longueur, largeur, hauteur du pave de la source
+        :param centre: centre du pavé repéré dans le sys de coordonnées globale
+        :return: False/True
+        '''
+        Rot = self.ypr_angles \
+                  .get_tuple_angles_pour_inverser_rotation() \
+                  .get_matrice_rotation()
+
+        point_repere_pave = Rot * (point - self.centre)
+
+        return self.point_appartient_pave_origine(point_repere_pave, self.dimensions)
 
 
 class CoordonnesSpherique():
