@@ -160,7 +160,7 @@ class DimensionsPave():
 class ConfigurationCable():
     def __init__(self, point_ancrage, nom_sommet_source):
         self._nom_sommet_source = nom_sommet_source
-        self._point_ancrage = point_ancrage
+        self._point_ancrage     = point_ancrage
 
     def get_point_ancrage(self):
         return self._point_ancrage

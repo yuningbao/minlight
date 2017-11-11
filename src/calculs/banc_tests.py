@@ -35,43 +35,69 @@ ancrage_x = 3500
 ancrage_y = 5000
 ancrage_z = 4000
 
-configs_ancrage = {
-      'S000' : Vecteur3D(        0,         0,         0),
-      'S100' : Vecteur3D(ancrage_x,         0,         0),
-      'S010' : Vecteur3D(        0, ancrage_y,         0),
-      'S110' : Vecteur3D(ancrage_x, ancrage_y,         0),
-      'S001' : Vecteur3D(        0,         0, ancrage_z),
-      'S101' : Vecteur3D(ancrage_x,         0, ancrage_z),
-      'S011' : Vecteur3D(        0, ancrage_y, ancrage_z),
-      'S111' : Vecteur3D(ancrage_x, ancrage_y, ancrage_z)
-}
-
-space_recherche = SpaceRechercheAnglesLimites(
-      intervalle_rho   = IntervalleLineaire(min= 0, max= 3501, pas=  250),
-      intervalle_phi   = IntervalleLineaire(min= 0, max= 90, pas= pi/60),
-      intervalle_theta = IntervalleLineaire(min= 0, max= pi,   pas= pi/30)
+config_ancrage = ConfigurationAncrage(
+    configs_cables = [
+        ConfigurationCable(
+            point_ancrage     = Vecteur3D(        0,         0,         0),
+            nom_sommet_source = 'S000'
+        ),
+        ConfigurationCable(
+            point_ancrage     = Vecteur3D(ancrage_x,         0,         0),
+            nom_sommet_source = 'S100'
+        ),
+        ConfigurationCable(
+            point_ancrage     = Vecteur3D(        0, ancrage_y,         0),
+            nom_sommet_source = 'S010'
+        ),
+        ConfigurationCable(
+            point_ancrage     = Vecteur3D(ancrage_x, ancrage_y,         0),
+            nom_sommet_source = 'S110'
+        ),
+        ConfigurationCable(
+            point_ancrage     = Vecteur3D(        0,         0, ancrage_z),
+            nom_sommet_source = 'S001'
+        ),
+        ConfigurationCable(
+            point_ancrage     = Vecteur3D(ancrage_x,         0, ancrage_z),
+            nom_sommet_source = 'S101'
+        ),
+        ConfigurationCable(
+            point_ancrage     = Vecteur3D(        0, ancrage_y, ancrage_z),
+            nom_sommet_source = 'S011'
+        ),
+        ConfigurationCable(
+            point_ancrage     = Vecteur3D(ancrage_x, ancrage_y, ancrage_z),
+            nom_sommet_source = 'S111'
+        )
+    ]
 )
 
-systeme_spherique_baie_vitree = \
-      systeme_spherique(
-            centre     = point_3d(
+space_recherche = SpaceRechercheAnglesLimites(
+      intervalle_rho   = IntervalleLineaire(min= 1000, max= 3501, pas=  250),
+      intervalle_phi   = IntervalleLineaire(min=    0, max=   90, pas=    3),
+      intervalle_theta = IntervalleLineaire(min=    0, max=  180, pas=    3)
+)
+
+systeme_spherique_baie_vitree = SystemeRepereSpherique(
+    centre = Vecteur3D(
                   x = 3500,
                   y = 5000/2,
                   z = 2900/2
-            ),
-            ypr_angles = ypr_angles(
-                  yaw   = pi,
+    ),
+    ypr_angles = TupleAnglesRotation(
+                  yaw   = 180,
                   pitch = 0,
-                  row   = 0
-            )
-      )
+                  row   = 0,
+                  unite = UniteAngleEnum.DEGRE,
+    )
+)
 
 limites = trouver_angles_limites(
       space_recherche,
       maisonette,
       dimensions_source,
       chambre,
-      configs_ancrage,
+      config_ancrage,
       systeme_spherique_baie_vitree
 )
 
