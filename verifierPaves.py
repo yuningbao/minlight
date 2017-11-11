@@ -3,13 +3,13 @@ def verifierPaves(pave1,pave2,k = 50)
 #k = nombre de points par ligne
 #return true si il y une intersection
       points_to_be_tested = []
-      for i in range(k + 1)
+      for i in range (k + 1):
         for j in range (k + 1):
           y = i*pave1['largeur']/k
           z = j*pave1['hauteur']/k
           points_to_be_tested.append(point_3d(0,y,z))
           points_to_be_tested.append(point_3d(pave1['longueur'],y,z))
-      for( i in range k + 1):
+      for i in range (k + 1):
         for j in range(k + 1):
           x = i*pave1['longueur']/k
           z = j*pave1['hauteur']/k
