@@ -4,9 +4,8 @@
     <bookmark url="file://$PROJECT_DIR$/src/calculs/banc_tests.py" line="69" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e6884895-be16-46aa-8b0d-97e9cae7a772" name="Default" comment="verificação de point no pave dentro da classe pavé">
+    <list default="true" id="e6884895-be16-46aa-8b0d-97e9cae7a772" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/calculs/entites.py" afterPath="$PROJECT_DIR$/src/calculs/entites.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,7 +20,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="verifierPaves.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="verifierPaves.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/calculs/verifierPaves.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="527">
@@ -33,7 +32,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="entites.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="entites.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/calculs/entites.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="312">
@@ -427,7 +426,14 @@
       <option name="project" value="LOCAL" />
       <updated>1510419479913</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="verificação de point no pave dentro da classe pavé">
+      <created>1510421628931</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1510421628931</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TodoView" selected-index="3">
@@ -472,7 +478,8 @@
     <MESSAGE value="..." />
     <MESSAGE value="outils 2&#10;classes dans &quot;entites&quot;" />
     <MESSAGE value="1ra versão com classes" />
-    <option name="LAST_COMMIT_MESSAGE" value="1ra versão com classes" />
+    <MESSAGE value="verificação de point no pave dentro da classe pavé" />
+    <option name="LAST_COMMIT_MESSAGE" value="verificação de point no pave dentro da classe pavé" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -760,16 +767,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/outils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6324">
-          <caret line="372" column="0" lean-forward="true" selection-start-line="372" selection-start-column="0" selection-end-line="372" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#44#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/calculs/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -796,22 +793,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/verifierPaves.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="55" column="25" lean-forward="false" selection-start-line="55" selection-start-column="25" selection-end-line="55" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#77#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/calculs/entites.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="312">
           <caret line="317" column="0" lean-forward="true" selection-start-line="317" selection-start-column="0" selection-end-line="317" selection-end-column="0" />
           <folding>
             <element signature="e#0#57#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculs/outils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="372" column="0" lean-forward="true" selection-start-line="372" selection-start-column="0" selection-end-line="372" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#44#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculs/verifierPaves.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="55" column="25" lean-forward="false" selection-start-line="55" selection-start-column="25" selection-end-line="55" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#77#0" expanded="true" />
           </folding>
         </state>
       </provider>
