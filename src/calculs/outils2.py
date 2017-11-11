@@ -164,6 +164,9 @@ def trouver_angles_limites(space_recherche, maisonette, dimensions_source, chamb
             if not premier_phi_ok:
                 break
 
+def solutions_formule_quadratique(a,b,c):
+    return ((-b - sqrt(b*b - 4*a*c))/(2*a),(-b + sqrt(b*b - 4*a*c))/(2*a))
+
 
 '''
 def maxTheta(r, phi, maisonette,source,chambre,configs_ancrag)

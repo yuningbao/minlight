@@ -204,10 +204,11 @@ class ConfigurationAncrage():
 
 class Cable():
 
-    def __init__(self, point_ancrage, nom_sommet_source, sommet_source):
+    def __init__(self, point_ancrage, nom_sommet_source, sommet_source,diametre):
         self.nom_sommet_source = nom_sommet_source
         self.point_ancrage     = point_ancrage
         self.sommet_source     = sommet_source
+        self.diametre          = diametre
         self.vecteur           = Vecteur3D(
                                    vecteur_depart  = self._point_ancrage,
                                    vecteur_arrivee = self._sommet_source
@@ -224,6 +225,7 @@ class Cable():
         linear_range = range(range_min, range_max)
 
         return (self.point_ancrage + (i / nombre_points) * self.vecteur for i in linear_range)
+
 
 class Pave():
     noms_sommets_pave = ('S000', 'S100', 'S010', 'S110', 'S001', 'S101', 'S011', 'S111')
@@ -268,7 +270,7 @@ class Pave():
         https://en.wikipedia.org/wiki/Euler_angles#Tait.E2.80.93Bryan_angles
         https://en.wikipedia.org/wiki/Euler_angles#Rotation_matrix
 
-        On suppose qu'on veut orienter le centre de la source par des angles 
+        On suppose qu'on veut orienter le centre de la source par des angles
         et la position du centre, on calcule les positios des sommets (les coins de la source).
         :return: liste des sommets de la source par rapport au système de repère de la chambre
         '''
