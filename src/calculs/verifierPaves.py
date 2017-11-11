@@ -27,26 +27,24 @@ def testPave(pave1,pave2,k):
     '''
 #k = nombre de points par ligne
 #return true si il y une intersection
+
       points_to_be_tested = []
       for i in range (k + 1):
-        for j in range (k + 1):
-          y = i*pave1['dimensions']['largeur']/k
-          z = j*pave1['dimensions']['hauteur']/k
-          points_to_be_tested.append(point_3d(0,y,z))
-          points_to_be_tested.append(point_3d(pave1['dimensions']['longueur'],y,z))
-      for i in range (k + 1):
-        for j in range(k + 1):
-          x = i*pave1['dimensions']['longueur']/k
-          z = j*pave1['dimensions']['hauteur']/k
-          points_to_be_tested.append(point_3d(x,0,z))
-          points_to_be_tested.append(point_3d(x,pave1['dimensions']['largeur'],z))
+          for j in range(k + 1):
+              x = i*pave1['dimensions']['longueur']/k
+              z = j*pave1['dimensions']['hauteur']/k
+              points_to_be_tested.append(point_3d(x,0,z))
+              points_to_be_tested.append(point_3d(x,pave1['dimensions']['largeur'],z))
 
-      for i in range(k + 1):
-        for j in range(k + 1):
-          x = i*pave1['dimensions']['longueur']/k
-          y = j*pave1['dimensions']['largeur']/k
-          points_to_be_tested.append(point_3d(x,y,0))
-          points_to_be_tested.append(point_3d(x,y,pave1['dimensions']['hauteur']))
+              x = i*pave1['dimensions']['longueur']/k
+              y = j*pave1['dimensions']['largeur']/k
+              points_to_be_tested.append(point_3d(x,y,0))
+              points_to_be_tested.append(point_3d(x,y,pave1['dimensions']['hauteur']))
+
+              y = i*pave1['dimensions']['largeur']/k
+              z = j*pave1['dimensions']['hauteur']/k
+              points_to_be_tested.append(point_3d(0,y,z))
+              points_to_be_tested.append(point_3d(pave1['dimensions']['longueur'],y,z))
 
 
       for index in range(len(points_to_be_tested)):
