@@ -36,20 +36,20 @@ ancrage_y = 5000
 ancrage_z = 4000
 
 configs_ancrage = {
-      'S000' : point_3d(        0,         0,         0),
-      'S100' : point_3d(ancrage_x,         0,         0),
-      'S010' : point_3d(        0, ancrage_y,         0),
-      'S110' : point_3d(ancrage_x, ancrage_y,         0),
-      'S001' : point_3d(        0,         0, ancrage_z),
-      'S101' : point_3d(ancrage_x,         0, ancrage_z),
-      'S011' : point_3d(        0, ancrage_y, ancrage_z),
-      'S111' : point_3d(ancrage_x, ancrage_y, ancrage_z)
+      'S000' : Vecteur3D(        0,         0,         0),
+      'S100' : Vecteur3D(ancrage_x,         0,         0),
+      'S010' : Vecteur3D(        0, ancrage_y,         0),
+      'S110' : Vecteur3D(ancrage_x, ancrage_y,         0),
+      'S001' : Vecteur3D(        0,         0, ancrage_z),
+      'S101' : Vecteur3D(ancrage_x,         0, ancrage_z),
+      'S011' : Vecteur3D(        0, ancrage_y, ancrage_z),
+      'S111' : Vecteur3D(ancrage_x, ancrage_y, ancrage_z)
 }
 
-space_recherche = space_recherche(
-      space_rho   = intervalle_lineaire_pas(min= 0, max= 3750, pas=  250),
-      space_phi   = intervalle_lineaire_pas(min= 0, max= pi/2, pas= pi/60),
-      space_theta = intervalle_lineaire_pas(min= 0, max= pi,   pas= pi/30)
+space_recherche = SpaceRechercheAnglesLimites(
+      intervalle_rho   = IntervalleLineaire(min= 0, max= 3501, pas=  250),
+      intervalle_phi   = IntervalleLineaire(min= 0, max= 90, pas= pi/60),
+      intervalle_theta = IntervalleLineaire(min= 0, max= pi,   pas= pi/30)
 )
 
 systeme_spherique_baie_vitree = \

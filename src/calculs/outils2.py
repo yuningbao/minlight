@@ -128,6 +128,8 @@ def trouver_angles_limites(space_recherche, maisonette, dimensions_source, chamb
 
     intervalle_rho, intervalle_phi, intervalle_theta = space_recherche.get_intervalles()
 
+    unite_angles = space_recherche.unite
+
     resultats = {}
 
     source = Pave(

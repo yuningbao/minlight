@@ -320,14 +320,24 @@ class Pave():
 
 
 class CoordonnesSpherique():
-    def __init__(self, roh, theta, phi):
+    def __init__(self, roh, theta, phi, unite):
         self.roh   = roh
         self.theta = theta
         self.phi   = phi
+        self.unite = unite
 
-    def get_coordonnees_spheriques(self):
-        return self.roh, self.theta, self.phi
+    def get_coordonnees_spheriques(self, unite_desiree = UniteAngleEnum.RADIAN):
+        if unite_desiree == self.unite:
+            return self.roh, self.theta, self.phi
 
+        elif unite_desiree == UniteAngleEnum.DEGRE and self.unite == UniteAngleEnum.RADIAN:
+            return self.roh * 180 / pi, self.theta * 180 / pi, self.phi * 180 / pi
+
+        elif unite_desiree == UniteAngleEnum.RADIAN and self.unite == UniteAngleEnum.DEGRE:
+            return self.roh * pi / 180, self.theta * pi / 180, self.phi * pi / 180
+
+        else
+            raise Exception('pbm dunité')
 
 class SystemeRepereSpherique():
     def __init__(self, centre, ypr_angles):
@@ -338,7 +348,7 @@ class SystemeRepereSpherique():
         return self.centre, self.ypr_angles
 
     def convertir_en_cartesien(self, coordonnees_spheriques):
-        roh, theta, phi = coordonnees_spheriques.get_coordonnees_spheriques()
+        roh, theta, phi = coordonnees_spheriques.get_coordonnees_spheriques(unite_desiree=UniteAngleEnum.RADIAN)
 
         return Vecteur3D(roh * cos(phi) * cos(theta),
                          roh * cos(phi) * sin(theta),
@@ -351,10 +361,11 @@ class IntervalleLineaire():
 
 
 class SpaceRechercheAnglesLimites():
-    def __init__(self, intervalle_rho, intervalle_phi, intervalle_theta):
+    def __init__(self, intervalle_rho, intervalle_phi, intervalle_theta, unite):
         self.intervalle_rho   = intervalle_rho
         self.intervalle_phi   = intervalle_phi
         self.intervalle_theta = intervalle_theta
+        self.unite            = unite
 
     def get_intervalles(self):
         return self.intervalle_rho, self.intervalle_phi, self.intervalle_theta
