@@ -2,6 +2,7 @@ from enums import *
 from numpy import cos, sin, pi, matrix, sqrt
 import numpy as np
 
+
 class Vecteur3D(matrix):
     @staticmethod
     def vecteur_depuis_difference_deux_vecteurs(vecteur_depart, vecteur_arrivee):

@@ -1,5 +1,9 @@
 from outils2 import solutions_formule_quadratique
-
+from entites_mathemathiques import Vecteur3D
+from OpenGL.GL import *
+from OpenGL.GLU import *
+import pygame,sys
+from pygame.locals import *
 
 class DimensionsPave():
 
@@ -156,6 +160,15 @@ class Cable():
                                                                      inclure_sommet_source  = inclure_sommet_source)
 
         return all(pave.point_appartient_pave(point) for point in generateur_points)
+    def draw(self):
+        edge = (0,1)
+        verticies = (
+            self.sommet_source.get_coordonnees(),self.point_ancrage.get_coordonnees()
+            )
+        glBegin(GL_LINES)
+        for vertex in edge:
+                glVertex3fv(verticies[vertex])
+        glEnd()
 
 
 class Pave():
@@ -352,4 +365,3 @@ class Pave():
                 sequence=SequenceAnglesRotationEnum.YPR,
                 unite=UniteAngleEnum.DEGRE  # !!!!!!!!!!!!!!!!!!!!!!!!
             )
-
