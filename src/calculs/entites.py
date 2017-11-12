@@ -365,7 +365,7 @@ class Pave():
 
         return self.point_appartient_pave_origine(point_repere_pave, self.dimensions)
 
-    def testPave(self,pave2,k = 10):
+    def test_colision_en_autre_pave(self, pave2, k = 10):
 
         '''
         Tests if there are points on pave1's faces inside pave2.
@@ -374,7 +374,9 @@ class Pave():
         k: (k+1)^2 = number of points to be tested on each face, the greater the k, the plus reliable the result
         '''
         longueur,largeur, hauteur = self.dimensions.get_tuple_dimensions()
+
         points_to_be_tested = []
+
         for i in range (k + 1):
             for j in range(k + 1):
               x = i*longueur/k
@@ -394,26 +396,21 @@ class Pave():
               points_to_be_tested.append(Vecteur3D(longueur,y,z))
 
         for index in range(len(points_to_be_tested)):
-            #  print("points to be tested" + str(points_to_be_tested[index].transpose()))
-             # print("matrix: " + str(self.ypr_angles.get_matrice_rotation))
               points_to_be_tested[index] = (self.ypr_angles.get_matrice_rotation())*points_to_be_tested[index]
+
               #next line converts from 3d rotation matrix to vecteur3d
               points_to_be_tested[index] = Vecteur3D(points_to_be_tested[index].__getitem__((0,0)),
-                                            points_to_be_tested[index].__getitem__((1,0)),
-                                            points_to_be_tested[index].__getitem__((2,0)))
+                                                     points_to_be_tested[index].__getitem__((1,0)),
+                                                     points_to_be_tested[index].__getitem__((2,0)))
+
               points_to_be_tested[index] = points_to_be_tested[index] + self.centre - Vecteur3D(longueur/2,largeur/2,hauteur/2)
-              if( pave2.point_appartient_pave(  points_to_be_tested[index])):
-                  #            print('Point ' + str(point) +  '  belongs to cube: ')
-                  #            print('centre: ' + str(pave2['centre'].transpose()))
-                  #            print('ypr_angles: ' + str(pave2['ypr_angles']))
-                  #            print('dimensions: ' + str(pave2['dimensions']))
-                  #            print('ponto ruim:' + str(i))
+
+              if( pave2.point_appartient_pave(points_to_be_tested[index])):
                       return True
+
         return False
 
-
-
-    def intersectsPave(self,pave,k = 10):
+    def intersection_avec_autre_pave(self, pave, k = 10):
 
         '''
         Tests if there are inserctions between pave1 and pave2,
@@ -422,10 +419,12 @@ class Pave():
         k: (k+1)^2 = number of points to be tested on each face, the greater the k, the more reliable the result
         return True if there are no intersections, returns False otherwise
         '''
-        if(self.testPave(pave,k)):
+        if(self.test_colision_en_autre_pave(pave, k)):
             return True
-        if(pave.testPave(self,k)):
+
+        if(pave.test_colision_en_autre_pave(self, k)):
             return True
+
         return False
         #FIX POINT_APPARTIENT_PAVE AND POINT_3d
 
