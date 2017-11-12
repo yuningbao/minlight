@@ -1,5 +1,5 @@
-from outils2 import solutions_formule_quadratique
-from entites_mathemathiques import Vecteur3D
+from .outils2 import solutions_formule_quadratique
+from .entites_mathemathiques import Vecteur3D
 from OpenGL.GL import *
 from OpenGL.GLU import *
 import pygame,sys

@@ -1,7 +1,7 @@
 import pygame,sys
 from pygame.locals import *
-from entites_systeme_minlight import Cable,DimensionsPave,Pave
-from entites_mathemathiques import Vecteur3D,TupleAnglesRotation
+from modeles.entites_systeme_minlight import Cable,DimensionsPave,Pave
+from modeles.entites_mathemathiques import Vecteur3D,TupleAnglesRotation
 
 from OpenGL.GL import *
 from OpenGL.GLU import *

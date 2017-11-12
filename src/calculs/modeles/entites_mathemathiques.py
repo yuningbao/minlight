@@ -1,4 +1,4 @@
-from enums import *
+from .enums import *
 from numpy import cos, sin, pi, matrix, sqrt
 import numpy as np
 
