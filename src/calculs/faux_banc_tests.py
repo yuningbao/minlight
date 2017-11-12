@@ -3,38 +3,37 @@ from entites import *
 
 maisonette = Pave(
       centre = Vecteur3D(
-                  x = 3500 + 5000/2,
-                  y = 5000/2,
-                  z = 2900/2
+                  x = 7500,
+                  y = 5000,
+                  z = 5000
       ),
       ypr_angles = TupleAnglesRotation(0,0,0),
       dimensions = DimensionsPave(
             longueur = 5000,
-            largeur  = 2500,
-            hauteur  = 2900
+            largeur  = 10000,
+            hauteur  = 10000
       )
 )
 
 dimensions_source = DimensionsPave(
-      longueur = 600,
-      largeur  = 1600,
-      hauteur  = 1600
+      longueur = 1000,
+      largeur  = 1000,
+      hauteur  = 1000
 )
 
 chambre = Pave(
-      # Cest le centre !!!!!!!!!!!!!!!!!!11
-      centre = Vecteur3D(8500/2,5000/2,4000/2),
+      centre = Vecteur3D(5000,5000,5000),
       ypr_angles = TupleAnglesRotation(0,0,0),
       dimensions = DimensionsPave(
-            longueur = 8500,
-            largeur  = 5000,
-            hauteur  = 4000
+            longueur = 10000,
+            largeur  = 10000,
+            hauteur  = 10000
       )
 )
 
-ancrage_x = 3500
-ancrage_y = 5000
-ancrage_z = 4000
+ancrage_x = 5000
+ancrage_y = 10000
+ancrage_z = 10000
 
 config_ancrage = ConfigurationAncrage(
     configs_cables = [
@@ -75,16 +74,16 @@ config_ancrage = ConfigurationAncrage(
 
 space_recherche = SpaceRechercheAnglesLimites(
       intervalle_rho   = IntervalleLineaire(min= 1000, max= 3501, pas=  250),
-      intervalle_phi   = IntervalleLineaire(min=    0, max=   90, pas=    3),
+      intervalle_phi   = IntervalleLineaire(min=    0, max=  180, pas=    3),
       intervalle_theta = IntervalleLineaire(min=    0, max=  180, pas=    3),
       unite = UniteAngleEnum.DEGRE
 )
 
 systeme_spherique_baie_vitree = SystemeRepereSpherique(
     centre = Vecteur3D(
-                  x = 3500,
-                  y = 5000/2,
-                  z = 2900/2
+                  x = 5000,
+                  y = 5000,
+                  z = 5000
     ),
     ypr_angles = TupleAnglesRotation(
                   yaw   = 180,
@@ -103,10 +102,17 @@ limites = trouver_angles_limites(
       chambre,
       config_ancrage,
       systeme_spherique_baie_vitree,
-      diametre_cable
+      diametre_cable,
+      N_discretisations_cables = 20
 )
 
 pprint(limites)
+
+import pickle
+
+pickle_out = open("limites_faux_banc_test.pickle","wb")
+pickle.dump(limites, pickle_out)
+pickle_out.close()
 
 # ConflitDePosition(100,100,300,0.52,0.24,Pa,1000)
 

@@ -9,8 +9,9 @@ class Vecteur3D(matrix):
     def __new__(cls, x, y, z):
         return super(Vecteur3D, cls).__new__(cls, "{}; {}; {}".format(x, y, z))
 
-    def __new__(cls, vecteur_depart, vecteur_arrive):
-        return vecteur_arrive - vecteur_depart
+    @staticmethod
+    def vecteur_depuis_difference_deux_vecteurs(vecteur_depart, vecteur_arrivee):
+        return vecteur_arrivee - vecteur_depart
 
     def get_coordonnees(self):
         return self.item(0), self.item(1), self.item(2)
@@ -70,16 +71,14 @@ class TupleAnglesRotation():
             unite  = self._unite
         )
 
-        def rpy(): return self._matrix_x * self._matrix_y * self._matrix_z
+        if self._sequence == SequenceAnglesRotationEnum.RPY:
+            self._matrice_rotation = self._matrix_x.dot(self._matrix_y.dot(self._matrix_z))
 
-        def ypr(): return self._matrix_z * self._matrix_y * self._matrix_x
+        elif self._sequence == SequenceAnglesRotationEnum.YPR:
+            self._matrice_rotation = self._matrix_z.dot(self._matrix_y.dot(self._matrix_x))
 
-        switch = {
-            SequenceAnglesRotationEnum.RPY : rpy,
-            SequenceAnglesRotationEnum.YPR : ypr
-        }
-
-        self._matrice_rotation = switch[self._sequence]
+        else:
+            raise Exception('SequenceAnglesRotationEnum inconu')
 
 
     def get_angles(self):
@@ -191,12 +190,13 @@ class ConfigurationAncrage():
                     for config_cable in self._configs_cables
                     if config_cable['nom_sommet_source'] == nom_sommet_source)
 
-    def get_cables(self, sommets_source):
+    def get_cables(self, sommets_source, diametre_cable):
         return [
             Cable(
                 nom_sommet_source = nom_sommet,
                 point_ancrage     = self.get_config_cable(nom_sommet).get_point_ancrage(),
-                sommet_source     = sommets_source[nom_sommet]
+                sommet_source     = sommets_source[nom_sommet],
+                diametre          = diametre_cable
             )
             for nom_sommet in Pave.noms_sommets_pave
         ]
@@ -209,9 +209,9 @@ class Cable():
         self.point_ancrage     = point_ancrage
         self.sommet_source     = sommet_source
         self.diametre          = diametre
-        self.vecteur           = Vecteur3D(
-                                   vecteur_depart  = self._point_ancrage,
-                                   vecteur_arrivee = self._sommet_source
+        self.vecteur           = Vecteur3D.vecteur_depuis_difference_deux_vecteurs(
+                                   vecteur_depart  = self.point_ancrage,
+                                   vecteur_arrivee = self.sommet_source
                                  )
 
     def longueur(self):
@@ -239,14 +239,17 @@ class Pave():
 
     def changer_systeme_repere_pave_vers_globale(self, point):
         # matrice de rotation
-        Rot = self._ypr_angles.get_matrice_rotation()
+        Rot = self.ypr_angles.get_matrice_rotation()
 
-        return Rot * point + self._centre
+        res = (Rot * point) + self.centre
+
+        # il faut faire ça sinon le retour est une matrice rot
+        return Vecteur3D(res.__getitem__((0,0)), res.__getitem__((1,0)), res.__getitem__((2,0)))
 
 
     def sommets_pave_origine(self):
         # dimensions
-        long, larg, haut = self._dimensions.get_tuple_dimensions()
+        long, larg, haut = self.dimensions.get_tuple_dimensions()
 
         # sommets (coins) du pavé centré dans l'origine
         S000 = Vecteur3D(- long / 2, - larg / 2, - haut / 2)
@@ -296,7 +299,7 @@ class Pave():
 
         demi_long, demi_larg, demi_haut = long / 2, larg / 2, haut / 2
 
-        x, y, z = point.get_coordonnes()
+        x, y, z = point.get_coordonnees()
 
         return -demi_long <= x <= demi_long and \
                -demi_larg <= y <= demi_larg and \
@@ -315,6 +318,11 @@ class Pave():
                   .get_matrice_rotation()
 
         point_repere_pave = Rot * (point - self.centre)
+
+        # il faut faire ça parce que l'operation cidessus renvoie une matrice rotation
+        point_repere_pave = Vecteur3D(point_repere_pave.__getitem__((0,0)),
+                                      point_repere_pave.__getitem__((1,0)),
+                                      point_repere_pave.__getitem__((2,0)))
 
         return self.point_appartient_pave_origine(point_repere_pave, self.dimensions)
 
@@ -375,17 +383,17 @@ class CoordonnesSpherique():
         self.phi   = phi
         self.unite = unite
 
-    def get_coordonnees_spheriques(self, unite_desiree = UniteAngleEnum.RADIAN):
-        if unite_desiree == self.unite:
+    def get_coordonnees_spheriques(self, unite_desiree = UniteAngleEnum.INCONU):
+        if unite_desiree == self.unite or unite_desiree == UniteAngleEnum.INCONU:
             return self.roh, self.theta, self.phi
 
         elif unite_desiree == UniteAngleEnum.DEGRE and self.unite == UniteAngleEnum.RADIAN:
-            return self.roh * 180 / pi, self.theta * 180 / pi, self.phi * 180 / pi
+            return self.roh, self.theta * 180 / pi, self.phi * 180 / pi
 
         elif unite_desiree == UniteAngleEnum.RADIAN and self.unite == UniteAngleEnum.DEGRE:
-            return self.roh * pi / 180, self.theta * pi / 180, self.phi * pi / 180
+            return self.roh, self.theta * pi / 180, self.phi * pi / 180
 
-        else
+        else:
             raise Exception('pbm dunité')
 
 class SystemeRepereSpherique():

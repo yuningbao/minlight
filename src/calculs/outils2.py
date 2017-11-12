@@ -44,13 +44,7 @@ def point_appartient_pave(point, pave):
 
 
 
-def verifier_cables(cables, maisonette, source, dimensions_chambre, N_discretisation=300):
-
-    chambre = Pave(
-        centre     = Vecteur3D(0, 0, 0),
-        ypr_angles = TupleAnglesRotation(0, 0, 0),
-        dimensions = dimensions_chambre
-    )
+def verifier_cables(cables, maisonette, source, chambre, N_discretisation=300, bilan_incomplet_si_touche=False):
 
     generators_points = {}
 
@@ -68,28 +62,39 @@ def verifier_cables(cables, maisonette, source, dimensions_chambre, N_discretisa
             # maisonette
             if maisonette.point_appartient_pave(point):
                 message['maisonette'] = '!'
+                if bilan_incomplet_si_touche:
+                    break
 
             # source
             if source.point_appartient_pave(point):
                 message['source'] = '!'
+                if bilan_incomplet_si_touche:
+                    break
 
             # chambre
             if not chambre.point_appartient_pave(point):
                 message['chambre'] = '!'
+                if bilan_incomplet_si_touche:
+                    break
 
             # ajouter les croisements
 
         bilan[cable.nom_sommet_source] = message
+        any_touch = any(str == '!' for str in list(message.values()))
+
+        if bilan_incomplet_si_touche and any_touch:
+            break
 
     return bilan
 
 
-def verifier_position(maisonette, source, chambre, config_ancrage, print_results=False):
+def verifier_position(maisonette, source, chambre, config_ancrage, diametre_cable, N_discretisations_cables, print_results=False):
     sommets_source = source.get_dictionnaire_sommets()
 
-    cables = config_ancrage.get_cables(sommets_source)
+    cables = config_ancrage.get_cables(sommets_source, diametre_cable=diametre_cable)
 
-    bilan_cables = verifier_cables(cables, maisonette, source, chambre)
+    bilan_cables = verifier_cables(cables, maisonette, source, chambre,
+                                   N_discretisations_cables, bilan_incomplet_si_touche=True)
 
     # verifier si source touche murs
     # verifier si source touche maisonette
@@ -99,20 +104,26 @@ def verifier_position(maisonette, source, chambre, config_ancrage, print_results
         print('Bilan des résultats des cãbles')
         pprint(bilan_cables)
 
-    return any(str == '!' for str in list(bilan_cables.values()))
+    any_touch = any(str == '!' for resume_cable in list(bilan_cables.values()) for str in list(resume_cable.values()))
+
+    return not any_touch
 
 
 def changer_source_a_partir_des_coordonnes_spheriques(source, coordonnees_spheriques, systeme_spherique):
-    roh, theta, phi = coordonnees_spheriques.get_coordonnees_spheriques()
+    roh, theta, phi = coordonnees_spheriques.get_coordonnees_spheriques(unite_desiree=UniteAngleEnum.DEGRE)
 
     # p = centre de la source pour le systeme cartesien à partir du quel le spherique est defini
     p = systeme_spherique.convertir_en_cartesien(coordonnees_spheriques)
 
     centre_systeme, ypr_angles_systeme = systeme_spherique.get_centre_et_ypr_angles()
 
-    Rot = ypr_angles_systeme.get_tuple_angles_pour_inverser_rotation()
+    Rot = ypr_angles_systeme.get_tuple_angles_pour_inverser_rotation()  \
+                            .get_matrice_rotation()
 
-    source.centre = Rot * p + centre_systeme
+    res = Rot * p + centre_systeme
+
+    # il faut faire ça sinon le retour est une matrice rot
+    source.centre = Vecteur3D(res.__getitem__((0, 0)), res.__getitem__((1, 0)), res.__getitem__((2, 0)))
 
     source.ypr_angles = \
         TupleAnglesRotation(
@@ -124,7 +135,7 @@ def changer_source_a_partir_des_coordonnes_spheriques(source, coordonnees_spheri
         )
 
 
-def trouver_angles_limites(space_recherche, maisonette, dimensions_source, chambre, config_ancrage, systeme_spherique_baie_vitree):
+def trouver_angles_limites(space_recherche, maisonette, dimensions_source, chambre, config_ancrage, systeme_spherique_baie_vitree, diametre_cable, N_discretisations_cables):
 
     intervalle_rho, intervalle_phi, intervalle_theta = space_recherche.get_intervalles()
 
@@ -133,38 +144,44 @@ def trouver_angles_limites(space_recherche, maisonette, dimensions_source, chamb
     resultats = {}
 
     source = Pave(
-        centre     = Vecteur(0,0,0),
+        centre     = Vecteur3D(0,0,0),
         ypr_angles = TupleAnglesRotation(0,0,0),
         dimensions = dimensions_source
     )
 
     for rho in intervalle_rho:
+        print('rho = ' + str(rho))
+
         couples = []
 
         resultats[rho] = couples
 
-        premier_phi_ok = False
 
         for phi in intervalle_phi:
+            premier_theta_ok = False
 
             for theta in intervalle_theta:
                 theta_max = theta
 
                 changer_source_a_partir_des_coordonnes_spheriques(
                     source                 = source,
-                    coordonnees_spheriques = CoordonnesSpherique(rho, theta, phi),
+                    coordonnees_spheriques = CoordonnesSpherique(rho, theta, phi, unite=unite_angles),
                     systeme_spherique      = systeme_spherique_baie_vitree
                 )
 
-                if verifier_position(maisonette, source, chambre, config_ancrage):
-                    premier_phi_ok = True
+                if verifier_position(maisonette, source, chambre, config_ancrage, diametre_cable, N_discretisations_cables=N_discretisations_cables):
+                    premier_theta_ok = True
                 else:
                     break
 
-            couples.append((phi, theta_max))
+            couple = (phi, theta_max)
+            couples.append(couple)
 
-            if not premier_phi_ok:
+            print(couple)
+
+            if not premier_theta_ok:
                 break
+        print()
 
 def solutions_formule_quadratique(a,b,c):
     return ((-b - sqrt(b*b - 4*a*c))/(2*a),(-b + sqrt(b*b - 4*a*c))/(2*a))
