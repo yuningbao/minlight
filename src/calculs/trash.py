@@ -124,3 +124,31 @@ def tester_interdictions_points(generator_points, tests_interdictions):
             if fonction.__call__(p, **args):
                 resultats[t['nom']] = t['message_probleme']
     return resultats
+
+
+
+
+
+
+sommets = [Vecteur3D(sommet[0], sommet[1], sommet[2]) for sommet in product((1,-1), repeat=3)]
+
+# !!!!!!!!!!!!!!! faire gaffe avec les arrondissement
+def points_dans_meme_plane(p1, p2, p3, p4):
+    vec1 = p2 - p1
+    vec2 = p3 - p1
+
+    # coordonnees du vec resultant du prod vect
+    u, v, w = tuple(cross(vec1.T, vec2.T)[0].tolist())
+
+    normal = Vecteur3D(u,v,w)
+
+    k1 = normal.T.dot(p1)
+    k4 = normal.T.dot(p4)
+    diff = (k1 - k4)[0][0]
+    return diff == 0
+
+faces = []
+
+for quartette in combinations(sommets, 4):
+    if points_dans_meme_plane(quartette[0], quartette[1], quartette[2], quartette[3]):
+        faces.append(quartette)
