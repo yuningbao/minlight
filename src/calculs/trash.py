@@ -152,3 +152,43 @@ faces = []
 for quartette in combinations(sommets, 4):
     if points_dans_meme_plane(quartette[0], quartette[1], quartette[2], quartette[3]):
         faces.append(quartette)
+
+
+
+
+'''
+def maxTheta(r, phi, maisonette,source,chambre,configs_ancrag)
+#r : distance entre centre de la face de la maisonette et le centre de la source, r des coordonnes spheriques
+#phi : angle verticale , coordonnes spheriques
+#centreRotation:
+#maisonette
+#source
+#chambre
+
+
+    wallCentre = creerPoint(LargCC/2,LongM,HautM/2) # milieu du mur d'interet
+
+    sourceCentreReference = creerPoint(LargCC/2 + r,LongM,HautM/2) - wallCentre
+
+    maxTheta = [][] #stores a max theta for each phi
+    for i in range(90):
+        for j in range(90):
+            maxTheta[i][j] = 90
+
+    for phiDegrees in range(90):
+        for thetaDegrees in range(90):
+                phi = math.radians(phiDegrees)
+                theta = math.radians(thetaDegrees)
+                rotationMatrixTheta = np.matrix([[1,0,0],[0,cos(theta),-sin(theta)],[0,sin(theta),cos(theta)]])
+                rotationMatrixPhi = np.matrix([[cos(phi),-sin(phi),0],[sin(phi),cos(phi),0],[0,0,1]])
+                sourceRotated = rotationMatrixTheta*rotationMatrixPhi*sourceCentreReference
+                directionNormale = sourceRotated - wallCentres
+                directionNormale = directionNormale/norme_vecteur(directionNormale)
+                roll = arctan(directionNormale[1]/directionNormale[0])
+                pitch = arctan(sqrt(directionNormale[0]**2  + directionNormale[1]**2 )/directionNormale[2])
+                if(verifySource(sourceCentre,roll,pitch))#a faire
+                    continue
+                maxTheta[phiDegrees] = thetaDegrees
+                break
+
+'''
