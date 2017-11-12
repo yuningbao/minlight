@@ -104,17 +104,18 @@ def main():
                 pygame.quit()
                 quit()
             elif event.type == pygame.KEYDOWN or event.type == KEYDOWN:
-                print("pegou algo")
-                if event.key == pygame.K_LEFT:
-                    print("pegou algo")
-                if event.key == pygame.K_RIGHT:
-                    print("pegou algo aqui")
+                if event.key == pygame.K_a:
+                    glRotatef(3, 1, 0, 0)
+                elif event.key == pygame.K_q:
+                    glRotatef(-3, 1, 0, 0)
+                elif event.key == pygame.K_s:
+                    glRotatef(3, 0, 1, 0)
+                elif event.key == pygame.K_w:
+                    glRotatef(-3, 0, 1, 0)
+
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
         cable.draw()
-<<<<<<< HEAD
         pave.draw(False)
-=======
->>>>>>> 2f87f2b1ed13591a1cc867bb2e69f2ad714a36e1
         pygame.display.flip()
         pygame.time.wait(10)
 
