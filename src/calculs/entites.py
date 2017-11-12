@@ -3,7 +3,7 @@ from numpy.linalg import pinv
 import numpy as np
 from pprint import pprint
 from enum import *
-
+from outils2 import solutions_formule_quadratique
 
 class Vecteur3D(matrix):
     def __new__(cls, x, y, z):
@@ -21,6 +21,8 @@ class Vecteur3D(matrix):
 
     def get_vecteur_diretion(self):
         return self.copy() / self.norme()
+    def scalar_product(self,v):
+        return self.item(0)*v.item(0) + self.item(1)*v.item(1) + self.item(2)*v.item(2)
 
 
 class UniteAngleEnum(Enum):
@@ -226,6 +228,43 @@ class Cable():
 
         return (self.point_ancrage + (i / nombre_points) * self.vecteur for i in linear_range)
 
+    def intersects_cable(self,cable2):
+
+        origin = self.point_ancrage
+        direction = self.point_ancrage - self.sommet_source
+        direction = direction.get_vecteur_diretion()
+
+        normalePlane1 = cable2.point_ancrage - cable2.sommet_source
+        pointPlane1 = cable2.point_ancrage
+
+        normalePlane2 = cable2.sommet_source - cable2.point_ancrage
+        pointPlane2 = cable2.sommet_source
+
+        axis = normalePlane2
+        centre = pointPlane1
+
+        radius = cable2.diametre/2 + self.diametre/2 
+
+        a = direction.scalar_product(direction) - direction.scalar_product(axis)**2
+        b = 2*(direction.scalar_product(origin - centre )   - direction.scalar_product(axis)*axis.scalar_product(origin - centre))
+        c = (origin - centre).scalar_product(origin - centre )   - axis.scalar_product(origin - centre)**2 - radius**2
+
+        if(b*b - 4*a*c < 0):
+              return False
+
+        solution1,solution2 = solutions_formule_quadratique(a,b,c)
+        point1 = origin + solution1*direction
+        point2 = origin + solution2*direction
+
+        if( (normalePlane1.scalar_product(point1 - pointPlane1) <= 0 ) \
+            and (normalePlane2.scalar_product(point1 - pointPlane2) <= 0) ):
+            return True
+
+        if( (normalePlane1.scalar_product(point2 - pointPlane1) <= 0 ) \
+                and (normalePlane2.scalar_product(point2 - pointPlane2) <= 0) ):
+                return True
+        return False;
+
 
 class Pave():
     noms_sommets_pave = ('S000', 'S100', 'S010', 'S110', 'S001', 'S101', 'S011', 'S111')
@@ -326,7 +365,7 @@ class Pave():
 
         return self.point_appartient_pave_origine(point_repere_pave, self.dimensions)
 
-    def testPave(pave1,pave2,k):
+    def testPave(self,pave2,k = 10):
 
         '''
         Tests if there are points on pave1's faces inside pave2.
@@ -334,46 +373,60 @@ class Pave():
         pave1: dictionary with dimensions(dictionary),centre(matrix 3x1), ypr_angles(dictionary)
         k: (k+1)^2 = number of points to be tested on each face, the greater the k, the plus reliable the result
         '''
-
+        longueur,largeur, hauteur = self.dimensions.get_tuple_dimensions()
         points_to_be_tested = []
         for i in range (k + 1):
             for j in range(k + 1):
-              x = i*pave1.dimensions.longueur/k
-              z = j*pave1.dimensions.hauteur/k
-              points_to_be_tested.append(point_3d(x,0,z))
-              points_to_be_tested.append(point_3d(x,pave1.dimensions.largeur,z))
+              x = i*longueur/k
+              z = j*hauteur/k
+              points_to_be_tested.append(Vecteur3D(x,0,z))
+              points_to_be_tested.append(Vecteur3D(x,largeur,z))
 
-              x = i*pave1.dimensions.longueur/k
-              y = j*pave1.dimensions.largeur/k
-              points_to_be_tested.append(point_3d(x,y,0))
-              points_to_be_tested.append(point_3d(x,y,pave1.dimensions.hauteur))
+              x = i*longueur/k
+              y = j*largeur/k
+              points_to_be_tested.append(Vecteur3D(x,y,0))
+              points_to_be_tested.append(Vecteur3D(x,y,hauteur))
 
-              y = i*pave1.dimensions.largeur/k
-              z = j*pave1.dimensions.hauteur/k
-              points_to_be_tested.append(point_3d(0,y,z))
-              points_to_be_tested.append(point_3d(pave1.dimensions.longueur,y,z))
+
+              y = i*largeur/k
+              z = j*hauteur/k
+              points_to_be_tested.append(Vecteur3D(0,y,z))
+              points_to_be_tested.append(Vecteur3D(longueur,y,z))
 
         for index in range(len(points_to_be_tested)):
-          points_to_be_tested[index] = pave1.ypr_angles.get_matrice_rotation*points_to_be_tested[index]
-          points_to_be_tested[index] = points_to_be_tested[index] + pave1.centre- point_3d(pave1.dimensions.longueur/2,pave1.dimensions.largeur/2,pave1.dimensions.hauteur/2)
-        #  i = 0
-        for point in points_to_be_tested:
-            if(self.point_appartient_pave(point,pave2.centre,pave2.ypr_angles,pave2.dimensions)):
-            #            print('Point ' + str(point) +  '  belongs to cube: ')
-            #            print('centre: ' + str(pave2['centre'].transpose()))
-            #            print('ypr_angles: ' + str(pave2['ypr_angles']))
-            #            print('dimensions: ' + str(pave2['dimensions']))
-            #            print('ponto ruim:' + str(i))
-                return False
-            #          else:
-            #              print(str(i) + ':::Point ' + str(point) +  ' doesnt belong to cube: ')
-            #      print('centre: ' + str(pave2['centre'].transpose()))
-            #          print('ypr_angles: ' + str(pave2['ypr_angles']))
-            #          print('dimensions: ' + str(pave2['dimensions']))
-            #      i += 1
+            #  print("points to be tested" + str(points_to_be_tested[index].transpose()))
+             # print("matrix: " + str(self.ypr_angles.get_matrice_rotation))
+              points_to_be_tested[index] = (self.ypr_angles.get_matrice_rotation())*points_to_be_tested[index]
+              #next line converts from 3d rotation matrix to vecteur3d
+              points_to_be_tested[index] = Vecteur3D(points_to_be_tested[index].__getitem__((0,0)),
+                                            points_to_be_tested[index].__getitem__((1,0)),
+                                            points_to_be_tested[index].__getitem__((2,0)))
+              points_to_be_tested[index] = points_to_be_tested[index] + self.centre - Vecteur3D(longueur/2,largeur/2,hauteur/2)
+              if( pave2.point_appartient_pave(  points_to_be_tested[index])):
+                  #            print('Point ' + str(point) +  '  belongs to cube: ')
+                  #            print('centre: ' + str(pave2['centre'].transpose()))
+                  #            print('ypr_angles: ' + str(pave2['ypr_angles']))
+                  #            print('dimensions: ' + str(pave2['dimensions']))
+                  #            print('ponto ruim:' + str(i))
+                      return True
+        return False
 
-        return True
 
+
+    def intersectsPave(self,pave,k = 10):
+
+        '''
+        Tests if there are inserctions between pave1 and pave2,
+        pave1: dictionary with dimensions(dictionary),centre(matrix 3x1), ypr_angles(dictionary)
+        pave2: dictionary with dimensions(dictionary),centre(matrix 3x1), ypr_angles(dictionary)
+        k: (k+1)^2 = number of points to be tested on each face, the greater the k, the more reliable the result
+        return True if there are no intersections, returns False otherwise
+        '''
+        if(self.testPave(pave,k)):
+            return True
+        if(pave.testPave(self,k)):
+            return True
+        return False
         #FIX POINT_APPARTIENT_PAVE AND POINT_3d
 
 class CoordonnesSpherique():
