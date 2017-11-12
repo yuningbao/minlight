@@ -1,6 +1,8 @@
 from entites_mathemathiques import *
+from entites_systeme_minlight import *
 import pickle
 from datetime import datetime
+import matplotlib.pyplot as plt
 
 
 class VerificateurAnglesLimites():
@@ -76,11 +78,8 @@ class VerificateurAnglesLimites():
                 print()
 
         if sauvegarde_automatique:
-            if nom_fichier_sauvegarde == 'auto':
-                nom_fichier_sauvegarde = 'angles_limites_sauvegarde_auto' + \
-                                         datetime.now().strftime('_%y_%m_%d_%H_%M_%S')
-
             self.sauvegarder_limites(nom_fichier_sauvegarde)
+
 
     def position_ok(self):
         sommets_source = self.source.get_dictionnaire_sommets()
@@ -128,7 +127,11 @@ class VerificateurAnglesLimites():
         return True
 
 
-    def sauvegarder_limites(self, nom_fichier):
+    def sauvegarder_limites(self, nom_fichier='auto'):
+        if nom_fichier == 'auto':
+            format = '_%y_%m_%d_%H_%M_%S'
+            nom_fichier = 'angles_limites' + datetime.now().strftime(format)
+
         pickle_out = open(nom_fichier + '.pickle', "wb")
         pickle.dump(self.limites, pickle_out)
         pickle_out.close()
@@ -138,3 +141,39 @@ class VerificateurAnglesLimites():
         pickle_in = open(nom_fichier + '.pickle', "rb")
         self.limites = pickle.load(pickle_in)
         pickle_in.close()
+
+
+    def _generer_graphe(self, xlim=[0, 90], ylim=[0, 90] ):
+        fig = plt.figure()
+        ax = fig.gca()
+
+        for rho, couples in self.limites.items():
+            phi, theta = zip(*couples)
+
+            line, = ax.plot(phi, theta)
+
+            line.set_label('Rho = ' + "{r:0.2f}".format(r=rho/1000) + ' m')
+
+        ax.set_title('Angles Limites')
+        ax.set_xlabel('Theta [º]')
+        ax.set_ylabel('Phi [º]')
+
+        ax.set_xlim(xlim)
+        ax.set_ylim(ylim)
+
+        ax.legend()
+
+    def afficher_graphe_limites(self, xlim=[0, 90], ylim=[0, 90]):
+        self._generer_graphe(xlim, ylim)
+        plt.show()
+
+
+    def sauvegarder_graphe_limites_png(self, xlim=[0, 90], ylim=[0, 90], nom_fichier='auto'):
+
+        self._generer_graphe(xlim, ylim)
+
+        if nom_fichier == 'auto':
+            format = '_%y_%m_%d_%H_%M_%S'
+            nom_fichier = 'angles_limites' + datetime.now().strftime(format)
+
+        plt.savefig(nom_fichier + '.png', bbox_inches='tight')

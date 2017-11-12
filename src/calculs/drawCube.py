@@ -102,7 +102,7 @@ def main():
                 if event.key == pygame.K_RIGHT:
                     print("pegou algo aqui")
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
-        cable.Cube()
+        cable.draw()
         pygame.display.flip()
         pygame.time.wait(10)
 
