@@ -1,5 +1,4 @@
-from outils2 import *
-from entites import *
+from entites_systeme_minlight import *
 
 maisonette = Pave(
       centre = Vecteur3D(
