@@ -108,11 +108,6 @@ limites = trouver_angles_limites(
 
 pprint(limites)
 
-import pickle
-
-pickle_out = open("limites_faux_banc_test.pickle","wb")
-pickle.dump(limites, pickle_out)
-pickle_out.close()
 
 # ConflitDePosition(100,100,300,0.52,0.24,Pa,1000)
 

@@ -1,4 +1,6 @@
 from entites_mathemathiques import *
+import pickle
+from datetime import datetime
 
 
 class VerificateurAnglesLimites():
@@ -29,7 +31,7 @@ class VerificateurAnglesLimites():
         self.limites = {}
 
 
-    def trouver_angles_limites(self):
+    def trouver_angles_limites(self, sauvegarde_automatique=True, nom_fichier_sauvegarde='auto'):
 
         intervalle_rho, intervalle_phi, intervalle_theta = self.space_recherche.get_intervalles()
 
@@ -73,8 +75,12 @@ class VerificateurAnglesLimites():
             if self.verbose:
                 print()
 
-        return self.limites
+        if sauvegarde_automatique:
+            if nom_fichier_sauvegarde == 'auto':
+                nom_fichier_sauvegarde = 'angles_limites_sauvegarde_auto' + \
+                                         datetime.now().strftime('_%y_%m_%d_%H_%M_%S')
 
+            self.sauvegarder_limites(nom_fichier_sauvegarde)
 
     def position_ok(self):
         sommets_source = self.source.get_dictionnaire_sommets()
@@ -120,3 +126,15 @@ class VerificateurAnglesLimites():
                         return False
 
         return True
+
+
+    def sauvegarder_limites(self, nom_fichier):
+        pickle_out = open(nom_fichier + '.pickle', "wb")
+        pickle.dump(self.limites, pickle_out)
+        pickle_out.close()
+
+
+    def charger_fichier_limites(self, nom_fichier):
+        pickle_in = open(nom_fichier + '.pickle', "rb")
+        self.limites = pickle.load(pickle_in)
+        pickle_in.close()
