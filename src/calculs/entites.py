@@ -326,7 +326,7 @@ class Pave():
 
         return self.point_appartient_pave_origine(point_repere_pave, self.dimensions)
 
-    def testPave(pave1,pave2,k):
+    def testPave(self,pave2,k = 10):
 
         '''
         Tests if there are points on pave1's faces inside pave2.
@@ -334,46 +334,60 @@ class Pave():
         pave1: dictionary with dimensions(dictionary),centre(matrix 3x1), ypr_angles(dictionary)
         k: (k+1)^2 = number of points to be tested on each face, the greater the k, the plus reliable the result
         '''
-
+        longueur,largeur, hauteur = self.dimensions.get_tuple_dimensions()
         points_to_be_tested = []
         for i in range (k + 1):
             for j in range(k + 1):
-              x = i*pave1.dimensions.longueur/k
-              z = j*pave1.dimensions.hauteur/k
-              points_to_be_tested.append(point_3d(x,0,z))
-              points_to_be_tested.append(point_3d(x,pave1.dimensions.largeur,z))
+              x = i*longueur/k
+              z = j*hauteur/k
+              points_to_be_tested.append(Vecteur3D(x,0,z))
+              points_to_be_tested.append(Vecteur3D(x,largeur,z))
 
-              x = i*pave1.dimensions.longueur/k
-              y = j*pave1.dimensions.largeur/k
-              points_to_be_tested.append(point_3d(x,y,0))
-              points_to_be_tested.append(point_3d(x,y,pave1.dimensions.hauteur))
+              x = i*longueur/k
+              y = j*largeur/k
+              points_to_be_tested.append(Vecteur3D(x,y,0))
+              points_to_be_tested.append(Vecteur3D(x,y,hauteur))
 
-              y = i*pave1.dimensions.largeur/k
-              z = j*pave1.dimensions.hauteur/k
-              points_to_be_tested.append(point_3d(0,y,z))
-              points_to_be_tested.append(point_3d(pave1.dimensions.longueur,y,z))
+
+              y = i*largeur/k
+              z = j*hauteur/k
+              points_to_be_tested.append(Vecteur3D(0,y,z))
+              points_to_be_tested.append(Vecteur3D(longueur,y,z))
 
         for index in range(len(points_to_be_tested)):
-          points_to_be_tested[index] = pave1.ypr_angles.get_matrice_rotation*points_to_be_tested[index]
-          points_to_be_tested[index] = points_to_be_tested[index] + pave1.centre- point_3d(pave1.dimensions.longueur/2,pave1.dimensions.largeur/2,pave1.dimensions.hauteur/2)
-        #  i = 0
-        for point in points_to_be_tested:
-            if(self.point_appartient_pave(point,pave2.centre,pave2.ypr_angles,pave2.dimensions)):
-            #            print('Point ' + str(point) +  '  belongs to cube: ')
-            #            print('centre: ' + str(pave2['centre'].transpose()))
-            #            print('ypr_angles: ' + str(pave2['ypr_angles']))
-            #            print('dimensions: ' + str(pave2['dimensions']))
-            #            print('ponto ruim:' + str(i))
-                return False
-            #          else:
-            #              print(str(i) + ':::Point ' + str(point) +  ' doesnt belong to cube: ')
-            #      print('centre: ' + str(pave2['centre'].transpose()))
-            #          print('ypr_angles: ' + str(pave2['ypr_angles']))
-            #          print('dimensions: ' + str(pave2['dimensions']))
-            #      i += 1
+            #  print("points to be tested" + str(points_to_be_tested[index].transpose()))
+             # print("matrix: " + str(self.ypr_angles.get_matrice_rotation))
+              points_to_be_tested[index] = (self.ypr_angles.get_matrice_rotation())*points_to_be_tested[index]
+              #next line converts from 3d rotation matrix to vecteur3d
+              points_to_be_tested[index] = Vecteur3D(points_to_be_tested[index].__getitem__((0,0)),
+                                            points_to_be_tested[index].__getitem__((1,0)),
+                                            points_to_be_tested[index].__getitem__((2,0)))
+              points_to_be_tested[index] = points_to_be_tested[index] + self.centre - Vecteur3D(longueur/2,largeur/2,hauteur/2)
+              if( pave2.point_appartient_pave(  points_to_be_tested[index])):
+                  #            print('Point ' + str(point) +  '  belongs to cube: ')
+                  #            print('centre: ' + str(pave2['centre'].transpose()))
+                  #            print('ypr_angles: ' + str(pave2['ypr_angles']))
+                  #            print('dimensions: ' + str(pave2['dimensions']))
+                  #            print('ponto ruim:' + str(i))
+                      return True
+        return False
 
-        return True
 
+
+    def intersectsPave(self,pave,k = 10):
+
+        '''
+        Tests if there are inserctions between pave1 and pave2,
+        pave1: dictionary with dimensions(dictionary),centre(matrix 3x1), ypr_angles(dictionary)
+        pave2: dictionary with dimensions(dictionary),centre(matrix 3x1), ypr_angles(dictionary)
+        k: (k+1)^2 = number of points to be tested on each face, the greater the k, the more reliable the result
+        return True if there are no intersections, returns False otherwise
+        '''
+        if(self.testPave(pave,k)):
+            return True
+        if(pave.testPave(self,k)):
+            return True
+        return False
         #FIX POINT_APPARTIENT_PAVE AND POINT_3d
 
 class CoordonnesSpherique():
