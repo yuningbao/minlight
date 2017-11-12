@@ -365,3 +365,44 @@ class Pave():
                 sequence=SequenceAnglesRotationEnum.YPR,
                 unite=UniteAngleEnum.DEGRE  # !!!!!!!!!!!!!!!!!!!!!!!!
             )
+    def draw(self,drawFaces = True):
+        edges = (
+            (0,1),
+            (0,2),
+            (0,4),
+            (1,3),
+            (1,5),
+            (7,3),
+            (7,5),
+            (7,6),
+            (6,2),
+            (6,4),
+            (3,2),
+            (5,4)
+        )
+        surfaces = (
+            (0,2,6,4),
+            (1,3,7,5),
+            (5,7,6,4),
+            (1,3,2,0),
+            (7,3,2,6),
+            (1,0,4,5)
+        )
+        color = (0,0,0)
+
+        verticies = self.sommets_pave()
+
+        if(drawFaces):
+            glBegin(GL_QUADS)
+            for surface in surfaces:
+                for vertex in surface:
+                    glColor3fv(color)
+                    glVertex3fv(verticies[vertex])
+            glEnd()
+
+        glBegin(GL_LINES)
+        for edge in edges:
+            for vertex in edge:
+                glColor3fv(color)
+                glVertex3fv(verticies[vertex])
+        glEnd()
