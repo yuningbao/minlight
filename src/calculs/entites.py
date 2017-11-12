@@ -3,7 +3,7 @@ from numpy.linalg import pinv
 import numpy as np
 from pprint import pprint
 from enum import *
-
+from outils2 import solutions_formule_quadratique
 
 class Vecteur3D(matrix):
     def __new__(cls, x, y, z):
@@ -21,6 +21,8 @@ class Vecteur3D(matrix):
 
     def get_vecteur_diretion(self):
         return self.copy() / self.norme()
+    def scalar_product(self,v):
+        return self.item(0)*v.item(0) + self.item(1)*v.item(1) + self.item(2)*v.item(2)
 
 
 class UniteAngleEnum(Enum):
@@ -225,6 +227,43 @@ class Cable():
         linear_range = range(range_min, range_max)
 
         return (self.point_ancrage + (i / nombre_points) * self.vecteur for i in linear_range)
+
+    def intersects_cable(self,cable2):
+
+        origin = self.point_ancrage
+        direction = self.point_ancrage - self.sommet_source
+        direction = direction.get_vecteur_diretion()
+
+        normalePlane1 = cable2.point_ancrage - cable2.sommet_source
+        pointPlane1 = cable2.point_ancrage
+
+        normalePlane2 = cable2.sommet_source - cable2.point_ancrage
+        pointPlane2 = cable2.sommet_source
+
+        axis = normalePlane2
+        centre = pointPlane1
+
+        radius = cable2.diametre/2 + self.diametre/2 
+
+        a = direction.scalar_product(direction) - direction.scalar_product(axis)**2
+        b = 2*(direction.scalar_product(origin - centre )   - direction.scalar_product(axis)*axis.scalar_product(origin - centre))
+        c = (origin - centre).scalar_product(origin - centre )   - axis.scalar_product(origin - centre)**2 - radius**2
+
+        if(b*b - 4*a*c < 0):
+              return False
+
+        solution1,solution2 = solutions_formule_quadratique(a,b,c)
+        point1 = origin + solution1*direction
+        point2 = origin + solution2*direction
+
+        if( (normalePlane1.scalar_product(point1 - pointPlane1) <= 0 ) \
+            and (normalePlane2.scalar_product(point1 - pointPlane2) <= 0) ):
+            return True
+
+        if( (normalePlane1.scalar_product(point2 - pointPlane1) <= 0 ) \
+                and (normalePlane2.scalar_product(point2 - pointPlane2) <= 0) ):
+                return True
+        return False;
 
 
 class Pave():
