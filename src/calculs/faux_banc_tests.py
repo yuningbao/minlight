@@ -73,9 +73,9 @@ config_ancrage = ConfigurationAncrage(
 )
 
 space_recherche = SpaceRechercheAnglesLimites(
-      intervalle_rho   = IntervalleLineaire(min= 1000, max= 3501, pas=  250),
-      intervalle_phi   = IntervalleLineaire(min=    0, max=  180, pas=    3),
-      intervalle_theta = IntervalleLineaire(min=    0, max=  180, pas=    3),
+      intervalle_rho   = IntervalleLineaire(min= 1000, max= 1501, pas=  250),
+      intervalle_phi   = IntervalleLineaire(min=    0, max=  180, pas=    6),
+      intervalle_theta = IntervalleLineaire(min=    0, max=  180, pas=    6),
       unite = UniteAngleEnum.DEGRE
 )
 

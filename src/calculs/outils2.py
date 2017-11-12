@@ -141,7 +141,7 @@ def trouver_angles_limites(space_recherche, maisonette, dimensions_source, chamb
 
     unite_angles = space_recherche.unite
 
-    resultats = {}
+    limites = {}
 
     source = Pave(
         centre     = Vecteur3D(0,0,0),
@@ -154,7 +154,7 @@ def trouver_angles_limites(space_recherche, maisonette, dimensions_source, chamb
 
         couples = []
 
-        resultats[rho] = couples
+        limites[rho] = couples
 
 
         for phi in intervalle_phi:
@@ -182,6 +182,8 @@ def trouver_angles_limites(space_recherche, maisonette, dimensions_source, chamb
             if not premier_theta_ok:
                 break
         print()
+
+    return limites
 
 def solutions_formule_quadratique(a,b,c):
     return ((-b - sqrt(b*b - 4*a*c))/(2*a),(-b + sqrt(b*b - 4*a*c))/(2*a))
