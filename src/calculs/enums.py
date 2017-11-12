@@ -1,3 +1,5 @@
+from enum import Enum
+
 class UniteAngleEnum(Enum):
     INCONU = 0
     RADIAN = 1
@@ -15,4 +17,3 @@ class SequenceAnglesRotationEnum(Enum):
     INCONU = 0
     RPY = 1
     YPR = 2
-
