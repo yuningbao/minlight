@@ -134,6 +134,30 @@ class Cable():
         return False
 
 
+    def intersection_avec_pave(self, pave,
+                               nombre_points_discretisation = 100,
+                               inclure_sommet_ancrage       = False,
+                               inclure_sommet_source        = False):
+
+        generateur_points = self.get_generator_points_discretisation(nombre_points = nombre_points_discretisation,
+                                                                     inclure_sommet_ancrage = inclure_sommet_ancrage,
+                                                                     inclure_sommet_source  = inclure_sommet_source)
+
+        return any(pave.point_appartient_pave(point) for point in generateur_points)
+
+
+    def entierement_dans_pave(self, pave,
+                              nombre_points_discretisation = 100,
+                              inclure_sommet_ancrage       = False,
+                              inclure_sommet_source        = False):
+
+        generateur_points = self.get_generator_points_discretisation(nombre_points = nombre_points_discretisation,
+                                                                     inclure_sommet_ancrage = inclure_sommet_ancrage,
+                                                                     inclure_sommet_source  = inclure_sommet_source)
+
+        return all(pave.point_appartient_pave(point) for point in generateur_points)
+
+
 class Pave():
 
     noms_sommets_pave = ('S000', 'S100', 'S010', 'S110', 'S001', 'S101', 'S011', 'S111')
@@ -304,7 +328,7 @@ class Pave():
         return all(autre.point_appartient_pave(sommet) for sommet in self.sommets_pave())
 
 
-    def changer_source_a_partir_des_coordonnes_spheriques(source, coordonnees_spheriques, systeme_spherique):
+    def changer_a_partir_de_coordonnes_spheriques(source, coordonnees_spheriques, systeme_spherique):
         roh, theta, phi = coordonnees_spheriques.get_coordonnees_spheriques(unite_desiree=UniteAngleEnum.DEGRE)
 
         # p = centre de la source pour le systeme cartesien à partir du quel le spherique est defini

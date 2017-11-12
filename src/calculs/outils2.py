@@ -3,137 +3,194 @@ from numpy.linalg import pinv
 import numpy as np
 from pprint import pprint
 
-from entites import *
+from entites_mathemathiques import *
 
 import shapely.geometry as geom
 
-def verifier_cables(cables, maisonette, source, chambre, N_discretisation=300, bilan_incomplet_si_touche=False):
+class VerificateurAnglesLimites():
 
-    generators_points = {}
+    def __init__(self, dimensions_source, maisonette, chambre, config_ancrage, systeme_spherique_baie_vitree, configs_simulation):
+        self.dimensions_source = dimensions_source
+        self.maisonette        = maisonette
+        self.chambre           = chambre
 
-    bilan = {}
-    for cable in cables:
-        message = \
-            {
-                'maisonette': 'ok',
-                'source': 'ok',
-                'chambre': 'ok',
-                'croisement': '?'
-            }
+        self.config_ancrage  = config_ancrage
 
-        for point in cable.get_generator_points_discretisation(N_discretisation):
+        self.systeme_spherique_baie_vitree = systeme_spherique_baie_vitree
+
+        self.diametre_cable  = configs_simulation['diametre_cable']
+        self.space_recherche = configs_simulation['space_recherche']
+
+        self.n_discretisations_cables = configs_simulation['N_discretisations_cables']
+        self.n_dicretisation_cubes    = configs_simulation['K_dicretisation_cubes']
+
+        self.verbose                  = configs_simulation['verbose']
+
+        self.source = Pave(
+            centre     = Vecteur3D(0,0,0),
+            ypr_angles = TupleAnglesRotation(0,0,0),
+            dimensions = dimensions_source
+        )
+
+        self.limites = {}
+
+
+    def trouver_angles_limites(self):
+
+        intervalle_rho, intervalle_phi, intervalle_theta = self.space_recherche.get_intervalles()
+
+        unite_angles = self.space_recherche.unite
+
+        for rho in intervalle_rho:
+
+            if self.verbose:
+                print('rho =', rho)
+
+            couples_angles = []
+
+            self.limites[rho] = couples_angles
+
+            for phi in intervalle_phi:
+
+                premier_theta_ok = False
+
+                for theta in intervalle_theta:
+
+                    theta_max = theta
+
+                    self.source.changer_a_partir_de_coordonnes_spheriques(
+                        coordonnees_spheriques = CoordonnesSpherique(rho, theta, phi, unite=unite_angles),
+                        systeme_spherique      = self.systeme_spherique_baie_vitree
+                    )
+
+                    if self.position_ok():
+                        premier_theta_ok = True
+                    else:
+                        break
+
+                couples_angles.append((phi, theta_max))
+
+                if self.verbose:
+                    print((phi, theta_max))
+
+                if not premier_theta_ok:
+                    break
+
+            if self.verbose:
+                print()
+
+        return self.limites
+
+    def position_ok(self):
+        sommets_source = self.source.get_dictionnaire_sommets()
+
+        cables = self.config_ancrage.get_cables(sommets_source, diametre_cable=self.diametre_cable)
+
+        cables_ok = self.cables_ok(cables)
+
+        # verifier si source touche murs
+        # verifier si source touche maisonette
+
+        return cables_ok
+
+
+    def cables_ok(self, cables):
+
+        for cable in cables:
+
             # maisonette
-            if maisonette.point_appartient_pave(point):
-                message['maisonette'] = '!'
-                if bilan_incomplet_si_touche:
+            if cable.intersection_avec_pave(self.maisonette, self.n_discretisation_cables):
+                bilan[cable.nom_sommet_source]['maisonette'] = '!'
+
+                if bilan_incomplet:
                     break
 
             # source
-            if source.point_appartient_pave(point):
-                message['source'] = '!'
-                if bilan_incomplet_si_touche:
+            if cable.intersection_avec_pave(source, n_discretisation_cables):
+                bilan[cable.nom_sommet_source]['source'] = '!'
+
+                if bilan_incomplet:
                     break
 
             # chambre
-            if not chambre.point_appartient_pave(point):
-                message['chambre'] = '!'
-                if bilan_incomplet_si_touche:
+            if not cable.entierement_dans_pave(chambre):
+                bilan[cable.nom_sommet_source]['chambre'] = '!'
+
+                if bilan_incomplet:
                     break
 
-            # ajouter les croisements
+            # croisements
+            for autre_cable in cables:
+                if autre_cable == cable:
+                    pass
+                else:
+                    if cable.intersects_cable(autre_cable):
+                        bilan[cable.nom_sommet_source]['croisement'] = '!'
 
-        bilan[cable.nom_sommet_source] = message
-        any_touch = any(str == '!' for str in list(message.values()))
+                        if bilan_incomplet:
+                            break
 
-        if bilan_incomplet_si_touche and any_touch:
-            break
+        return bilan
+
+
+def verifier_cables(cables, maisonette, source, chambre, n_discretisation_cables, bilan_incomplet=False):
+
+    bilan = {}
+    message_standard = \
+        {
+            'maisonette' : 'ok',
+            'source'     : 'ok',
+            'chambre'    : 'ok',
+            'croisement' : 'ok'
+        }
+
+    for cable in cables:
+        bilan[cable.nom_sommet_source] = message_standard
+
+    for cable in cables:
+
+        # maisonette
+        if cable.intersection_avec_pave(maisonette, n_discretisation_cables):
+            bilan[cable.nom_sommet_source]['maisonette'] = '!'
+
+            if bilan_incomplet:
+                break
+
+        # source
+        if cable.intersection_avec_pave(source, n_discretisation_cables):
+            bilan[cable.nom_sommet_source]['source'] = '!'
+
+            if bilan_incomplet:
+                break
+
+        # chambre
+        if not cable.entierement_dans_pave(chambre):
+            bilan[cable.nom_sommet_source]['chambre'] = '!'
+
+            if bilan_incomplet:
+                break
+
+        # croisements
+        for autre_cable in cables:
+            if autre_cable == cable:
+                pass
+            else:
+                if cable.intersects_cable(autre_cable):
+                    bilan[cable.nom_sommet_source]['croisement'] = '!'
+
+                    if bilan_incomplet:
+                        break
 
     return bilan
 
 
-def verifier_position(maisonette, source, chambre, config_ancrage, diametre_cable, N_discretisations_cables, print_results=False):
-    sommets_source = source.get_dictionnaire_sommets()
-
-    cables = config_ancrage.get_cables(sommets_source, diametre_cable=diametre_cable)
-
-    bilan_cables = verifier_cables(cables, maisonette, source, chambre,
-                                   N_discretisations_cables, bilan_incomplet_si_touche=True)
-
-    # verifier si source touche murs
-    # verifier si source touche maisonette
-    # verifier si source touche evap
-
-    if print_results:
-        print('Bilan des résultats des cãbles')
-        pprint(bilan_cables)
-
-    any_touch = any(str == '!' for resume_cable in list(bilan_cables.values()) for str in list(resume_cable.values()))
-
-    return not any_touch
+def bilan_cables_tout_ok(bilan_cables):
+    resumes_cables = list(bilan_cables.values())
+    return all(message == 'ok' for resume in resumes_cables for message in list(resume.values()))
 
 
-def trouver_angles_limites(dimensions_source, maisonette, chambre, systeme_spherique_baie_vitree, configs_simulation):
-    diametre_cable = configs_simulation['diametre_cable']
 
-    N_discretisations_cables = configs_simulation['N_discretisations_cables']
 
-    K_dicretisation_cubes = configs_simulation['K_dicretisation_cubes']
-
-    space_recherche = configs_simulation['space_recherche']
-
-    config_ancrage = configs_simulation['config_ancrage']
-
-    verbose = configs_simulation['verbose']
-
-    intervalle_rho, intervalle_phi, intervalle_theta = space_recherche.get_intervalles()
-
-    unite_angles = space_recherche.unite
-
-    source = Pave(
-        centre     = Vecteur3D(0,0,0),
-        ypr_angles = TupleAnglesRotation(0,0,0),
-        dimensions = dimensions_source
-    )
-
-    limites = {}
-
-    for rho in intervalle_rho:
-
-        if verbose:
-            print('rho =', rho)
-
-        couples_angles = []
-
-        limites[rho] = couples_angles
-
-        for phi in intervalle_phi:
-
-            premier_theta_ok = False
-
-            for theta in intervalle_theta:
-
-                theta_max = theta
-
-                changer_source_a_partir_des_coordonnes_spheriques(
-                    source                 = source,
-                    coordonnees_spheriques = CoordonnesSpherique(rho, theta, phi, unite=unite_angles),
-                    systeme_spherique      = systeme_spherique_baie_vitree
-                )
-
-                if verifier_position(maisonette, source, chambre, config_ancrage, diametre_cable, N_discretisations_cables=N_discretisations_cables):
-                    premier_theta_ok = True
-                else:
-                    break
-
-            couples_angles.append((phi, theta_max))
-
-            print(couple)
-
-            if not premier_theta_ok:
-                break
-        print()
-
-    return limites
 
 
 def solutions_formule_quadratique(a, b, c):
