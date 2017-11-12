@@ -111,7 +111,10 @@ def main():
                     print("pegou algo aqui")
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
         cable.draw()
+<<<<<<< HEAD
         pave.draw(False)
+=======
+>>>>>>> 2f87f2b1ed13591a1cc867bb2e69f2ad714a36e1
         pygame.display.flip()
         pygame.time.wait(10)
 
