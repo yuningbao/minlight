@@ -9,6 +9,15 @@ class Vecteur3D(matrix):
         return vecteur_arrivee - vecteur_depart
 
 
+    @staticmethod
+    def ZERO():
+        ''' 
+        Zero rotation dans toutes les directions.
+        :return: TupleAnglesRotation(0,0,0)
+        '''
+        return TupleAnglesRotation(0,0,0)
+
+
     def __new__(cls, x, y, z):
         return super(Vecteur3D, cls).__new__(cls, "{}; {}; {}".format(x, y, z))
 

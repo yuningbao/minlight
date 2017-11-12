@@ -1,17 +1,28 @@
 from entites_systeme_minlight import *
 
-maisonette = Pave(
-      centre = Vecteur3D(
-                  x = 7500,
-                  y = 5000,
-                  z = 5000
-      ),
-      ypr_angles = TupleAnglesRotation(0,0,0),
-      dimensions = DimensionsPave(
+'''
+    Setup d'un faux systeme. 
+    Destiné juste à faire des debugs avec des valeurs plus simples.
+'''
+
+# Maisonette
+
+centre_maisonette = \
+    Vecteur3D(
+        x = 7500,
+        y = 5000,
+        z = 5000
+    )
+
+maisonette = \
+    Pave(
+        centre = centre_maisonette,
+        ypr_angles = TupleAnglesRotation.ZERO,
+        dimensions = DimensionsPave(
             longueur = 5000,
             largeur  = 10000,
             hauteur  = 10000
-      )
+        )
 )
 
 dimensions_source = DimensionsPave(
