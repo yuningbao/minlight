@@ -7,7 +7,14 @@ import matplotlib.pyplot as plt
 
 class VerificateurAnglesLimites():
 
-    def __init__(self, dimensions_source, maisonette, chambre, config_ancrage, systeme_spherique_baie_vitree, configs_simulation):
+    def __init__(self,
+                 dimensions_source,
+                 maisonette,
+                 chambre,
+                 config_ancrage,
+                 systeme_spherique_baie_vitree,
+                 configs_simulation):
+
         self.dimensions_source = dimensions_source
         self.maisonette        = maisonette
         self.chambre           = chambre
@@ -31,7 +38,6 @@ class VerificateurAnglesLimites():
         )
 
         self.limites = {}
-
 
     def trouver_angles_limites(self, sauvegarde_automatique=True, nom_fichier_sauvegarde='auto'):
 
@@ -80,7 +86,6 @@ class VerificateurAnglesLimites():
         if sauvegarde_automatique:
             self.sauvegarder_limites(nom_fichier_sauvegarde)
 
-
     def position_ok(self):
         sommets_source = self.source.get_dictionnaire_sommets()
 
@@ -98,7 +103,6 @@ class VerificateurAnglesLimites():
             return False
 
         return True
-
 
     def cables_ok(self, cables):
 
@@ -126,7 +130,7 @@ class VerificateurAnglesLimites():
 
         return True
 
-
+    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!! creer une verification auto pour noms des fichier pour ne pas écrire dessus
     def sauvegarder_limites(self, nom_fichier='auto'):
         if nom_fichier == 'auto':
             format = '_%y_%m_%d_%H_%M_%S'
@@ -136,12 +140,10 @@ class VerificateurAnglesLimites():
         pickle.dump(self.limites, pickle_out)
         pickle_out.close()
 
-
     def charger_fichier_limites(self, nom_fichier):
         pickle_in = open(nom_fichier + '.pickle', "rb")
         self.limites = pickle.load(pickle_in)
         pickle_in.close()
-
 
     def _generer_graphe(self, xlim=[0, 90], ylim=[0, 90] ):
         fig = plt.figure()
@@ -166,7 +168,6 @@ class VerificateurAnglesLimites():
     def afficher_graphe_limites(self, xlim=[0, 90], ylim=[0, 90]):
         self._generer_graphe(xlim, ylim)
         plt.show()
-
 
     def sauvegarder_graphe_limites_png(self, xlim=[0, 90], ylim=[0, 90], nom_fichier='auto'):
 
