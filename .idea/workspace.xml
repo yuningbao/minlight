@@ -23,21 +23,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="banc_tests.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="banc_tests.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/calculs/simulation/banc_tests.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="116">
-              <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="codecs.py" pinned="false" current-in-tab="false">
-        <entry file="file://C:/Program Files/Anaconda3/Lib/codecs.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="310" column="0" lean-forward="false" selection-start-line="310" selection-start-column="0" selection-end-line="310" selection-end-column="0" />
+            <state relative-caret-position="202">
+              <caret line="14" column="36" lean-forward="false" selection-start-line="14" selection-start-column="36" selection-end-line="14" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -46,44 +36,10 @@
       <file leaf-file-name="faux.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/calculs/simulation/setups/faux.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1513">
+            <state relative-caret-position="-1583">
               <caret line="81" column="47" lean-forward="false" selection-start-line="81" selection-start-column="47" selection-end-line="81" selection-end-column="47" />
               <folding>
                 <element signature="e#0#52#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="angles_limites.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/calculs/simulation/angles_limites.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="193">
-              <caret line="100" column="54" lean-forward="false" selection-start-line="100" selection-start-column="27" selection-end-line="100" selection-end-column="54" />
-              <folding>
-                <element signature="e#0#96#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pydevd.py" pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="111">
-              <caret line="1584" column="0" lean-forward="false" selection-start-line="1584" selection-start-column="0" selection-end-line="1584" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="entites_systeme_minlight.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/calculs/modeles/entites_systeme_minlight.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1945">
-              <caret line="341" column="35" lean-forward="false" selection-start-line="341" selection-start-column="35" selection-end-line="341" selection-end-column="35" />
-              <folding>
-                <element signature="e#0#50#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -182,9 +138,9 @@
         <option value="$PROJECT_DIR$/src/calculs/modeles/__init__.py" />
         <option value="$PROJECT_DIR$/src/calculs/modeles/entites_mathemathiques.py" />
         <option value="$PROJECT_DIR$/src/calculs/simulation/setups/faux.py" />
-        <option value="$PROJECT_DIR$/src/calculs/simulation/banc_tests.py" />
-        <option value="$PROJECT_DIR$/src/calculs/simulation/angles_limites.py" />
         <option value="$PROJECT_DIR$/src/calculs/modeles/entites_systeme_minlight.py" />
+        <option value="$PROJECT_DIR$/src/calculs/simulation/angles_limites.py" />
+        <option value="$PROJECT_DIR$/src/calculs/simulation/banc_tests.py" />
       </list>
     </option>
   </component>
@@ -330,6 +286,32 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="setups" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="minlight" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="minlight" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="calculs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="simulation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="graphes" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -797,7 +779,14 @@
       <option name="project" value="LOCAL" />
       <updated>1510569430491</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="correção de nomes de métodos no pavé">
+      <created>1510580106388</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1510580106388</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TodoView" selected-index="3">
@@ -812,15 +801,15 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1376" height="754" extended-state="6" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28647417" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28647417" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32978722" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28663447" sideWeight="0.51367784" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28663447" sideWeight="0.4863222" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28663447" sideWeight="0.4863222" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25455928" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27279636" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" x="304" y="14" width="374" height="621" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44148937" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.42512077" sideWeight="0.48860183" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42512077" sideWeight="0.48860183" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32978722" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -836,7 +825,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="définition des sommets de pavé&#10;&#10;refactoring des calculs géo" />
     <MESSAGE value="..." />
     <MESSAGE value="outils 2&#10;classes dans &quot;entites&quot;" />
     <MESSAGE value="1ra versão com classes" />
@@ -861,7 +849,8 @@
     <MESSAGE value="faux test rangé, il faut tourner" />
     <MESSAGE value="ta dando chabu pra rodar o teste" />
     <MESSAGE value="resolution de conflit" />
-    <option name="LAST_COMMIT_MESSAGE" value="resolution de conflit" />
+    <MESSAGE value="correção de nomes de métodos no pavé" />
+    <option name="LAST_COMMIT_MESSAGE" value="correção de nomes de métodos no pavé" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -878,7 +867,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/calculs/simulation/angles_limites.py</url>
-          <line>130</line>
+          <line>129</line>
           <option name="timeStamp" value="127" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -1164,11 +1153,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/simulation/graphes/faux.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/calculs/modeles/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1185,14 +1169,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/simulation/banc_tests.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Program Files/Anaconda3/Lib/codecs.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -1201,20 +1177,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/simulation/setups/faux.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1513">
-          <caret line="81" column="47" lean-forward="false" selection-start-line="81" selection-start-column="47" selection-end-line="81" selection-end-column="47" />
-          <folding>
-            <element signature="e#0#52#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/calculs/simulation/angles_limites.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="100" column="54" lean-forward="false" selection-start-line="100" selection-start-column="27" selection-end-line="100" selection-end-column="54" />
+        <state relative-caret-position="103">
+          <caret line="100" column="67" lean-forward="false" selection-start-line="100" selection-start-column="67" selection-end-line="100" selection-end-column="67" />
           <folding>
             <element signature="e#0#96#0" expanded="true" />
           </folding>
@@ -1223,11 +1189,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/calculs/modeles/entites_systeme_minlight.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1945">
-          <caret line="341" column="35" lean-forward="false" selection-start-line="341" selection-start-column="35" selection-end-line="341" selection-end-column="35" />
+        <state relative-caret-position="120">
+          <caret line="283" column="35" lean-forward="true" selection-start-line="283" selection-start-column="35" selection-end-line="283" selection-end-column="35" />
           <folding>
             <element signature="e#0#50#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculs/simulation/setups/faux.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1583">
+          <caret line="81" column="47" lean-forward="false" selection-start-line="81" selection-start-column="47" selection-end-line="81" selection-end-column="47" />
+          <folding>
+            <element signature="e#0#52#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculs/simulation/graphes/faux.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculs/simulation/banc_tests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="14" column="36" lean-forward="false" selection-start-line="14" selection-start-column="36" selection-end-line="14" selection-end-column="36" />
+          <folding />
         </state>
       </provider>
     </entry>

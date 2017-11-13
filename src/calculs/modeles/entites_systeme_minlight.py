@@ -275,7 +275,7 @@ class Pave():
         return self.point_appartient_pave_origine(point_repere_pave, self.dimensions)
 
 
-    def test_colision_en_autre_pave(self, pave2, k = 10):
+    def test_colision_en_autre_pave(self, pave2, k_discretisation_arete = 10):
 
         '''
         Tests if there are points on pave1's faces inside pave2.
@@ -283,6 +283,9 @@ class Pave():
         pave1: dictionary with dimensions(dictionary),centre(matrix 3x1), ypr_angles(dictionary)
         k: (k+1)^2 = number of points to be tested on each face, the greater the k, the plus reliable the result
         '''
+
+        k = k_discretisation_arete
+
         longueur,largeur, hauteur = self.dimensions.get_tuple_dimensions()
 
         points_to_be_tested = []
@@ -321,7 +324,7 @@ class Pave():
         return False
 
 
-    def intersection_avec_autre_pave(self, pave, k = 10):
+    def intersection_avec_autre_pave(self, pave, k_discretisation_arete = 10):
 
         '''
         Tests if there are inserctions between pave1 and pave2,
@@ -330,10 +333,10 @@ class Pave():
         k: (k+1)^2 = number of points to be tested on each face, the greater the k, the more reliable the result
         return True if there are no intersections, returns False otherwise
         '''
-        if(self.test_colision_en_autre_pave(pave, k)):
+        if(self.test_colision_en_autre_pave(pave, k_discretisation_arete)):
             return True
 
-        if(pave.test_colision_en_autre_pave(self, k)):
+        if(pave.test_colision_en_autre_pave(self, k_discretisation_arete)):
             return True
 
         return False

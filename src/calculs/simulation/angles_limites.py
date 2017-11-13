@@ -95,11 +95,10 @@ class VerificateurAnglesLimites():
             return False
 
         if self.source.intersection_avec_autre_pave(self.maisonette,
-                                              nombre_points_discretisation = self.k_dicretisation_cubes):
+                                                    k_discretisation_arete = self.k_dicretisation_cubes):
             return False
 
-        if not self.source.entierement_dans_autre_pave(self.chambre,
-                                                 nombre_points_discretisation = self.k_dicretisation_cubes):
+        if not self.source.entierement_dans_autre_pave(self.chambre):
             return False
 
         return True
