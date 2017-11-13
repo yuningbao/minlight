@@ -72,6 +72,13 @@ class ConfigurationAncrage():
             for nom_sommet in Pave.noms_sommets_pave
         ]
 
+    def get_points_fixes(self):
+        return [config_cable.get_point_ancrage()
+                for config_cable in self._configs_cables]
+
+    def get_dictionnaire_points_fixes(self):
+        return {config_cable.get_nom_sommet_source(): config_cable.get_point_ancrage()
+                for config_cable in self._configs_cables}
 
 class Cable():
 

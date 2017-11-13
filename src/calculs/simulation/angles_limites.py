@@ -120,14 +120,12 @@ class VerificateurAnglesLimites():
                 return False
 
             # croisements
-            # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11 FIXER
-            if False:
-                for autre_cable in cables:
-                    if autre_cable == cable:
-                        pass
-                    else:
-                        if cable.intersects_cable(autre_cable):
-                            return False
+            for autre_cable in cables:
+                if autre_cable == cable:
+                    pass
+                else:
+                    if cable.intersects_cable(autre_cable):
+                        return False
 
         return True
 
@@ -179,3 +177,6 @@ class VerificateurAnglesLimites():
             nom_fichier = 'angles_limites' + datetime.now().strftime(format)
 
         plt.savefig(nom_fichier + '.png', bbox_inches='tight')
+
+    def set_source_position_demo(self):
+        x_centre_source = sum(x for x in self.config_ancrage.) / 8
