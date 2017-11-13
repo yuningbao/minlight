@@ -41,7 +41,7 @@ dimensions_maisonette = \
 maisonette = \
     Pave(
         centre     = centre_maisonette,
-        ypr_angles = TupleAnglesRotation.ZERO,
+        ypr_angles = TupleAnglesRotation.ZERO(),
         dimensions = dimensions_maisonette
 )
 
@@ -79,7 +79,7 @@ dimensions_chambre = \
 chambre = \
     Pave(
         centre     = centre_chambre,
-        ypr_angles = TupleAnglesRotation.ZERO,
+        ypr_angles = TupleAnglesRotation.ZERO(),
         dimensions = dimensions_chambre
     )
 
