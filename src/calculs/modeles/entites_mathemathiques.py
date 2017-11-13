@@ -12,6 +12,15 @@ class Vecteur3D(matrix):
     def __new__(cls, x, y, z):
         return super(Vecteur3D, cls).__new__(cls, "{}; {}; {}".format(x, y, z))
 
+    def get_x(self):
+        return self.item(0)
+
+    def get_y(self):
+        return self.item(1)
+
+    def get_z(self):
+        return self.item(2)
+
     def get_coordonnees(self):
         return self.item(0), self.item(1), self.item(2)
 

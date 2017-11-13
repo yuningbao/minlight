@@ -179,4 +179,4 @@ class VerificateurAnglesLimites():
         plt.savefig(nom_fichier + '.png', bbox_inches='tight')
 
     def set_source_position_demo(self):
-        x_centre_source = sum(x for x in self.config_ancrage.) / 8
+        x_centre_source = sum(point. for point in self.config_ancrage.get_points_fixes()) / 8
