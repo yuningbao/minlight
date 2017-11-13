@@ -15,9 +15,11 @@ def main():
     display = (800,600)
     pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
     glClearColor(1.0, 1.0, 1.0, 1.0)
+    glEnable(GL_DEPTH_TEST)
+    glLineWidth(2.0)
 
     gluPerspective(45, (display[0]/display[1]), 0.1, 50.0)
-
+    i = 0
     longueur = 10
     largeur = 10
     hauteur = 10
@@ -101,6 +103,10 @@ def main():
 #        chambre.draw(origin,False)
         pygame.display.flip()
         pygame.time.wait(10)
+        clock.tick()
+        i+=1
+        if(i % 200 == 0):
+            print("fps : " + str(clock.get_fps()))
 
 
 main()

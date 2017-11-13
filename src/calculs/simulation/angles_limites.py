@@ -208,6 +208,69 @@ class VerificateurAnglesLimites():
 
         return cables_demo
 
+    def draw_demo_config_ancrage(self):
+        pygame.init()
+        display = (800,600)
+        pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
+        glClearColor(1.0, 1.0, 1.0, 1.0)
+        glEnable(GL_DEPTH_TEST)
+        glLineWidth(2.0)
+        gluPerspective(45, (display[0]/display[1]), 0.1, 50.0)
+        glTranslatef(0,0,-5)
+        source = self._get_source_demo_config_ancrage()
+        cables = self._get_cables_demo_config_ancrage()
+        origin = source.centre
+        while True:
+            for event in pygame.event.get():
+                if (event.type == pygame.QUIT):
+                    pygame.quit()
+                    quit()
+                elif event.type == pygame.KEYDOWN or event.type == KEYDOWN:
+                    if event.key == pygame.K_p:
+                        rotateX_CW = True
+                    elif event.key == pygame.K_l:
+                        rotateX_CCW = True
+                    elif event.key == pygame.K_o:
+                        rotateY_CW = True
+                    elif event.key == pygame.K_k:
+                        rotateY_CCW = True
+                    elif event.key == pygame.K_w:
+                        zoomIn = True
+                    elif event.key == pygame.K_s:
+                        zoomOut = True
+                    elif event.key == pygame.K_m:
+                        rotate_source_pitch= True
 
-
-
+                elif event.type == pygame.KEYUP or event.type == KEYUP:
+                    if event.key == pygame.K_p:
+                        rotateX_CW = False
+                    elif event.key == pygame.K_l:
+                        rotateX_CCW = False
+                    elif event.key == pygame.K_o:
+                        rotateY_CW = False
+                    elif event.key == pygame.K_k:
+                        rotateY_CCW = False
+                    elif event.key == pygame.K_w:
+                        zoomIn = False
+                    elif event.key == pygame.K_s:
+                        zoomOut = False
+            if(rotateX_CW == True):
+                glRotatef(3, 1, 0, 0)
+            if(rotateX_CCW == True):
+                glRotatef(-3, 1, 0, 0)
+            if(rotateY_CW == True):
+                glRotatef(3, 0, 1, 0)
+            if(rotateY_CCW == True):
+                glRotatef(-3, 0, 1, 0)
+            if(rotateY_CCW == True):
+                glRotatef(-3, 0, 1, 0)
+            if(zoomIn == True):
+                glScalef(1.1,1.1,1.1)
+            if(zoomOut == True):
+                glScalef(0.9,0.9,0.9)
+            glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
+            source.draw(origin,(0.95,0.95,0),True)
+            for cable in cables:
+                cable.draw(origin)
+            pygame.display.flip()
+            pygame.time.wait(10)
