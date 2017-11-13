@@ -339,10 +339,8 @@ class Pave():
         return False
         #FIX POINT_APPARTIENT_PAVE AND POINT_3d
 
-
-    def est_dans_autre_pave(self, autre):
+    def entierement_dans_autre_pave(self, autre):
         return all(autre.point_appartient_pave(sommet) for sommet in self.sommets_pave())
-
 
     def changer_a_partir_de_coordonnes_spheriques(source, coordonnees_spheriques, systeme_spherique):
         roh, theta, phi = coordonnees_spheriques.get_coordonnees_spheriques(unite_desiree=UniteAngleEnum.DEGRE)
