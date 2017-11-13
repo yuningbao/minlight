@@ -2,6 +2,7 @@ import pygame,sys
 from pygame.locals import *
 from modeles.entites_systeme_minlight import Cable,DimensionsPave,Pave
 from modeles.entites_mathemathiques import Vecteur3D,TupleAnglesRotation
+from modeles.entite_cable_robot import Cable_robot
 
 from OpenGL.GL import *
 from OpenGL.GLU import *
@@ -27,8 +28,9 @@ def main():
     cable = Cable(Vecteur3D(0,0,0),"a",Vecteur3D(1,1,1),5)
     source = Pave(origin , TupleAnglesRotation(0,0,0), DimensionsPave(1,1,1))
     chambre = Pave(origin , TupleAnglesRotation(0,0,0), DimensionsPave(longueur,largeur,hauteur))
+    maisonette = Pave(Vecteur3D(longueur/2,largeur/4,hauteur/4), TupleAnglesRotation(0,0,0), DimensionsPave(longueur/4,largeur/4,hauteur/4))
 
-
+    my_robot = Cable_robot(chambre,maisonette,source,[cable])
     rotateX_CW = False
     rotateX_CCW = False
     rotateY_CW = False
@@ -90,12 +92,13 @@ def main():
         if(zoomOut == True):
             glScalef(0.9,0.9,0.9)
         if(rotate_source_pitch == True):
-            source.rotate(2,3,1)
+            my_robot.rotate_source(2,3,1)
 
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
-        cable.draw(origin)
-        source.draw(origin,True)
-        chambre.draw(origin,False)
+        my_robot.draw(origin)
+#        cable.draw(origin)
+    #    source.draw(origin,0(),True)
+#        chambre.draw(origin,False)
         pygame.display.flip()
         pygame.time.wait(10)
 

@@ -191,6 +191,7 @@ class Pave():
 
     noms_sommets_pave = ('S000', 'S100', 'S010', 'S110', 'S001', 'S101', 'S011', 'S111')
 
+
     @staticmethod
     def point_appartient_pave_origine(point, dimensions):
         '''
@@ -382,7 +383,7 @@ class Pave():
                 unite=UniteAngleEnum.DEGRE  # !!!!!!!!!!!!!!!!!!!!!!!!
             )
 
-    def draw(self,origin,drawFaces = True):
+    def draw(self,origin,color,drawFaces = True):
         edges = (
             (0,1),
             (0,2),
@@ -413,7 +414,6 @@ class Pave():
         for v in verticies:
             verticiesInOrigin.append(v - origin)
 
-        color = (0.95,0.95,0)
 
         if(drawFaces):
             glBegin(GL_QUADS)
@@ -424,11 +424,9 @@ class Pave():
             glEnd()
 
 
-        color = (0,0,0)
-
         glBegin(GL_LINES)
         for edge in edges:
             for vertex in edge:
-                glColor3fv(color)
+                glColor3fv((0.0,0.0,0.0))
                 glVertex3fv(verticiesInOrigin[vertex])
         glEnd()
