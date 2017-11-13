@@ -1,19 +1,19 @@
-from ...modeles.enums import UniteAngleEnum
+from src.calculs.modeles.enums import UniteAngleEnum
 
-from ...modeles.entites_mathemathiques import \
+from src.calculs.modeles.entites_mathemathiques import \
     Vecteur3D,                                \
     TupleAnglesRotation,                      \
     SpaceRechercheAnglesLimites,              \
     IntervalleLineaire,                       \
     SystemeRepereSpherique
 
-from ...modeles.entites_systeme_minlight import \
+from src.calculs.modeles.entites_systeme_minlight import \
     DimensionsPave,                             \
     Pave,                                       \
     ConfigurationAncrage,                       \
     ConfigurationCable
 
-from ..simulation import VerificateurAnglesLimites
+from src.calculs.simulation.angles_limites import VerificateurAnglesLimites
 
 '''
     Setup d'un faux systeme. 
@@ -170,7 +170,7 @@ space_recherche = \
 diametre_cable = 10  # mm
 
 # discretisation des câbles
-n_discretisations_cables = 20  # point/câble
+n_discretisation_cables = 20  # point/câble
 
 # discretisation des cubes
 k_dicretisation_cubes = 3  # division/arête --> nb points/face = (k+1)^2
@@ -180,11 +180,11 @@ verbose = True
 
 # dictionnaire de configs
 configs_simulation = {
-    'space_recherche'          : space_recherche,
-    'diametre_cable'           : diametre_cable,
-    'n_discretisations_cables' : n_discretisations_cables,
-    'k_dicretisation_cubes'    : k_dicretisation_cubes,
-    'verbose'                  : verbose
+    'space_recherche'         : space_recherche,
+    'diametre_cable'          : diametre_cable,
+    'n_discretisation_cables' : n_discretisation_cables,
+    'k_dicretisation_cubes'   : k_dicretisation_cubes,
+    'verbose'                 : verbose
 }
 
 
@@ -199,13 +199,6 @@ verificateur = VerificateurAnglesLimites(
     configs_simulation            = configs_simulation
 )
 
-
-''' ************************ LA Simulation ************************ '''
-
-verificateur.trouver_angles_limites(
-    sauvegarde_automatique = True,
-    nom_fichier_sauvegarde = 'faux'
-)
-
-verificateur.sauvegarder_graphe_limites_png(nom_fichier='faux')
-verificateur.afficher_graphe_limites()
+def __main__():
+    print('faux a été importé')
+    print(verificateur)  # overwrite str function

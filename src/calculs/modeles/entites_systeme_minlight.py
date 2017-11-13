@@ -1,5 +1,6 @@
 from .outils2 import solutions_formule_quadratique
-from .entites_mathemathiques import Vecteur3D
+from .entites_mathemathiques import *
+from .enums import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
 import pygame,sys
@@ -146,8 +147,9 @@ class Cable():
         generateur_points = self.get_generator_points_discretisation(nombre_points = nombre_points_discretisation,
                                                                      inclure_sommet_ancrage = inclure_sommet_ancrage,
                                                                      inclure_sommet_source  = inclure_sommet_source)
-
-        return any(pave.point_appartient_pave(point) for point in generateur_points)
+        appartient = [pave.point_appartient_pave(point) for point in generateur_points]
+        return any(appartient)
+        #return any(pave.point_appartient_pave(point) for point in generateur_points)
 
 
     def entierement_dans_pave(self, pave,
@@ -176,7 +178,6 @@ class Pave():
 
     noms_sommets_pave = ('S000', 'S100', 'S010', 'S110', 'S001', 'S101', 'S011', 'S111')
 
-
     @staticmethod
     def point_appartient_pave_origine(point, dimensions):
         '''
@@ -194,17 +195,14 @@ class Pave():
                -demi_larg <= y <= demi_larg and \
                -demi_haut <= z <= demi_haut
 
-
     def __init__(self, centre, ypr_angles, dimensions):
         self.centre     = centre
         self.ypr_angles = ypr_angles
         self.dimensions = dimensions
 
-
     def rotate(self,delta_yaw,delta_pitch,delta_row):
-        self.ypr_angles.incrementer(yaw,pitch,row)
+        self.ypr_angles.incrementer(delta_yaw,delta_pitch,delta_row)
 
-        
     def move(self,delta_x,delta_y,delta_z):
         self.centre += Vecteur3D(delta_x,delta_y,delta_z)
 
@@ -216,7 +214,6 @@ class Pave():
 
         # il faut faire ça sinon le retour est une matrice rot
         return Vecteur3D(res.__getitem__((0,0)), res.__getitem__((1,0)), res.__getitem__((2,0)))
-
 
     def sommets_pave_origine(self):
         # dimensions
@@ -234,7 +231,6 @@ class Pave():
 
         # sommets (coins) de la source repérés par rapport à son centre
         return [S000, S100, S010, S110, S001, S101, S011, S111]
-
 
     def sommets_pave(self):
         '''
@@ -254,10 +250,8 @@ class Pave():
 
         return [self.changer_systeme_repere_pave_vers_globale(s) for s in S_origine]
 
-
     def get_dictionnaire_sommets(self):
         return {nom: sommet for nom, sommet in zip(self.noms_sommets_pave, self.sommets_pave())}
-
 
     def point_appartient_pave(self, point):
         '''
@@ -373,6 +367,7 @@ class Pave():
                 sequence=SequenceAnglesRotationEnum.YPR,
                 unite=UniteAngleEnum.DEGRE  # !!!!!!!!!!!!!!!!!!!!!!!!
             )
+
     def draw(self,origin,drawFaces = True):
         edges = (
             (0,1),

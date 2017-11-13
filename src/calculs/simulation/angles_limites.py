@@ -1,5 +1,5 @@
-from entites_mathemathiques import *
-from entites_systeme_minlight import *
+from ..modeles.entites_mathemathiques   import *
+from ..modeles.entites_systeme_minlight import *
 import pickle
 from datetime import datetime
 import matplotlib.pyplot as plt
@@ -26,7 +26,7 @@ class VerificateurAnglesLimites():
         self.diametre_cable  = configs_simulation['diametre_cable']
         self.space_recherche = configs_simulation['space_recherche']
 
-        self.n_discretisations_cables = configs_simulation['n_discretisations_cables']
+        self.n_discretisation_cables = configs_simulation['n_discretisation_cables']
         self.k_dicretisation_cubes    = configs_simulation['k_dicretisation_cubes']
 
         self.verbose                  = configs_simulation['verbose']

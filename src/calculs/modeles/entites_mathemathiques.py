@@ -4,10 +4,28 @@ import numpy as np
 
 
 class Vecteur3D(matrix):
+
     @staticmethod
     def vecteur_depuis_difference_deux_vecteurs(vecteur_depart, vecteur_arrivee):
         return vecteur_arrivee - vecteur_depart
 
+    def __new__(cls, x, y, z):
+        return super(Vecteur3D, cls).__new__(cls, "{}; {}; {}".format(x, y, z))
+
+    def get_coordonnees(self):
+        return self.item(0), self.item(1), self.item(2)
+
+    def norme(self):
+        return sqrt((self.T *self).item((0,0)))
+
+    def get_vecteur_diretion(self):
+        return self.copy() / self.norme()
+
+    def scalar_product(self,v):
+        return self.item(0)*v.item(0) + self.item(1)*v.item(1) + self.item(2)*v.item(2)
+
+
+class TupleAnglesRotation():
 
     @staticmethod
     def ZERO():
@@ -17,28 +35,6 @@ class Vecteur3D(matrix):
         '''
         return TupleAnglesRotation(0,0,0)
 
-
-    def __new__(cls, x, y, z):
-        return super(Vecteur3D, cls).__new__(cls, "{}; {}; {}".format(x, y, z))
-
-
-    def get_coordonnees(self):
-        return self.item(0), self.item(1), self.item(2)
-
-
-    def norme(self):
-        return sqrt((self.T *self).item((0,0)))
-
-
-    def get_vecteur_diretion(self):
-        return self.copy() / self.norme()
-
-
-    def scalar_product(self,v):
-        return self.item(0)*v.item(0) + self.item(1)*v.item(1) + self.item(2)*v.item(2)
-
-
-class TupleAnglesRotation():
     def __init__(self, row, pitch, yaw,
                  sequence = SequenceAnglesRotationEnum.YPR,
                  unite    = UniteAngleEnum.DEGRE):
