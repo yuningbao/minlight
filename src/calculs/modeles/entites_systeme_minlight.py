@@ -103,16 +103,23 @@ class Cable():
     def intersects_cable(self, cable2):
 
         origin = self.point_ancrage
+        print("origin:" + str(origin.transpose()))
         direction = self.point_ancrage - self.sommet_source
+        print("direction before normalization:" + str(direction.transpose()))
         direction = direction.get_vecteur_diretion()
+        print("direction after normalization:" + str(direction.transpose()))
 
         normalePlane1 = cable2.point_ancrage - cable2.sommet_source
+        print("normale plane1" + str(normalePlane1.transpose()))
         pointPlane1 = cable2.point_ancrage
+        print("point plane1" + str(pointPlane1.transpose()))
 
         normalePlane2 = cable2.sommet_source - cable2.point_ancrage
+        print("normale plane2" + str(normalePlane2.transpose()))
         pointPlane2 = cable2.sommet_source
+        print("point plane2" + str(pointPlane2.transpose()))
 
-        axis = normalePlane2
+        axis = normalePlane2.get_vecteur_diretion()
         centre = pointPlane1
 
         radius = cable2.diametre/2 + self.diametre/2
@@ -122,6 +129,7 @@ class Cable():
         c = (origin - centre).scalar_product(origin - centre )   - axis.scalar_product(origin - centre)**2 - radius**2
 
         if(b*b - 4*a*c < 0):
+              print("nao achou intersecao")
               return False
 
         solution1,solution2 = solutions_formule_quadratique(a,b,c)
@@ -131,10 +139,14 @@ class Cable():
         if(solution1 >=0 and solution1 <= self.longueur() ):
             if( (normalePlane1.scalar_product(point1 - pointPlane1) <= 0 ) \
                 and (normalePlane2.scalar_product(point1 - pointPlane2) <= 0) ):
+                print("achou o ponto 1" + str(point1.transpose()))
+                print("acho o parametro:" + str(solution1))
                 return True
         if(solution2 >=0 and solution2 <= self.longueur() ):
             if( (normalePlane1.scalar_product(point2 - pointPlane1) <= 0 ) \
                     and (normalePlane2.scalar_product(point2 - pointPlane2) <= 0) ):
+                    print("achou o ponto 2" + str(point2.transpose()))
+                    print("achou o parametro : " + str(solution2))
                     return True
 
         return False
