@@ -2,25 +2,21 @@ from .outils2 import solutions_formule_quadratique
 from .entites_mathemathiques import *
 from .enums import *
 from OpenGL.GL import *
-from OpenGL.GLU import *
-import pygame,sys
-from pygame.locals import *
 
-class DimensionsPave():
+
+class DimensionsPave:
 
     def __init__(self, longueur, largeur, hauteur):
         self._dimensions = {'longueur': longueur, 'largeur': largeur, 'hauteur': hauteur}
 
-
     def __getitem__(self, key):
         return self._dimensions[key]
-
 
     def get_tuple_dimensions(self):
         return self._dimensions['longueur'], self._dimensions['largeur'], self._dimensions['hauteur']
 
 
-class ConfigurationCable():
+class ConfigurationCable:
 
     def __init__(self, point_ancrage, nom_sommet_source):
         self._nom_sommet_source = nom_sommet_source
@@ -46,7 +42,7 @@ class ConfigurationCable():
             raise KeyError('nom_sommet_source ou point_ancrage')
 
 
-class ConfigurationAncrage():
+class ConfigurationAncrage:
 
     def __init__(self, configs_cables):
         if len(configs_cables) != 8:
@@ -54,12 +50,10 @@ class ConfigurationAncrage():
 
         self._configs_cables = configs_cables
 
-
     def get_config_cable(self, nom_sommet_source):
         return next(config_cable
                     for config_cable in self._configs_cables
                     if config_cable['nom_sommet_source'] == nom_sommet_source)
-
 
     def get_cables(self, sommets_source, diametre_cable):
         return [
@@ -80,7 +74,8 @@ class ConfigurationAncrage():
         return {config_cable.get_nom_sommet_source(): config_cable.get_point_ancrage()
                 for config_cable in self._configs_cables}
 
-class Cable():
+
+class Cable:
 
     def __init__(self, point_ancrage, nom_sommet_source, sommet_source,diametre):
         self.nom_sommet_source = nom_sommet_source
@@ -91,7 +86,6 @@ class Cable():
                                    vecteur_depart  = self.point_ancrage,
                                    vecteur_arrivee = self.sommet_source
                                  )
-
 
     def longueur(self):
         return self.vecteur.norme()
@@ -105,7 +99,6 @@ class Cable():
         linear_range = range(range_min, range_max)
 
         return (self.point_ancrage + (i / nombre_points) * self.vecteur for i in linear_range)
-
 
     def intersects_cable(self, cable2):
 
@@ -158,7 +151,6 @@ class Cable():
 
         return False
 
-
     def intersection_avec_pave(self, pave,
                                nombre_points_discretisation = 100,
                                inclure_sommet_ancrage       = False,
@@ -170,7 +162,6 @@ class Cable():
         appartient = [pave.point_appartient_pave(point) for point in generateur_points]
         return any(appartient)
         #return any(pave.point_appartient_pave(point) for point in generateur_points)
-
 
     def entierement_dans_pave(self, pave,
                               nombre_points_discretisation = 100,
@@ -194,10 +185,9 @@ class Cable():
         glEnd()
 
 
-class Pave():
+class Pave:
 
     noms_sommets_pave = ('S000', 'S100', 'S010', 'S110', 'S001', 'S101', 'S011', 'S111')
-
 
     @staticmethod
     def point_appartient_pave_origine(point, dimensions):
@@ -294,7 +284,6 @@ class Pave():
 
         return self.point_appartient_pave_origine(point_repere_pave, self.dimensions)
 
-
     def test_colision_en_autre_pave(self, pave2, k_discretisation_arete = 10):
 
         '''
@@ -342,7 +331,6 @@ class Pave():
                       return True
 
         return False
-
 
     def intersection_avec_autre_pave(self, pave, k_discretisation_arete = 10):
 
