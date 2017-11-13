@@ -11,7 +11,7 @@ class Vecteur3D(matrix):
 
     @staticmethod
     def ZERO():
-        ''' 
+        '''
         Zero rotation dans toutes les directions.
         :return: TupleAnglesRotation(0,0,0)
         '''
@@ -48,7 +48,7 @@ class TupleAnglesRotation():
         self._yaw      = yaw
         self._sequence = sequence
         self._unite    = unite
-
+        self._recalculer_matrice = True
         self._matrix_x = MatriceRotation3D(
             angle  = AngleRotationEnum.ROW,
             valeur = self._row,
@@ -76,6 +76,13 @@ class TupleAnglesRotation():
         else:
             raise Exception('SequenceAnglesRotationEnum inconu')
 
+    def incrementer(self,delta_yaw,delta_pitch,delta_row):
+        self._yaw+=delta_yaw
+        self._pitch+=delta_pitch
+        self._row+=delta_row
+        self._recalculer_matrice = True
+
+
 
     def get_angles(self):
         def rpy(): return self._row, self._pitch, self._yaw
@@ -95,6 +102,29 @@ class TupleAnglesRotation():
 
 
     def get_matrice_rotation(self):
+        if self._recalculer_matrice:
+            self._matrix_x = MatriceRotation3D(
+                angle  = AngleRotationEnum.ROW,
+                valeur = self._row,
+                unite  = self._unite
+            )
+            self._matrix_y = MatriceRotation3D(
+                angle  = AngleRotationEnum.PITCH,
+                valeur = self._pitch,
+                unite  = self._unite
+            )
+
+            self._matrix_z = MatriceRotation3D(
+                angle  = AngleRotationEnum.YAW,
+                valeur = self._yaw,
+                unite  = self._unite
+            )
+            if self._sequence == SequenceAnglesRotationEnum.RPY:
+                self._matrice_rotation = self._matrix_x.dot(self._matrix_y.dot(self._matrix_z))
+
+            elif self._sequence == SequenceAnglesRotationEnum.YPR:
+                self._matrice_rotation = self._matrix_z.dot(self._matrix_y.dot(self._matrix_x))
+            self._recalculer_matrice = False
         return self._matrice_rotation
 
 

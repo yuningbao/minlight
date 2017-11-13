@@ -160,10 +160,11 @@ class Cable():
                                                                      inclure_sommet_source  = inclure_sommet_source)
 
         return all(pave.point_appartient_pave(point) for point in generateur_points)
-    def draw(self):
+
+    def draw(self,origin):
         edge = (0,1)
         verticies = (
-            self.sommet_source.get_coordonnees(),self.point_ancrage.get_coordonnees()
+            self.sommet_source - origin,self.point_ancrage - origin
             )
         glBegin(GL_LINES)
         for vertex in edge:
@@ -199,6 +200,13 @@ class Pave():
         self.ypr_angles = ypr_angles
         self.dimensions = dimensions
 
+
+    def rotate(self,delta_yaw,delta_pitch,delta_row):
+        self.ypr_angles.incrementer(yaw,pitch,row)
+
+        
+    def move(self,delta_x,delta_y,delta_z):
+        self.centre += Vecteur3D(delta_x,delta_y,delta_z)
 
     def changer_systeme_repere_pave_vers_globale(self, point):
         # matrice de rotation
@@ -365,7 +373,7 @@ class Pave():
                 sequence=SequenceAnglesRotationEnum.YPR,
                 unite=UniteAngleEnum.DEGRE  # !!!!!!!!!!!!!!!!!!!!!!!!
             )
-    def draw(self,drawFaces = True):
+    def draw(self,origin,drawFaces = True):
         edges = (
             (0,1),
             (0,2),
@@ -388,21 +396,30 @@ class Pave():
             (7,3,2,6),
             (1,0,4,5)
         )
-        color = (0,0,0)
+
 
         verticies = self.sommets_pave()
+        verticiesInOrigin = []
+
+        for v in verticies:
+            verticiesInOrigin.append(v - origin)
+
+        color = (0.95,0.95,0)
 
         if(drawFaces):
             glBegin(GL_QUADS)
             for surface in surfaces:
                 for vertex in surface:
                     glColor3fv(color)
-                    glVertex3fv(verticies[vertex])
+                    glVertex3fv(verticiesInOrigin[vertex])
             glEnd()
+
+
+        color = (0,0,0)
 
         glBegin(GL_LINES)
         for edge in edges:
             for vertex in edge:
                 glColor3fv(color)
-                glVertex3fv(verticies[vertex])
+                glVertex3fv(verticiesInOrigin[vertex])
         glEnd()
