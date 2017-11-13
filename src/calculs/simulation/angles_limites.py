@@ -3,7 +3,10 @@ from ..modeles.entites_systeme_minlight import Pave
 import pickle
 from datetime import datetime
 import matplotlib.pyplot as plt
-
+from OpenGL.GL import *
+from OpenGL.GLU import *
+import pygame
+from pygame.locals import *
 
 class VerificateurAnglesLimites():
 
@@ -209,6 +212,14 @@ class VerificateurAnglesLimites():
         return cables_demo
 
     def draw_demo_config_ancrage(self):
+        rotateX_CW = False
+        rotateX_CCW = False
+        rotateY_CW = False
+        rotateY_CCW = False
+        zoomIn = False
+        zoomOut = False
+        rotate_source_pitch = False
+
         pygame.init()
         display = (800,600)
         pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
@@ -270,6 +281,7 @@ class VerificateurAnglesLimites():
                 glScalef(0.9,0.9,0.9)
             glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
             source.draw(origin,(0.95,0.95,0),True)
+            self.chambre.draw(origin,(0,0,0),False)
             for cable in cables:
                 cable.draw(origin)
             pygame.display.flip()
