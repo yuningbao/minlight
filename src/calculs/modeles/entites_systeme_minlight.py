@@ -22,14 +22,11 @@ class ConfigurationCable:
         self._nom_sommet_source = nom_sommet_source
         self._point_ancrage     = point_ancrage
 
-
     def get_point_ancrage(self):
         return self._point_ancrage
 
-
     def get_nom_sommet_source(self):
         return self._nom_sommet_source
-
 
     def __getitem__(self, key):
         if key == 'nom_sommet_source':

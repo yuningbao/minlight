@@ -16,28 +16,36 @@ class VerificateurAnglesLimites():
                  configs_simulation):
 
         self.dimensions_source = dimensions_source
-        self.maisonette        = maisonette
-        self.chambre           = chambre
 
-        self.config_ancrage  = config_ancrage
+        self.maisonette = maisonette
+
+        self.chambre = chambre
+
+        self.config_ancrage = config_ancrage
 
         self.systeme_spherique_baie_vitree = systeme_spherique_baie_vitree
 
-        self.diametre_cable  = configs_simulation['diametre_cable']
+        self.diametre_cable = configs_simulation['diametre_cable']
+
         self.space_recherche = configs_simulation['space_recherche']
 
         self.n_discretisation_cables = configs_simulation['n_discretisation_cables']
-        self.k_dicretisation_cubes    = configs_simulation['k_dicretisation_cubes']
 
-        self.verbose                  = configs_simulation['verbose']
+        self.k_dicretisation_cubes = configs_simulation['k_dicretisation_cubes']
+
+        self.verbose = configs_simulation['verbose']
 
         self.source = Pave(
-            centre     = Vecteur3D(0,0,0),
-            ypr_angles = TupleAnglesRotation(0,0,0),
-            dimensions = dimensions_source
+            centre=Vecteur3D(0,0,0),
+            ypr_angles=TupleAnglesRotation(0,0,0),
+            dimensions=dimensions_source
         )
 
         self.limites = {}
+
+        self._source_demo = self._get_source_demo_config_ancrage()
+
+        self._cables_demo = self._get_cables_demo_config_ancrage()
 
     def trouver_angles_limites(self, sauvegarde_automatique=True, nom_fichier_sauvegarde='auto'):
 
@@ -178,5 +186,28 @@ class VerificateurAnglesLimites():
 
         plt.savefig(nom_fichier + '.png', bbox_inches='tight')
 
-    def set_source_position_demo(self):
-        x_centre_source = sum(point. for point in self.config_ancrage.get_points_fixes()) / 8
+    def _get_source_demo_config_ancrage(self):
+        x_centre_source = sum(point.get_x() for point in self.config_ancrage.get_points_fixes()) / 8
+        y_centre_source = sum(point.get_y() for point in self.config_ancrage.get_points_fixes()) / 8
+        z_centre_source = self.chambre.dimensions['hauteur'] / 2
+
+        centre_demo = Vecteur3D(x_centre_source, y_centre_source, z_centre_source)
+
+        source_demo = Pave(
+            dimensions=self.dimensions_source,
+            centre=centre_demo,
+            ypr_angles=TupleAnglesRotation.ZERO()
+        )
+
+        return source_demo
+
+    def _get_cables_demo_config_ancrage(self):
+        sommets_source_demo = self._source_demo.get_dictionnaire_sommets()
+
+        cables_demo = self.config_ancrage.get_cables(sommets_source_demo, self.diametre_cable)
+
+        return cables_demo
+
+
+
+

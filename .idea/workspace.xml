@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e6884895-be16-46aa-8b0d-97e9cae7a772" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/calculs/modeles/entites_mathemathiques.py" afterPath="$PROJECT_DIR$/src/calculs/modeles/entites_mathemathiques.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/calculs/modeles/entites_systeme_minlight.py" afterPath="$PROJECT_DIR$/src/calculs/modeles/entites_systeme_minlight.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/calculs/simulation/angles_limites.py" afterPath="$PROJECT_DIR$/src/calculs/simulation/angles_limites.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -46,11 +46,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="angles_limites.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="angles_limites.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/calculs/simulation/angles_limites.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="465">
-              <caret line="181" column="36" lean-forward="false" selection-start-line="181" selection-start-column="36" selection-end-line="181" selection-end-column="36" />
+            <state relative-caret-position="397">
+              <caret line="47" column="66" lean-forward="false" selection-start-line="47" selection-start-column="66" selection-end-line="47" selection-end-column="66" />
               <folding>
                 <element signature="e#0#96#0" expanded="true" />
               </folding>
@@ -58,13 +58,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="entites_mathemathiques.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/calculs/modeles/entites_mathemathiques.py">
+      <file leaf-file-name="entites_systeme_minlight.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/calculs/modeles/entites_systeme_minlight.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="24" column="26" lean-forward="true" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="26" />
+            <state relative-caret-position="51">
+              <caret line="54" column="56" lean-forward="true" selection-start-line="54" selection-start-column="8" selection-end-line="54" selection-end-column="56" />
               <folding>
-                <element signature="e#0#20#0" expanded="true" />
+                <element signature="e#0#50#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -172,9 +172,9 @@
         <option value="$PROJECT_DIR$/src/calculs/simulation/setups/parametres_ancrage_points_fixes.py" />
         <option value="$PROJECT_DIR$/src/calculs/simulation/banc_tests.py" />
         <option value="$PROJECT_DIR$/src/calculs/simulation/setups/parametres_ancrage.py" />
+        <option value="$PROJECT_DIR$/src/calculs/modeles/entites_mathemathiques.py" />
         <option value="$PROJECT_DIR$/src/calculs/modeles/entites_systeme_minlight.py" />
         <option value="$PROJECT_DIR$/src/calculs/simulation/angles_limites.py" />
-        <option value="$PROJECT_DIR$/src/calculs/modeles/entites_mathemathiques.py" />
       </list>
     </option>
   </component>
@@ -804,7 +804,14 @@
       <option name="project" value="LOCAL" />
       <updated>1510601523711</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="gets x, y, z no vecteur 3d">
+      <created>1510601683798</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1510601683798</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TodoView" selected-index="3">
@@ -843,7 +850,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="verificação de point no pave dentro da classe pavé" />
     <MESSAGE value="adaptaçao para usar funçao de ponto dentro de pave (agora na classe pavé)" />
     <MESSAGE value="mudança no espaço de busca e angulos de coord esférica" />
     <MESSAGE value="adaptaçao do banco de testes para as classes" />
@@ -868,7 +874,8 @@
     <MESSAGE value="resultats du faux !!!" />
     <MESSAGE value="get points fixes dans le config dancrage" />
     <MESSAGE value="ajustes para respeitar PEP 8" />
-    <option name="LAST_COMMIT_MESSAGE" value="ajustes para respeitar PEP 8" />
+    <MESSAGE value="gets x, y, z no vecteur 3d" />
+    <option name="LAST_COMMIT_MESSAGE" value="gets x, y, z no vecteur 3d" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -880,22 +887,22 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/calculs/modeles/entites_systeme_minlight.py</url>
-          <line>261</line>
+          <line>258</line>
           <option name="timeStamp" value="118" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/calculs/simulation/angles_limites.py</url>
-          <line>127</line>
+          <line>135</line>
           <option name="timeStamp" value="127" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/calculs/modeles/entites_systeme_minlight.py</url>
-          <line>130</line>
+          <line>127</line>
           <option name="timeStamp" value="128" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/calculs/simulation/angles_limites.py</url>
-          <line>96</line>
+          <line>104</line>
           <option name="timeStamp" value="129" />
         </line-breakpoint>
       </breakpoints>
@@ -1176,16 +1183,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/modeles/entites_systeme_minlight.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#50#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/calculs/simulation/banc_tests.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -1212,22 +1209,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/simulation/angles_limites.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="181" column="36" lean-forward="false" selection-start-line="181" selection-start-column="36" selection-end-line="181" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#96#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/calculs/modeles/entites_mathemathiques.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="24" column="26" lean-forward="true" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="26" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculs/modeles/entites_systeme_minlight.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="54" column="56" lean-forward="true" selection-start-line="54" selection-start-column="8" selection-end-line="54" selection-end-column="56" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculs/simulation/angles_limites.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="397">
+          <caret line="47" column="66" lean-forward="false" selection-start-line="47" selection-start-column="66" selection-end-line="47" selection-end-column="66" />
+          <folding>
+            <element signature="e#0#96#0" expanded="true" />
           </folding>
         </state>
       </provider>
