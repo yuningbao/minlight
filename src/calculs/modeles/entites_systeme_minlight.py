@@ -128,13 +128,14 @@ class Cable():
         point1 = origin + solution1*direction
         point2 = origin + solution2*direction
 
-        if( (normalePlane1.scalar_product(point1 - pointPlane1) <= 0 ) \
-            and (normalePlane2.scalar_product(point1 - pointPlane2) <= 0) ):
-            return True
-
-        if( (normalePlane1.scalar_product(point2 - pointPlane1) <= 0 ) \
-                and (normalePlane2.scalar_product(point2 - pointPlane2) <= 0) ):
+        if(solution1 >=0 and solution1 <= self.longueur() ):
+            if( (normalePlane1.scalar_product(point1 - pointPlane1) <= 0 ) \
+                and (normalePlane2.scalar_product(point1 - pointPlane2) <= 0) ):
                 return True
+        if(solution2 >=0 and solution2 <= self.longueur() ):
+            if( (normalePlane1.scalar_product(point2 - pointPlane1) <= 0 ) \
+                    and (normalePlane2.scalar_product(point2 - pointPlane2) <= 0) ):
+                    return True
 
         return False
 
