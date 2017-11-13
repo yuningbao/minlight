@@ -1,5 +1,5 @@
-from ..modeles.entites_mathemathiques   import *
-from ..modeles.entites_systeme_minlight import *
+from ..modeles.entites_mathemathiques import Vecteur3D, TupleAnglesRotation, CoordonnesSpherique
+from ..modeles.entites_systeme_minlight import Pave
 import pickle
 from datetime import datetime
 import matplotlib.pyplot as plt
@@ -94,12 +94,11 @@ class VerificateurAnglesLimites():
         if not self.cables_ok(cables):
             return False
 
-        if self.source.intersection_avec_pave(self.maisonette,
-                                              nombre_points_discretisation = self.k_dicretisation_cubes):
+        if self.source.intersection_avec_autre_pave(self.maisonette,
+                                                    k_discretisation_arete = self.k_dicretisation_cubes):
             return False
 
-        if not self.source.entierement_dans_pave(self.chambre,
-                                                 nombre_points_discretisation = self.k_dicretisation_cubes):
+        if not self.source.entierement_dans_autre_pave(self.chambre):
             return False
 
         return True
@@ -121,12 +120,14 @@ class VerificateurAnglesLimites():
                 return False
 
             # croisements
-            for autre_cable in cables:
-                if autre_cable == cable:
-                    pass
-                else:
-                    if cable.intersects_cable(autre_cable):
-                        return False
+            # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11 FIXER
+            if False:
+                for autre_cable in cables:
+                    if autre_cable == cable:
+                        pass
+                    else:
+                        if cable.intersects_cable(autre_cable):
+                            return False
 
         return True
 
