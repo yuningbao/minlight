@@ -1,1 +1,1 @@
-__all__ = ['faux', 'parametres']
+__all__ = ['faux', 'parametres_ancrage', 'parametres_objets']
