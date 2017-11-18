@@ -270,7 +270,7 @@ class SousConfigCable:
 
         config = {}
 
-        for i, (pf, s) in enumerate(dict_sous_cru):
+        for i, (pf, s) in enumerate(dict_sous_cru.items()):
             pf_rempli = remplacer_direction(pf, sequence_pf[i])
 
             s_rempli = remplacer_direction(s, sequence_s[i])
@@ -281,7 +281,10 @@ class SousConfigCable:
 
     @staticmethod
     def merge_dicts(un, autre):
-        return dict(un.items() + autre.items())
+        complet = {}
+        complet.update(un)
+        complet.update(autre)
+        return complet
 
 
 ''' ************************ Configurations d'Ancrage Factory ************************ '''
@@ -298,19 +301,22 @@ class Aux:
 
     dict_config_complet = None
 
-    points_fixe = None
+    points_fixes = None
 
 
 def _creer_config_ancrage():
-    dict_partiel_0 = Aux.sous_config_cable_0.remplir_sous_config_cable(sequence_pf=Aux.sequence_pf_0,
-                                                                       sequence_s=Aux.sequence_s_0)
+    dict_partiel_0 = Aux.sous_config_cable_0.get_dictionnaire_de_config_rempli(sequence_pf=Aux.sequence_pf_0,
+                                                                               sequence_s=Aux.sequence_s_0)
 
-    dict_partiel_1 = Aux.sous_config_cable_1.remplir_sous_config_cable(sequence_pf=Aux.sequence_pf_1,
-                                                                       sequence_s=Aux.sequence_s_1)
+    dict_partiel_1 = Aux.sous_config_cable_1.get_dictionnaire_de_config_rempli(sequence_pf=Aux.sequence_pf_1,
+                                                                               sequence_s=Aux.sequence_s_1)
 
-    dict_config_complet = SousConfigCable.merge_dicts(dict_partiel_0, dict_partiel_1)
+    Aux.dict_config_complet = SousConfigCable.merge_dicts(dict_partiel_0, dict_partiel_1)
 
-    configs_cables = [ConfigurationCable(Aux.points_fixes[pf], dict_config_complet[pf]) for pf in dict_config_complet.keys()]
+    noms_points_fixes = list(Aux.dict_config_complet.keys())
+
+    configs_cables = [ConfigurationCable(Aux.points_fixes[pf], Aux.dict_config_complet[pf])
+                      for pf in noms_points_fixes]
 
     config_ancrage = ConfigurationAncrage(configs_cables)
 
@@ -335,7 +341,7 @@ def get_simple(points_fixes):
 
     Aux.sequence_s_1 = Sequence3emeDirectionEnum.CONSTANTE.get_sequence(1)
 
-    Aux.point_fixes = points_fixes
+    Aux.points_fixes = points_fixes
 
     return _creer_config_ancrage()
 
@@ -358,7 +364,7 @@ def get_tourne_sh_sch(points_fixes):
 
     Aux.sequence_s_1 = Sequence3emeDirectionEnum.CONSTANTE.get_sequence(1)
 
-    Aux.point_fixes = points_fixes
+    Aux.points_fixes = points_fixes
 
     return _creer_config_ancrage()
 
@@ -381,7 +387,7 @@ def get_tourne_sch_sh(points_fixes):
 
     Aux.sequence_s_1 = Sequence3emeDirectionEnum.CONSTANTE.get_sequence(1)
 
-    Aux.point_fixes = points_fixes
+    Aux.points_fixes = points_fixes
 
     return _creer_config_ancrage()
 
@@ -401,13 +407,11 @@ plans = [PlanEnum.XY, PlanEnum.XZ, PlanEnum.XY]
 
 scps = [SousConfigCable(sous_config=sc, plan=p) for sc in scs for p in plans]
 
-for scp in scps:
-    print(scp)
-    pprint(scp.get_dictionnaire_de_config(), width=1)
-    print()
-
-
-
+def __main__():
+    for scp in scps:
+        print(scp)
+        pprint(scp.get_dictionnaire_de_config(), width=1)
+        print()
 
 
 ''' ************************ Configurations Rien Croisé ************************ '''

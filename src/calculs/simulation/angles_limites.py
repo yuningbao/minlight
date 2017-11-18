@@ -2,13 +2,19 @@ from ..modeles.entites_mathemathiques import Vecteur3D, TupleAnglesRotation, Coo
 from ..modeles.entites_systeme_minlight import Pave
 import pickle
 from datetime import datetime
-import matplotlib.pyplot as plt
 from OpenGL.GL import *
 from OpenGL.GLU import *
 import pygame
 from pygame.locals import *
 
-class VerificateurAnglesLimites():
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+import matplotlib
+matplotlib.use('Agg')
+
+import matplotlib.pyplot as plt
+
+
+class VerificateurAnglesLimites:
 
     def __init__(self,
                  dimensions_source,
@@ -163,7 +169,7 @@ class VerificateurAnglesLimites():
         for rho, couples in self.limites.items():
             phi, theta = zip(*couples)
 
-            line, = ax.plot(phi, theta)
+            line, = ax.plot(theta, phi)
 
             line.set_label('Rho = ' + "{r:0.2f}".format(r=rho/1000) + ' m')
 
@@ -187,8 +193,8 @@ class VerificateurAnglesLimites():
         self._generer_graphe(xlim, ylim)
 
         if nom_fichier == 'auto':
-            format = '_%y_%m_%d_%H_%M_%S'
-            nom_fichier = 'angles_limites' + datetime.now().strftime(format)
+            format_date = '_%y_%m_%d_%H_%M_%S'
+            nom_fichier = 'angles_limites' + datetime.now().strftime(format_date)
 
         plt.savefig(nom_fichier + '.png', bbox_inches='tight')
 
