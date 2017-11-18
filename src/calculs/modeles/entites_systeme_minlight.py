@@ -2,7 +2,7 @@ from .outils2 import solutions_formule_quadratique
 from .entites_mathemathiques import *
 from .enums import *
 from OpenGL.GL import *
-
+from numpy import random
 
 class DimensionsPave:
 
@@ -178,6 +178,7 @@ class Cable:
             self.sommet_source - origin,self.point_ancrage - origin
             )
         glBegin(GL_LINES)
+        glColor3fv((0.5,0.5,0.3))
         for vertex in edge:
                 glVertex3fv(verticies[vertex])
         glEnd()
@@ -219,6 +220,12 @@ class Pave:
         self.centre += Vecteur3D(delta_x,delta_y,delta_z)
         self.update_sommets()
 
+    def set_position(self,centre):
+        self.centre = centre
+
+    def set_angles(self,ypr_angles):
+        self.ypr_angles = ypr_angles
+
     def changer_systeme_repere_pave_vers_globale(self, point):
         # matrice de rotation
         Rot = self.ypr_angles.get_matrice_rotation()
@@ -243,7 +250,7 @@ class Pave:
         S111 = Vecteur3D(+ long / 2, + larg / 2, + haut / 2)
 
         # sommets (coins) de la source repérés par rapport à son centre
-        return [S000, S100, S010, S110, S001, S101, S011, S111]
+        return [S000, S001, S010, S011, S100, S101, S110, S111]
 
     def sommets_pave_origine(self):
         return self.sommets_origine
@@ -398,7 +405,7 @@ class Pave:
         for i in range(len(newSommets)):
             self.sommets[i].set_xyz(newSommets[i].item(0),newSommets[i].item(1),newSommets[i].item(2))
 
-    def draw(self,origin,color,drawFaces = True):
+    def draw(self,origin,color = (0.45,0.45,0.45),drawFaces = True):
         edges = (
             (0,1),
             (0,2),
@@ -444,4 +451,94 @@ class Pave:
             for vertex in edge:
                 glColor3fv((0.0,0.0,0.0))
                 glVertex3fv(verticiesInOrigin[vertex])
+        glEnd()
+
+
+class Chambre(Pave):
+    def __init__(self, centre, ypr_angles, dimensions):
+        super().__init__(centre,ypr_angles,dimensions)
+
+    def draw(self,origin,color = (0.2,0.2,0.2),drawFaces = True):
+        edges = (
+            (0,1),
+            (0,2),
+            (0,4),
+            (1,3),
+            (1,5),
+            (7,3),
+            (7,5),
+            (7,6),
+            (6,2),
+            (6,4),
+            (3,2),
+            (5,4)
+        )
+        surfaces = (
+            (0,2,6,4),
+            (1,3,7,5),
+            (5,7,6,4),
+            (1,3,2,0),
+            (7,3,2,6),
+            (1, 0,6,5)
+        )
+
+        glBegin(GL_QUADS)
+        for vertex in surfaces[0]:
+            glColor3fv(color)
+            glVertex3fv(self.sommets[vertex] - origin)
+        glEnd()
+
+
+        glBegin(GL_LINES)
+        for edge in edges:
+            for vertex in edge:
+                glColor3fv((0.0,0.0,0.0))
+                glVertex3fv(self.sommets[vertex] - origin)
+        glEnd()
+
+class Source(Pave):
+    def __init__(self, centre, ypr_angles, dimensions):
+        super().__init__(centre,ypr_angles,dimensions)
+
+    def draw(self,origin,drawFaces = True):
+        edges = (
+            (0,1),
+            (0,2),
+            (0,4),
+            (1,3),
+            (1,5),
+            (7,3),
+            (7,5),
+            (7,6),
+            (6,2),
+            (6,4),
+            (3,2),
+            (5,4)
+        )
+        surfaces = (
+            (0,2,6,4),
+            (1,3,7,5),
+            (5,7,6,4),
+            (1,3,2,0),
+            (7,3,2,6)
+        )
+        light = (1,0,4,5)
+
+        glBegin(GL_QUADS)
+        for surface in surfaces:
+            for vertex in surface:
+                glColor3fv((0.6,0.6,0.6))
+                glVertex3fv(self.sommets[vertex] - origin)
+        glEnd()
+        glBegin(GL_QUADS)
+        for vertex in light:
+            glColor3fv((0.95,0.95,0))
+            glVertex3fv(self.sommets[vertex] - origin)
+        glEnd()
+
+        glBegin(GL_LINES)
+        for edge in edges:
+            for vertex in edge:
+                glColor3fv((0.0,0.0,0.0))
+                glVertex3fv(self.sommets[vertex] - origin)
         glEnd()
