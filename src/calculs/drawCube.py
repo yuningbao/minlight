@@ -2,7 +2,7 @@ import pygame,sys
 from pygame.locals import *
 from modeles.entites_systeme_minlight import Cable,DimensionsPave,Pave
 from modeles.entites_mathemathiques import Vecteur3D,TupleAnglesRotation
-from modeles.entite_cable_robot import Cable_robot
+from modeles.entite_cable_robot import *
 
 from OpenGL.GL import *
 from OpenGL.GLU import *
@@ -25,12 +25,13 @@ def main():
     glTranslatef(0,0,-5)
     origin = Vecteur3D(longueur/2,largeur/2,hauteur/2)
 
-    cable = Cable(Vecteur3D(0,0,0),"a",Vecteur3D(1,1,1),5)
+    #cable = Cable(Vecteur3D(0,0,0),"a",Vecteur3D(1,1,1),5)
     source = Pave(origin , TupleAnglesRotation(0,0,0), DimensionsPave(1,1,1))
     chambre = Pave(origin , TupleAnglesRotation(0,0,0), DimensionsPave(longueur,largeur,hauteur))
     maisonette = Pave(Vecteur3D(longueur/2,largeur/4,hauteur/4), TupleAnglesRotation(0,0,0), DimensionsPave(longueur/4,largeur/4,hauteur/4))
 
-    my_robot = Cable_robot(chambre,maisonette,source,[cable])
+    my_robot = Cable_robot(chambre,maisonette,source,5)
+    my_robot.create_cables(Config_Cables.simple,Config_Cables.simple,Config_Cables.simple)
     rotateX_CW = False
     rotateX_CCW = False
     rotateY_CW = False

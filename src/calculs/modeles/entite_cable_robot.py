@@ -15,11 +15,12 @@ class Config_Cables(Enum):
 
 
 class Cable_robot():
-    def __init__(self,chambre,maisonette,source,cables):
+    def __init__(self,chambre,maisonette,source,diametre_cables):
         self._chambre = copy.deepcopy(chambre)
         self._maisonette = copy.deepcopy(maisonette)
         self._source = copy.deepcopy(source)
-        self._cables = copy.deepcopy(cables)
+        self._cables = []#copy.deepcopy(cables)
+        self._diametre_cables = diametre_cables
 
     def draw(self,origin):
         for cable in self._cables:
@@ -37,11 +38,17 @@ class Cable_robot():
         self._source.translate(delta_x,delta_y,delta_z)
     def create_cables(self,configuration_source_up,configuration_source_down,configuration_walls):
 
-        cable_000,cable_001,cable_010,cable_011,cable_100,cable_101,cable_110,cable_111
         ancrage_walls = self._chambre.get_dictionnaire_sommets()
         ancrage_source = self._source.get_dictionnaire_sommets()
         if(configuration_source_up == Config_Cables.simple):
-            a = 2
+            self._cables.append(Cable(ancrage_walls['S000'],'S000',ancrage_source['S000'],self._diametre_cables))
+            self._cables.append(Cable(ancrage_walls['S001'],'S001',ancrage_source['S001'],self._diametre_cables))
+            self._cables.append(Cable(ancrage_walls['S010'],'S010',ancrage_source['S010'],self._diametre_cables))
+            self._cables.append(Cable(ancrage_walls['S011'],'S011',ancrage_source['S011'],self._diametre_cables))
+            self._cables.append(Cable(ancrage_walls['S100'],'S100',ancrage_source['S100'],self._diametre_cables))
+            self._cables.append(Cable(ancrage_walls['S101'],'S101',ancrage_source['S101'],self._diametre_cables))
+            self._cables.append(Cable(ancrage_walls['S110'],'S110',ancrage_source['S110'],self._diametre_cables))
+            self._cables.append(Cable(ancrage_walls['S111'],'S111',ancrage_source['S111'],self._diametre_cables))
         if(configuration_source_down == Config_Cables.simple):
             a = 2
         if(configuration_walls == Config_Cables.simple):

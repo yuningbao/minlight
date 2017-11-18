@@ -392,11 +392,11 @@ class Pave:
     def update_sommets(self):
         newSommets =[]
         Rot = self.ypr_angles.get_matrice_rotation()
-        for sommet in sommets_origin:
+        for sommet in self.sommets_origine:
             newPoint = (Rot * sommet) + self.centre
             newSommets.append(newPoint)
         for i in range(len(newSommets)):
-            sommets_pave[i].set_xyz(sommets_origin.item(0),sommets_origin.item(1),sommets_origin.item(2))
+            self.sommets[i].set_xyz(newSommets[i].item(0),newSommets[i].item(1),newSommets[i].item(2))
 
     def draw(self,origin,color,drawFaces = True):
         edges = (
