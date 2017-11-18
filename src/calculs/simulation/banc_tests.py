@@ -13,6 +13,8 @@ import matplotlib
 matplotlib.use('Agg')
 
 
+# TODO : ajouter ce machin très cool https://pypi.python.org/pypi/tqdm
+
 ''' ************************ Configs Simulation ************************ '''
 
 # space de recherche
