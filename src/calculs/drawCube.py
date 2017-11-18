@@ -8,8 +8,6 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 
 
-
-
 def main():
     pygame.init()
     display = (800,600)
@@ -103,10 +101,10 @@ def main():
 #        chambre.draw(origin,False)
         pygame.display.flip()
         pygame.time.wait(10)
-        clock.tick()
-        i+=1
-        if(i % 200 == 0):
-            print("fps : " + str(clock.get_fps()))
+    #    clock.tick()
+    #    i+=1
+    #    if(i % 200 == 0):
+    #        print("fps : " + str(clock.get_fps()))
 
 
 main()

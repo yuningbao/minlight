@@ -1,4 +1,4 @@
-from src.calculs.modeles.enums import UniteAngleEnum
+from ...enums import UniteAngleEnum
 
 from src.calculs.modeles.entites_mathemathiques import \
     Vecteur3D,                                \
@@ -16,7 +16,7 @@ from src.calculs.modeles.entites_systeme_minlight import \
 from src.calculs.simulation.angles_limites import VerificateurAnglesLimites
 
 '''
-    Setup d'un faux systeme. 
+    Setup d'un faux systeme.
     Destiné juste à faire des debugs avec des valeurs plus simples.
 '''
 

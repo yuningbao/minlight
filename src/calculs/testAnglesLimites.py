@@ -1,4 +1,4 @@
-from src.calculs.simulation.setups import faux
+from simulation.setups import faux
 
 
 my_verificateur = faux.verificateur

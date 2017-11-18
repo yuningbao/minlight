@@ -12,6 +12,12 @@ class Vecteur3D(matrix):
     def __new__(cls, x, y, z):
         return super(Vecteur3D, cls).__new__(cls, "{}; {}; {}".format(x, y, z))
 
+    def set_xyz(self,x,y,z):
+
+        self[0] = x
+        self[1] = y
+        self[2] = z
+
     def get_x(self):
         return self.item(0)
 

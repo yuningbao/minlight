@@ -1,5 +1,18 @@
 from .entites_systeme_minlight import Cable,Pave
 import copy
+from enum import Enum
+
+
+
+
+class Config_Cables(Enum):
+    clock_wise = 1
+    simple = 2
+    counter_clock_wise = 3
+    corners = 4
+    half_height = 5
+
+
 
 class Cable_robot():
     def __init__(self,chambre,maisonette,source,cables):
@@ -22,3 +35,14 @@ class Cable_robot():
 
     def translate_source(self,delta_x,delta_y,delta_z):
         self._source.translate(delta_x,delta_y,delta_z)
+    def create_cables(self,configuration_source_up,configuration_source_down,configuration_walls):
+
+        cable_000,cable_001,cable_010,cable_011,cable_100,cable_101,cable_110,cable_111
+        ancrage_walls = self._chambre.get_dictionnaire_sommets()
+        ancrage_source = self._source.get_dictionnaire_sommets()
+        if(configuration_source_up == Config_Cables.simple):
+            a = 2
+        if(configuration_source_down == Config_Cables.simple):
+            a = 2
+        if(configuration_walls == Config_Cables.simple):
+            a =2

@@ -208,12 +208,16 @@ class Pave:
         self.centre     = centre
         self.ypr_angles = ypr_angles
         self.dimensions = dimensions
+        self.sommets_origine = self.set_sommets_pave_origine()
+        self.sommets = self.set_sommets_pave()
 
     def rotate(self,delta_yaw,delta_pitch,delta_row):
         self.ypr_angles.incrementer(delta_yaw,delta_pitch,delta_row)
+        self.update_sommets()
 
     def move(self,delta_x,delta_y,delta_z):
         self.centre += Vecteur3D(delta_x,delta_y,delta_z)
+        self.update_sommets()
 
     def changer_systeme_repere_pave_vers_globale(self, point):
         # matrice de rotation
@@ -224,7 +228,7 @@ class Pave:
         # il faut faire ça sinon le retour est une matrice rot
         return Vecteur3D(res.__getitem__((0,0)), res.__getitem__((1,0)), res.__getitem__((2,0)))
 
-    def sommets_pave_origine(self):
+    def set_sommets_pave_origine(self):
         # dimensions
         long, larg, haut = self.dimensions.get_tuple_dimensions()
 
@@ -241,7 +245,10 @@ class Pave:
         # sommets (coins) de la source repérés par rapport à son centre
         return [S000, S100, S010, S110, S001, S101, S011, S111]
 
-    def sommets_pave(self):
+    def sommets_pave_origine(self):
+        return self.sommets_origine
+
+    def set_sommets_pave(self):
         '''
         convention utilisé pour les rotations : z-y’-x″ (intrinsic rotations) = Yaw, pitch, and roll rotations
         http://planning.cs.uiuc.edu/node102.html
@@ -255,12 +262,18 @@ class Pave:
         '''
 
         # Sommets
+
+    #    return sommets_pave
+
         S_origine = self.sommets_pave_origine()
 
         return [self.changer_systeme_repere_pave_vers_globale(s) for s in S_origine]
 
+    def sommets_pave(self):
+        return self.sommets
+
     def get_dictionnaire_sommets(self):
-        return {nom: sommet for nom, sommet in zip(self.noms_sommets_pave, self.sommets_pave())}
+        return {nom: sommet for nom, sommet in zip(self.noms_sommets_pave, self.sommets)}
 
     def point_appartient_pave(self, point):
         '''
@@ -375,6 +388,15 @@ class Pave:
                 sequence=SequenceAnglesRotationEnum.YPR,
                 unite=UniteAngleEnum.DEGRE  # !!!!!!!!!!!!!!!!!!!!!!!!
             )
+
+    def update_sommets(self):
+        newSommets =[]
+        Rot = self.ypr_angles.get_matrice_rotation()
+        for sommet in sommets_origin:
+            newPoint = (Rot * sommet) + self.centre
+            newSommets.append(newPoint)
+        for i in range(len(newSommets)):
+            sommets_pave[i].set_xyz(sommets_origin.item(0),sommets_origin.item(1),sommets_origin.item(2))
 
     def draw(self,origin,color,drawFaces = True):
         edges = (
