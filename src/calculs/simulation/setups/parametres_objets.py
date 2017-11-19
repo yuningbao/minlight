@@ -83,7 +83,7 @@ maisonette = \
 # dimensions
 dimensions_source = \
     DimensionsPave(
-        longueur=1000,  # mm
+        longueur=800,  # mm
         largeur=1600,   # mm
         hauteur=1600    # mm
     )
