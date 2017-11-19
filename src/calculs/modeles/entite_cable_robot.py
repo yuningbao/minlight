@@ -1,16 +1,64 @@
 from .entites_systeme_minlight import Cable,Pave
+from .entites_mathemathiques import Vecteur3D
 import copy
 from enum import Enum
 
+class Ideal:
 
+    # coordonnées d'ancrage
+    x = 3500  # mm
+    y = 5000    # mm
+    z = 4000    # mm
 
+    # la numérotation <<PF_xxx>> suit la logique des sommets des pavés
+    # le <<xxx>> indique à quel "coin" de la chambre le point est fixé
+
+    @staticmethod
+    def get_haut_bas():
+        return {
+            'PF_000': Vecteur3D(      0,       0,       0),  # PF_000
+            'PF_100': Vecteur3D(Ideal.x,       0,       0),  # PF_100
+            'PF_010': Vecteur3D(      0, Ideal.y,       0),  # PF_010
+            'PF_110': Vecteur3D(Ideal.x, Ideal.y,       0),  # PF_110
+            'PF_001': Vecteur3D(      0,       0, Ideal.z),  # PF_001
+            'PF_101': Vecteur3D(Ideal.x,       0, Ideal.z),  # PF_101
+            'PF_011': Vecteur3D(      0, Ideal.y, Ideal.z),  # PF_011
+            'PF_111': Vecteur3D(Ideal.x, Ideal.y, Ideal.z)   # PF_111
+        }
+
+    @staticmethod
+    def get_haut_mid():
+        return {
+            'PF_000': Vecteur3D(      0,       0, Ideal.z/2),  # PF_000
+            'PF_100': Vecteur3D(Ideal.x,       0, Ideal.z/2),  # PF_100
+            'PF_010': Vecteur3D(      0, Ideal.y, Ideal.z/2),  # PF_010
+            'PF_110': Vecteur3D(Ideal.x, Ideal.y, Ideal.z/2),  # PF_110
+            'PF_001': Vecteur3D(      0,       0, Ideal.z),    # PF_001
+            'PF_101': Vecteur3D(Ideal.x,       0, Ideal.z),    # PF_101
+            'PF_011': Vecteur3D(      0, Ideal.y, Ideal.z),    # PF_011
+            'PF_111': Vecteur3D(Ideal.x, Ideal.y, Ideal.z)     # PF_111
+        }
+
+    @staticmethod
+    def get_haut_haut():
+        return {
+            'PF_000': Vecteur3D(      0,       0, Ideal.z),  # PF_000
+            'PF_100': Vecteur3D(Ideal.x,       0, Ideal.z),  # PF_100
+            'PF_010': Vecteur3D(      0, Ideal.y, Ideal.z),  # PF_010
+            'PF_110': Vecteur3D(Ideal.x, Ideal.y, Ideal.z),  # PF_110
+            'PF_001': Vecteur3D(      0,       0, Ideal.z),  # PF_001
+            'PF_101': Vecteur3D(Ideal.x,       0, Ideal.z),  # PF_101
+            'PF_011': Vecteur3D(      0, Ideal.y, Ideal.z),  # PF_011
+            'PF_111': Vecteur3D(Ideal.x, Ideal.y, Ideal.z)   # PF_111
+        }
 
 class Config_Cables(Enum):
     clock_wise = 1
     simple = 2
     counter_clock_wise = 3
-    corners = 4
-    half_height = 5
+    haut_bas = 4
+    haut_mid = 5
+    haut_haut = 6
 
 
 
@@ -45,11 +93,44 @@ class Cable_robot():
 
     def create_cables(self,configuration_source_down,configuration_source_up,configuration_walls):
 
-        ancrage_walls = self._chambre.get_dictionnaire_sommets()
+        ancrage_walls_haut_haut = Ideal.get_haut_haut()
+        ancrage_walls_haut_mid = Ideal.get_haut_mid()
+        ancrage_walls_haut_bas = Ideal.get_haut_bas()
+        ancrage_walls = {}
         ancrage_source = self._source.get_dictionnaire_sommets()
 
 
         #setting points de ancrage walls
+
+        if(configuration_walls == Config_Cables.haut_haut):
+            ancrage_walls['S000'] = ancrage_walls_haut_haut['PF_000']
+            ancrage_walls['S001'] = ancrage_walls_haut_haut['PF_001']
+            ancrage_walls['S010'] = ancrage_walls_haut_haut['PF_010']
+            ancrage_walls['S011'] = ancrage_walls_haut_haut['PF_011']
+            ancrage_walls['S100'] = ancrage_walls_haut_haut['PF_100']
+            ancrage_walls['S101'] = ancrage_walls_haut_haut['PF_101']
+            ancrage_walls['S110'] = ancrage_walls_haut_haut['PF_110']
+            ancrage_walls['S111'] = ancrage_walls_haut_haut['PF_111']
+
+        elif(configuration_walls == Config_Cables.haut_bas):
+            ancrage_walls['S000'] = ancrage_walls_haut_bas['PF_000']
+            ancrage_walls['S001'] = ancrage_walls_haut_bas['PF_001']
+            ancrage_walls['S010'] = ancrage_walls_haut_bas['PF_010']
+            ancrage_walls['S011'] = ancrage_walls_haut_bas['PF_011']
+            ancrage_walls['S100'] = ancrage_walls_haut_bas['PF_100']
+            ancrage_walls['S101'] = ancrage_walls_haut_bas['PF_101']
+            ancrage_walls['S110'] = ancrage_walls_haut_bas['PF_110']
+            ancrage_walls['S111'] = ancrage_walls_haut_bas['PF_111']
+
+        elif(configuration_walls == Config_Cables.haut_mid):
+            ancrage_walls['S000'] = ancrage_walls_haut_mid['PF_000']
+            ancrage_walls['S001'] = ancrage_walls_haut_mid['PF_001']
+            ancrage_walls['S010'] = ancrage_walls_haut_mid['PF_010']
+            ancrage_walls['S011'] = ancrage_walls_haut_mid['PF_011']
+            ancrage_walls['S100'] = ancrage_walls_haut_mid['PF_100']
+            ancrage_walls['S101'] = ancrage_walls_haut_mid['PF_101']
+            ancrage_walls['S110'] = ancrage_walls_haut_mid['PF_110']
+            ancrage_walls['S111'] = ancrage_walls_haut_mid['PF_111']
 
         #setting cables down
 

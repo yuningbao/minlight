@@ -218,7 +218,7 @@ class Pave:
         self.ypr_angles.incrementer(delta_yaw,delta_pitch,delta_row)
         self.update_sommets()
 
-    def move(self,delta_x,delta_y,delta_z):
+    def translate(self,delta_x,delta_y,delta_z):
         self.centre += Vecteur3D(delta_x,delta_y,delta_z)
         self.update_sommets()
 
@@ -512,13 +512,13 @@ class Source(Pave):
             (5,4)
         )
         surfaces = (
+            (1,3,2,0),
+            (1,0,4,5),
             (0,2,6,4),
             (1,3,7,5),
-            (5,7,6,4),
-            (1,3,2,0),
             (7,3,2,6)
         )
-        light = (1,0,4,5)
+        light =(5,7,6,4)
 
         glBegin(GL_QUADS)
         for surface in surfaces:
