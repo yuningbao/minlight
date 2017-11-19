@@ -14,24 +14,30 @@ def main():
     pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
     glClearColor(1.0, 1.0, 1.0, 1.0)
     glEnable(GL_DEPTH_TEST)
-    glLineWidth(2.0)
 
+    glEnable (GL_LINE_SMOOTH)
+    glEnable (GL_BLEND)
+    glBlendFunc (GL_SRC_ALPHA_SATURATE, GL_ONE)
+    glHint (GL_LINE_SMOOTH_HINT, GL_NICEST)
+    glLineWidth (1.5)
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
     gluPerspective(45, (display[0]/display[1]), 0.1, 50.0)
+
     i = 0
     longueur = 10
     largeur = 10
     hauteur = 10
 
     glTranslatef(0,0,-5)
-    glRotatef(0, 1, 0, 0)
+    glRotatef(-90, 1, 0, 0)
     origin = Vecteur3D(longueur/2,largeur/2,hauteur/2)
 
-    #cable = Cable(Vecteur3D(0,0,0),"a",Vecteur3D(1,1,1),5)
     source = Source(origin , TupleAnglesRotation(0,0,0), DimensionsPave(1,1,1))
     chambre = Chambre(origin , TupleAnglesRotation(0,0,0), DimensionsPave(longueur,largeur,hauteur))
     maisonette = Pave(Vecteur3D(longueur/2,largeur/8,hauteur/8), TupleAnglesRotation(0,0,0), DimensionsPave(longueur/4,largeur/4,hauteur/4))
     my_robot = Cable_robot(chambre,maisonette,source,5)
     my_robot.create_cables(Config_Cables.clock_wise,Config_Cables.clock_wise,Config_Cables.simple)
+
     rotateX_CW = False
     rotateX_CCW = False
     rotateY_CW = False
@@ -65,7 +71,7 @@ def main():
                     glLoadIdentity()
                     gluPerspective(45, (display[0]/display[1]), 0.1, 50.0)
                     glTranslatef(0,0,-5)
-            #        glRotatef(-90, 1, 0, 0)
+                    glRotatef(-90, 1, 0, 0)
 
             elif event.type == pygame.KEYUP or event.type == KEYUP:
                 if event.key == pygame.K_p:

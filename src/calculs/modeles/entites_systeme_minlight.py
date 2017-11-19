@@ -178,6 +178,8 @@ class Cable:
             self.sommet_source - origin,self.point_ancrage - origin
             )
         glBegin(GL_LINES)
+    #    glEnable( GL_LINE_SMOOTH )
+    #    glEnable(GL_MULTISAMPLE)
         glColor3fv((0.5,0.5,0.3))
         for vertex in edge:
                 glVertex3fv(verticies[vertex])
@@ -186,7 +188,7 @@ class Cable:
 
 class Pave:
 
-    noms_sommets_pave = ('S000', 'S100', 'S010', 'S110', 'S001', 'S101', 'S011', 'S111')
+    noms_sommets_pave = ('S000', 'S001', 'S010', 'S011', 'S100', 'S101', 'S110', 'S111')
 
     @staticmethod
     def point_appartient_pave_origine(point, dimensions):
@@ -473,17 +475,11 @@ class Chambre(Pave):
             (3,2),
             (5,4)
         )
-        surfaces = (
-            (0,2,6,4),
-            (1,3,7,5),
-            (5,7,6,4),
-            (1,3,2,0),
-            (7,3,2,6),
-            (1, 0,6,5)
-        )
+        ground = (0,2,6,4)
+
 
         glBegin(GL_QUADS)
-        for vertex in surfaces[0]:
+        for vertex in ground:
             glColor3fv(color)
             glVertex3fv(self.sommets[vertex] - origin)
         glEnd()
