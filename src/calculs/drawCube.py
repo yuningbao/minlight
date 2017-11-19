@@ -4,175 +4,44 @@ from pygame.locals import *
 from modeles.entites_systeme_minlight import Cable,DimensionsPave,Pave,Chambre,Source
 from modeles.entites_mathemathiques import Vecteur3D,TupleAnglesRotation
 from modeles.entite_cable_robot import *
-#from simulation.setups.parametres_objets import source
+from simulation.setups.parametres_objets import source,maisonette,chambre,centre_chambre
 
 from OpenGL.GL import *
 from OpenGL.GLU import *
 
 
-from modeles.enums import UniteAngleEnum
-
-from modeles.entites_mathemathiques import \
-    Vecteur3D,                                \
-    TupleAnglesRotation,                      \
-    SpaceRechercheAnglesLimites,              \
-    IntervalleLineaire,                       \
-    SystemeRepereSpherique
-
-from modeles.entites_systeme_minlight import \
-    DimensionsPave,                             \
-    Pave,                                       \
-    ConfigurationAncrage,                       \
-    ConfigurationCable
-
-
-'''
-Parametres
-'''
-
-''' ************************ Chambre ************************ '''
-
-# dimensions
-dimensions_chambre = \
-    DimensionsPave(
-        # on considere le sisteme a partir de l'avaporateur
-        longueur=8500,  # mm
-        largeur=5000,   # mm
-        hauteur=4000    # mm
-    )
-
-# centre
-centre_chambre = \
-    Vecteur3D(
-        x=dimensions_chambre['longueur'] / 2,  # mm
-        y=dimensions_chambre['largeur' ] / 2,  # mm
-        z=dimensions_chambre['hauteur' ] / 2   # mm
-    )
-
-# pavé
-chambre = \
-    Chambre(
-        centre=centre_chambre,
-        ypr_angles=TupleAnglesRotation.ZERO(),
-        dimensions=dimensions_chambre
-    )
-
-
-''' ************************ Maisonette ************************ '''
-
-distance_evaporateur_maisonette = 3500  # mm
-
-# dimensions
-dimensions_maisonette = \
-    DimensionsPave(
-        longueur=5000,  # mm
-        largeur=2500,   # mm
-        hauteur=2900    # mm
-    )
-
-# centre
-centre_maisonette = \
-    Vecteur3D(
-        x=distance_evaporateur_maisonette + dimensions_maisonette['longueur'] / 2,
-        y=dimensions_chambre['largeur'] / 2,
-        z=dimensions_maisonette['hauteur'] / 2
-    )
-
-# pave
-maisonette = \
-    Pave(
-        centre=centre_maisonette,
-        ypr_angles=TupleAnglesRotation.ZERO(),
-        dimensions=dimensions_maisonette
-    )
-
-
-''' ************************ Source ************************ '''
-
-# dimensions
-dimensions_source = \
-    DimensionsPave(
-        longueur=1000,  # mm
-        largeur=1600,   # mm
-        hauteur=1600    # mm
-    )
-
-centre_source = \
-    Vecteur3D(
-        x=dimensions_chambre['longueur'] / 2,  # mm
-        y=dimensions_chambre['largeur' ] / 2,  # mm
-        z=dimensions_chambre['hauteur' ] / 2   # mm
-    )
-
-source = \
-    Source(
-        centre = centre_source,
-        ypr_angles = TupleAnglesRotation.ZERO(),
-        dimensions = dimensions_source
-    )
-
-
-''' ************************ Systeme Spherique Baie Vitrée ************************ '''
-
-# centre - supposé dans le centre de la face d'intérêt de la maisonette
-centre_systeme_spherique = \
-    Vecteur3D(
-        x=distance_evaporateur_maisonette,
-        y=dimensions_chambre['largeur'] / 2,
-        z=dimensions_maisonette['hauteur'] / 2
-    )
-
-# rotation
-rotation_systeme_spherique = \
-    TupleAnglesRotation(
-        yaw=180,  # degrés
-        pitch=0,  # degrés
-        row=0,    # degrés
-        unite=UniteAngleEnum.DEGRE,
-    )
-
-# systeme sphérique
-systeme_spherique_baie_vitree = SystemeRepereSpherique(
-    centre=centre_systeme_spherique,
-    ypr_angles=rotation_systeme_spherique
-)
-
-
-
-
-
 
 
 def main():
+
+    #sets display
     pygame.init()
     display = (800,600)
     pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
     glClearColor(1.0, 1.0, 1.0, 1.0)
     glEnable(GL_DEPTH_TEST)
     glDepthFunc(GL_LEQUAL)
-    glLineWidth(2.0)
 
+    #setting line smooth parameters
     glEnable (GL_LINE_SMOOTH)
     glEnable (GL_BLEND)
     glBlendFunc (GL_SRC_ALPHA_SATURATE, GL_ONE)
     glHint (GL_LINE_SMOOTH_HINT, GL_NICEST)
     glLineWidth (1.5)
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+
+    #setting viewers parameters
     gluPerspective(45, (display[0]/display[1]), 0.1, 50.0)
-
-    i = 0
-    longueur = 10
-    largeur = 10
-    hauteur = 10
-
     glTranslatef(0,0,-5)
     glRotatef(-90, 1, 0, 0)
     glScalef(0.001,0.001,0.001)
     origin = centre_chambre
 
+    #creates robot object
     my_robot = Cable_robot(chambre,maisonette,source,5)
     my_robot.create_cables(Config_Cables.clock_wise,Config_Cables.clock_wise,Config_Cables.haut_haut)
 
+    #sets keyboard control variables
     rotateX_CW = False
     rotateX_CCW = False
     rotateY_CW = False
@@ -188,8 +57,9 @@ def main():
     rotate_source_row_neg = False
     rotate_source_row_pos = False
 
-
+    #rendering loop
     while True:
+        #event handling, keyboard handling
         for event in pygame.event.get():
             if (event.type == pygame.QUIT):
                 pygame.quit()
@@ -266,39 +136,38 @@ def main():
 
         if(rotateX_CW == True):
             glRotatef(2, 1, 0, 0)
-        if(rotateX_CCW == True):
+        elif(rotateX_CCW == True):
             glRotatef(-2, 1, 0, 0)
-        if(rotateY_CW == True):
+        elif(rotateY_CW == True):
             glRotatef(2, 0, 0, 1)
-        if(rotateY_CCW == True):
+        elif(rotateY_CCW == True):
             glRotatef(-2, 0, 0, 1)
-        if(zoomIn == True):
+        elif(zoomIn == True):
             glScalef(1.1,1.1,1.1)
-        if(zoomOut == True):
+        elif(zoomOut == True):
             glScalef(0.9,0.9,0.9)
 
-        if(translate_source_X_neg == True):
+        elif(translate_source_X_neg == True):
             my_robot.translate_source(-5,0,0)
-        if(translate_source_X_pos == True):
+        elif(translate_source_X_pos == True):
             my_robot.translate_source(5,0,0)
 
-        if(rotate_source_yaw_pos == True):
+        elif(rotate_source_yaw_pos == True):
             my_robot.rotate_source(1,0,0)
-        if(rotate_source_yaw_neg == True):
+        elif(rotate_source_yaw_neg == True):
             my_robot.rotate_source(-1,0,0)
-        if(rotate_source_pitch_pos == True):
+        elif(rotate_source_pitch_pos == True):
             my_robot.rotate_source(0,1,0)
-        if(rotate_source_pitch_neg == True):
+        elif(rotate_source_pitch_neg == True):
             my_robot.rotate_source(0,-1,0)
-        if(rotate_source_row_pos == True):
+        elif(rotate_source_row_pos == True):
             my_robot.rotate_source(0,0,1)
-        if(rotate_source_row_neg == True):
+        elif(rotate_source_row_neg == True):
             my_robot.rotate_source(0,0,-1)
 
-
+        #clears buffer, draws new one, switches, takes a pause
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
         my_robot.draw(origin)
-        #chambre2.draw(origin)
         pygame.display.flip()
         pygame.time.wait(10)
 

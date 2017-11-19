@@ -1,4 +1,4 @@
-from ...enums import UniteAngleEnum
+from ..modeles.enums import UniteAngleEnum
 
 from src.calculs.modeles.entites_mathemathiques import \
     Vecteur3D,                                \

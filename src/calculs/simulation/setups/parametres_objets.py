@@ -1,3 +1,4 @@
+
 from src.calculs.modeles.enums import UniteAngleEnum
 
 from src.calculs.modeles.entites_mathemathiques import \
@@ -11,11 +12,13 @@ from src.calculs.modeles.entites_systeme_minlight import \
     DimensionsPave,                             \
     Pave,                                       \
     ConfigurationAncrage,                       \
-    ConfigurationCable
+    ConfigurationCable,                         \
+    Source,                                     \
+    Chambre
 
 
 '''
-Paramètres 
+Paramètres
 '''
 
 ''' ************************ Chambre ************************ '''
@@ -39,7 +42,7 @@ centre_chambre = \
 
 # pavé
 chambre = \
-    Pave(
+    Chambre(
         centre=centre_chambre,
         ypr_angles=TupleAnglesRotation.ZERO(),
         dimensions=dimensions_chambre
@@ -85,6 +88,19 @@ dimensions_source = \
         hauteur=1600    # mm
     )
 
+centre_source = \
+    Vecteur3D(
+        x=dimensions_chambre['longueur'] / 2,  # mm
+        y=dimensions_chambre['largeur' ] / 2,  # mm
+        z=dimensions_chambre['hauteur' ] / 2   # mm
+    )
+
+source = \
+    Source(
+        centre = centre_source,
+        ypr_angles = TupleAnglesRotation.ZERO(),
+        dimensions = dimensions_source
+    )
 
 ''' ************************ Systeme Spherique Baie Vitrée ************************ '''
 
@@ -125,4 +141,3 @@ def __main__():
     print(centre_systeme_spherique)
     print(rotation_systeme_spherique)
     print(systeme_spherique_baie_vitree)
-
