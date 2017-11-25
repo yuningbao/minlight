@@ -90,7 +90,7 @@ dimensions_source = \
 
 centre_source = \
     Vecteur3D(
-        x=dimensions_chambre['longueur'] / 2,  # mm
+        x=dimensions_chambre['longueur'] / 5,  # mm
         y=dimensions_chambre['largeur' ] / 2,  # mm
         z=dimensions_chambre['hauteur' ] / 2   # mm
     )

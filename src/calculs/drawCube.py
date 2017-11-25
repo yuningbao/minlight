@@ -11,6 +11,30 @@ from OpenGL.GLU import *
 
 
 
+def setShaders():
+    v = glCreateShader(GL_VERTEX_SHADER)
+    f = glCreateShader(GL_FRAGMENT_SHADER)
+
+    with open ("shaders/simpleshader.frag", "r") as myfile:
+        ftext=myfile.readlines()
+    with open ("shaders/simpleshader.vert", "r") as myfile:
+        vtext=myfile.readlines()
+
+    glShaderSource(v, vtext)
+    glShaderSource(f, ftext)
+
+    glCompileShader(v)
+    glCompileShader(f)
+
+    p = glCreateProgram()
+    glAttachShader(p,v)
+    glAttachShader(p,f)
+
+    glLinkProgram(p)
+    glUseProgram(p)
+
+    return p
+
 
 def main():
 
@@ -37,9 +61,11 @@ def main():
     glScalef(0.001,0.001,0.001)
     origin = centre_chambre
 
+    setShaders();
+    
     #creates robot object
     my_robot = Cable_robot(chambre,maisonette,source,5)
-    my_robot.create_cables(Config_Cables.clock_wise,Config_Cables.clock_wise,Config_Cables.haut_haut)
+    my_robot.create_cables(Config_Cables.simple,Config_Cables.simple,Config_Cables.haut_haut)
 
     #sets keyboard control variables
     rotateX_CW = False
