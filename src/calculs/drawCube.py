@@ -10,8 +10,19 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 
 
+def set_uniforms(p):
+    light_position_uniform = glGetUniformLocation(p,"light_position")
+    light_direction_uniform = glGetUniformLocation(p,"light_direction")
+    light_radius_uniform = glGetUniformLocation(p,"light_radius")
 
-def setShaders():
+    return (light_position_uniform,light_direction_uniform,light_radius_uniform)
+
+def update_uniforms(light_position_uniform,light_direction_uniform,light_radius_uniform,light_position,light_direction,light_radius):
+    glUniform4fv(light_position_uniform,1,light_position + (1,))
+    glUniform4fv(light_direction_uniform,1,light_direction + (0,))
+    glUniform1fv(light_radius_uniform,1,light_radius)
+
+def set_shaders():
     v = glCreateShader(GL_VERTEX_SHADER)
     f = glCreateShader(GL_FRAGMENT_SHADER)
 
@@ -56,13 +67,14 @@ def main():
 
     #setting viewers parameters
     gluPerspective(45, (display[0]/display[1]), 0.1, 50.0)
-    glTranslatef(0,0,-5)
+    glTranslatef(0,0,-15)
     glRotatef(-90, 1, 0, 0)
     glScalef(0.001,0.001,0.001)
     origin = centre_chambre
 
-    setShaders();
-    
+    p = set_shaders()
+    (light_position_uniform,light_direction_uniform,light_radius_uniform) = set_uniforms(p)
+
     #creates robot object
     my_robot = Cable_robot(chambre,maisonette,source,5)
     my_robot.create_cables(Config_Cables.simple,Config_Cables.simple,Config_Cables.haut_haut)
@@ -191,7 +203,14 @@ def main():
         elif(rotate_source_row_neg == True):
             my_robot.rotate_source(0,0,-1)
 
-        #clears buffer, draws new one, switches, takes a pause
+        light_position = my_robot.get_light_centre()
+        light_radius = my_robot.get_light_radius()
+        light_direction = my_robot.get_light_direction()
+
+        update_uniforms(light_position_uniform,light_direction_uniform,light_radius_uniform,light_position - origin,light_direction,light_radius)
+
+
+        #clears buffer,updates uniforms, draws new one, switches, takes a pause
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
         my_robot.draw(origin)
         pygame.display.flip()

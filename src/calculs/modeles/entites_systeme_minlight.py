@@ -224,10 +224,10 @@ class Pave:
 
     def set_position(self,centre):
         self.centre = centre
-
+        self.update_sommets()
     def set_angles(self,ypr_angles):
         self.ypr_angles = ypr_angles
-
+        self.update_sommets()
     def changer_systeme_repere_pave_vers_globale(self, point):
         # matrice de rotation
         Rot = self.ypr_angles.get_matrice_rotation()
@@ -495,6 +495,17 @@ class Chambre(Pave):
 class Source(Pave):
     def __init__(self, centre, ypr_angles, dimensions):
         super().__init__(centre,ypr_angles,dimensions)
+
+    def get_light_radius(self):
+        longueur,largeur,hauteur = self.dimensions.get_tuple_dimensions()
+        return hauteur/2
+
+    def get_light_centre(self):
+
+        return (self.sommets[5] + self.sommets[7] + self.sommets[6] + self.sommets[4])/4 #5,7,6,4 are the verticies of the light face
+
+    def get_light_direction(self):
+        return (self.get_light_centre() - self.centre).get_vecteur_diretion()
 
     def draw(self,origin,drawFaces = True):
         edges = (

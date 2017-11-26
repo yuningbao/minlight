@@ -1,10 +1,10 @@
-// simple demo vertex shader
-// attribute variables
-// www.lighthouse3d.com
-
-//uniform vec4 light_source_position;
 varying vec4 out_Color;
 varying vec4 position;
+//MUST USE GLNORMAL AND GL_NORMAL TO LIGHTING
+//for light source + direction, must use uniform
+//for the back face thing, maybe add triangles inside to make it easier?
+//to avoid light behind the source, use parameters just like ray tracing
+
 
 void main()
 {

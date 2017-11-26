@@ -1,56 +1,9 @@
 from .entites_systeme_minlight import Cable,Pave
 from .entites_mathemathiques import Vecteur3D
+from src.calculs.simulation.setups.parametres_ancrage import Ideal
 import copy
 from enum import Enum
 
-class Ideal:
-
-    # coordonnées d'ancrage
-    x = 3500  # mm
-    y = 5000    # mm
-    z = 4000    # mm
-
-    # la numérotation <<PF_xxx>> suit la logique des sommets des pavés
-    # le <<xxx>> indique à quel "coin" de la chambre le point est fixé
-
-    @staticmethod
-    def get_haut_bas():
-        return {
-            'PF_000': Vecteur3D(      0,       0,       0),  # PF_000
-            'PF_100': Vecteur3D(Ideal.x,       0,       0),  # PF_100
-            'PF_010': Vecteur3D(      0, Ideal.y,       0),  # PF_010
-            'PF_110': Vecteur3D(Ideal.x, Ideal.y,       0),  # PF_110
-            'PF_001': Vecteur3D(      0,       0, Ideal.z),  # PF_001
-            'PF_101': Vecteur3D(Ideal.x,       0, Ideal.z),  # PF_101
-            'PF_011': Vecteur3D(      0, Ideal.y, Ideal.z),  # PF_011
-            'PF_111': Vecteur3D(Ideal.x, Ideal.y, Ideal.z)   # PF_111
-        }
-
-    @staticmethod
-    def get_haut_mid():
-        return {
-            'PF_000': Vecteur3D(      0,       0, Ideal.z/2),  # PF_000
-            'PF_100': Vecteur3D(Ideal.x,       0, Ideal.z/2),  # PF_100
-            'PF_010': Vecteur3D(      0, Ideal.y, Ideal.z/2),  # PF_010
-            'PF_110': Vecteur3D(Ideal.x, Ideal.y, Ideal.z/2),  # PF_110
-            'PF_001': Vecteur3D(      0,       0, Ideal.z),    # PF_001
-            'PF_101': Vecteur3D(Ideal.x,       0, Ideal.z),    # PF_101
-            'PF_011': Vecteur3D(      0, Ideal.y, Ideal.z),    # PF_011
-            'PF_111': Vecteur3D(Ideal.x, Ideal.y, Ideal.z)     # PF_111
-        }
-
-    @staticmethod
-    def get_haut_haut():
-        return {
-            'PF_000': Vecteur3D(      0,       0, Ideal.z),  # PF_000
-            'PF_100': Vecteur3D(Ideal.x,       0, Ideal.z),  # PF_100
-            'PF_010': Vecteur3D(      0, Ideal.y, Ideal.z),  # PF_010
-            'PF_110': Vecteur3D(Ideal.x, Ideal.y, Ideal.z),  # PF_110
-            'PF_001': Vecteur3D(      0,       0, Ideal.z),  # PF_001
-            'PF_101': Vecteur3D(Ideal.x,       0, Ideal.z),  # PF_101
-            'PF_011': Vecteur3D(      0, Ideal.y, Ideal.z),  # PF_011
-            'PF_111': Vecteur3D(Ideal.x, Ideal.y, Ideal.z)   # PF_111
-        }
 
 class Config_Cables(Enum):
     clock_wise = 1
@@ -90,6 +43,15 @@ class Cable_robot():
 
     def set_source_angles(self,angles):
         self._source.set_angles(angles)
+
+    def get_light_centre(self):
+        return self._source.get_light_centre()
+
+    def get_light_direction(self):
+        return self._source.get_light_direction()
+
+    def get_light_radius(self):
+        return self._source.get_light_radius()
 
     def create_cables(self,configuration_source_down,configuration_source_up,configuration_walls):
 
