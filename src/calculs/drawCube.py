@@ -51,8 +51,8 @@ def main():
 
     #sets display
     pygame.init()
-    display = (800,600)
-    pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
+    display = (1200,800)
+    pygame.display.set_mode(display, DOUBLEBUF|OPENGL|RESIZABLE)
     glClearColor(1.0, 1.0, 1.0, 1.0)
     glEnable(GL_DEPTH_TEST)
     glDepthFunc(GL_LEQUAL)

@@ -61,3 +61,9 @@ def bilan_cables_tout_ok(bilan_cables):
 def solutions_formule_quadratique(a, b, c):
     return ((-b - sqrt(b*b - 4*a*c))/(2*a),(-b + sqrt(b*b - 4*a*c))/(2*a))
 
+def get_plane_normal(surface,verticies,reference_point):
+    centre_plane = verticies[surface[0]] + verticies[surface[1]] + verticies[surface[2]] + verticies[surface[3]]
+    centre_plane/=4
+    normal = centre_plane - reference_point
+
+    return normal.get_vecteur_diretion()

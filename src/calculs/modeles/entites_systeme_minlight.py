@@ -1,4 +1,4 @@
-from .outils2 import solutions_formule_quadratique
+from .outils2 import solutions_formule_quadratique, get_plane_normal
 from .entites_mathemathiques import *
 from .enums import *
 from OpenGL.GL import *
@@ -442,8 +442,11 @@ class Pave:
         if(drawFaces):
             glBegin(GL_QUADS)
             for surface in surfaces:
+                normal = get_plane_normal(surface,self.sommets,self.centre)
+                normal_tuple = normal.get_coordonnees()
                 for vertex in surface:
                     glColor3fv(color)
+                    glNormal3fv(normal_tuple)
                     glVertex3fv(verticiesInOrigin[vertex])
             glEnd()
 
@@ -477,10 +480,13 @@ class Chambre(Pave):
         )
         ground = (0,2,6,4)
 
+        normal = get_plane_normal(ground,self.sommets,self.centre)
+        normal_tuple = normal.get_coordonnees()
 
         glBegin(GL_QUADS)
         for vertex in ground:
             glColor3fv(color)
+            glNormal3fv(normal_tuple)
             glVertex3fv(self.sommets[vertex] - origin)
         glEnd()
 
@@ -533,13 +539,18 @@ class Source(Pave):
 
         glBegin(GL_QUADS)
         for surface in surfaces:
+            normal = get_plane_normal(surface,self.sommets,self.centre)
+            normal_tuple = normal.get_coordonnees()
             for vertex in surface:
                 glColor3fv((0.6,0.6,0.6))
+                glNormal3fv(normal_tuple)
                 glVertex3fv(self.sommets[vertex] - origin)
         glEnd()
+
         glBegin(GL_QUADS)
         for vertex in light:
             glColor3fv((0.95,0.95,0))
+            glNormal3fv(normal_tuple)
             glVertex3fv(self.sommets[vertex] - origin)
         glEnd()
 

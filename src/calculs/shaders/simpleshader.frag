@@ -4,6 +4,7 @@ uniform float light_radius;
 
 varying vec4 out_Color;
 varying vec4 position;
+varying vec4 out_Normal;
 
 void main()
 {
@@ -17,4 +18,6 @@ void main()
 	{
 		gl_FragColor = out_Color;
 	}
+
+	//gl_FragColor = out_Normal;
 }
