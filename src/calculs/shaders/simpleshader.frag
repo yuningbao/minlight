@@ -10,7 +10,7 @@ void main()
 {
 	vec4 pq = light_position - position;
 
-	if(length(cross(pq.xyz,light_direction.xyz)) / length(light_direction.xyz) < light_radius)
+	if( dot(light_direction,out_Normal) < 0.0  && length(cross(pq.xyz,light_direction.xyz)) / length(light_direction.xyz) < light_radius)
 	{
 		gl_FragColor = out_Color*1.2;
 	}

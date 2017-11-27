@@ -537,20 +537,21 @@ class Source(Pave):
         )
         light =(5,7,6,4)
 
-        glBegin(GL_QUADS)
-        for surface in surfaces:
-            normal = get_plane_normal(surface,self.sommets,self.centre)
-            normal_tuple = normal.get_coordonnees()
-            for vertex in surface:
-                glColor3fv((0.6,0.6,0.6))
-                glNormal3fv(normal_tuple)
-                glVertex3fv(self.sommets[vertex] - origin)
-        glEnd()
-
+    #    glBegin(GL_QUADS)
+    #    for surface in surfaces:
+    #        normal = get_plane_normal(surface,self.sommets,self.centre)
+    #        normal_tuple = normal.get_coordonnees()
+    #        for vertex in surface:
+    #            glColor3fv((0.6,0.6,0.6))
+    #            glNormal3fv(normal_tuple)
+    #            glVertex3fv(self.sommets[vertex] - origin)
+    #    glEnd()
+        normal = get_plane_normal(light,self.sommets,self.centre)
+        normal_tuple = normal.get_coordonnees()
         glBegin(GL_QUADS)
         for vertex in light:
-            glColor3fv((0.95,0.95,0))
             glNormal3fv(normal_tuple)
+            glColor3fv((0.95,0.95,0))
             glVertex3fv(self.sommets[vertex] - origin)
         glEnd()
 
