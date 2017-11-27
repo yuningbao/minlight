@@ -88,6 +88,8 @@ def main():
     zoomOut = False
     translate_source_X_pos = False
     translate_source_X_neg = False
+    translate_source_Z_pos = False
+    translate_source_Z_neg = False
     rotate_source_yaw_neg = False
     rotate_source_yaw_pos = False
     rotate_source_pitch_neg = False
@@ -121,6 +123,10 @@ def main():
                     translate_source_X_pos= True
                 elif event.key == pygame.K_s:
                     translate_source_X_neg= True
+                elif event.key == pygame.K_a:
+                    translate_source_Z_pos = True
+                elif event.key == pygame.K_d:
+                    translate_source_Z_neg = True
                 elif event.key == pygame.K_i:
                     rotate_source_yaw_pos = True
                 elif event.key == pygame.K_j:
@@ -157,6 +163,10 @@ def main():
                     translate_source_X_pos= False
                 elif event.key == pygame.K_s:
                     translate_source_X_neg= False
+                elif event.key == pygame.K_a:
+                    translate_source_Z_pos= False
+                elif event.key == pygame.K_d:
+                    translate_source_Z_neg= False
                 elif event.key == pygame.K_m:
                     rotate_source_pitch = False
                 elif event.key == pygame.K_i:
@@ -189,6 +199,10 @@ def main():
             my_robot.translate_source(-5,0,0)
         elif(translate_source_X_pos == True):
             my_robot.translate_source(5,0,0)
+        elif(translate_source_Z_neg == True):
+            my_robot.translate_source(0,0,-5)
+        elif(translate_source_Z_pos == True):
+            my_robot.translate_source(0,0,5)
 
         elif(rotate_source_yaw_pos == True):
             my_robot.rotate_source(1,0,0)

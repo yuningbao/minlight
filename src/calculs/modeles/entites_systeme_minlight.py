@@ -2,7 +2,7 @@ from .outils2 import solutions_formule_quadratique, get_plane_normal
 from .entites_mathemathiques import *
 from .enums import *
 from OpenGL.GL import *
-from numpy import random
+from numpy import random, arcsin
 
 class DimensionsPave:
 
@@ -480,7 +480,7 @@ class Chambre(Pave):
         )
         ground = (0,2,6,4)
 
-        normal = get_plane_normal(ground,self.sommets,self.centre)
+        normal = get_plane_normal(ground,self.sommets,-self.centre)
         normal_tuple = normal.get_coordonnees()
 
         glBegin(GL_QUADS)
@@ -512,6 +512,21 @@ class Source(Pave):
 
     def get_light_direction(self):
         return (self.get_light_centre() - self.centre).get_vecteur_diretion()
+
+    def create_parable(): # creates visualization of the parable, must finish!!!!!!!
+        longueur,largeur,hauteur = self.dimensions.get_tuple_dimensions()
+        b = hauteur/2
+        x = longueur
+
+        r = ((x*x) + (b*b))/(2*x)
+
+        angle_max = arcsin(b/r)
+
+    #    for i in range(-angle_max,angle_max + 1):
+    #        if(i%10 == 0):
+
+
+
 
     def draw(self,origin,drawFaces = True):
         edges = (
