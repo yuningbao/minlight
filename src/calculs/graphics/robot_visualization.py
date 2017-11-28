@@ -157,11 +157,7 @@ class Robot_Visualization:
                 elif event.key == pygame.K_g:
                     self.rotate_source_row_neg = True
                 elif event.key == pygame.K_r:
-                    glLoadIdentity()
-                    gluPerspective(45, (display[0]/display[1]), 0.1, 50.0)
-                    glTranslatef(0,0,-5)
-                    glRotatef(-90, 1, 0, 0)
-                    glScalef(0.001,0.001,0.001)
+                    self.reset_viewer_matrix()
                 elif event.key == pygame.K_q:
                     pygame.quit()
                     quit()
