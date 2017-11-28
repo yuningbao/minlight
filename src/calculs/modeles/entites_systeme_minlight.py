@@ -226,9 +226,11 @@ class Pave:
     def set_position(self,centre):
         self.centre = centre
         self.update_sommets()
+
     def set_angles(self,ypr_angles):
         self.ypr_angles = ypr_angles
         self.update_sommets()
+
     def changer_systeme_repere_pave_vers_globale(self, point):
         # matrice de rotation
         Rot = self.ypr_angles.get_matrice_rotation()
@@ -257,6 +259,9 @@ class Pave:
 
     def sommets_pave_origine(self):
         return self.sommets_origine
+
+    def get_centre(self):
+        return self.centre
 
     def set_sommets_pave(self):
         '''

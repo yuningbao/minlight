@@ -53,6 +53,9 @@ class Cable_robot():
     def get_light_radius(self):
         return self._source.get_light_radius()
 
+    def get_centre(self):
+        return self._chambre.get_centre()
+
     def create_cables(self,configuration_source_down,configuration_source_up,configuration_walls):
 
         ancrage_walls_haut_haut = Ideal.get_haut_haut()
