@@ -180,8 +180,9 @@ class Cable:
         glBegin(GL_LINES)
     #    glEnable( GL_LINE_SMOOTH )
     #    glEnable(GL_MULTISAMPLE)
-        glColor3fv((0.5,0.5,0.3))
         for vertex in edge:
+                glColor3fv((0.5,0.5,0.3))
+                glNormal3fv((0.0,0.0,0.0))
                 glVertex3fv(verticies[vertex])
         glEnd()
 
@@ -455,6 +456,7 @@ class Pave:
         for edge in edges:
             for vertex in edge:
                 glColor3fv((0.0,0.0,0.0))
+                glNormal3fv((0.0,0.0,0.0))
                 glVertex3fv(verticiesInOrigin[vertex])
         glEnd()
 
@@ -495,6 +497,7 @@ class Chambre(Pave):
         for edge in edges:
             for vertex in edge:
                 glColor3fv((0.0,0.0,0.0))
+                glNormal3fv((0.0,0.0,0.0))
                 glVertex3fv(self.sommets[vertex] - origin)
         glEnd()
 
@@ -574,5 +577,6 @@ class Source(Pave):
         for edge in edges:
             for vertex in edge:
                 glColor3fv((0.0,0.0,0.0))
+                glNormal3fv((0.0,0.0,0.0))
                 glVertex3fv(self.sommets[vertex] - origin)
         glEnd()

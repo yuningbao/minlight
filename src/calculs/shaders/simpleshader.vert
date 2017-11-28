@@ -15,7 +15,7 @@ void main()
   p.w = 1.0;
 
 	out_Normal.xyz = gl_Normal.xyz;
-	out_Normal.w = 1.0;//must change this to 0.0
+	out_Normal.w = 0.0;
 
   position = p;
 
