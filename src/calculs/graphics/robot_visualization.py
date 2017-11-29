@@ -1,9 +1,10 @@
 import pygame,sys
 from pygame.locals import *
 from modeles.entite_cable_robot import *
-
+from src.calculs.graphics.trackball import Trackball
 from OpenGL.GL import *
 from OpenGL.GLU import *
+import operator
 
 class Robot_Visualization:
 
@@ -15,7 +16,8 @@ class Robot_Visualization:
         self.height = 800
         self.width = 1200
         self.reset_mvt_variables()
-
+        self.trackball = Trackball(self.width,self.height)
+        self.mouse_position = (0,0)
     def light_on(self):
 
         self.use_shaders = True
@@ -112,8 +114,9 @@ class Robot_Visualization:
         glLoadIdentity()
         gluPerspective(45, (self.width/self.height), 0.1, 50.0)
         glTranslatef(0,0,-15)
-        glRotatef(-90, 1, 0, 0)
+    #    glRotatef(-90, 1, 0, 0)
         glScalef(0.001,0.001,0.001)
+
 
     def manage_events(self):
 
@@ -121,6 +124,18 @@ class Robot_Visualization:
             if (event.type == pygame.QUIT):
                 pygame.quit()
                 quit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                x,y = event.pos
+                self.trackball.startRotation(x,y)
+                print("clicou")
+            elif event.type == pygame.MOUSEBUTTONUP:
+                self.trackball.stopRotation()
+                print("soltou")
+            elif event.type == pygame.MOUSEMOTION:
+                a,b,c = event.buttons
+                x,y = event.pos
+                if(a or b or c):
+                    self.trackball.updateRotation(x,y)
             elif event.type == pygame.KEYDOWN or event.type == KEYDOWN:
                 if event.key == pygame.K_p:
                     self.rotateX_CW = True
@@ -161,6 +176,7 @@ class Robot_Visualization:
                 elif event.key == pygame.K_q:
                     pygame.quit()
                     quit()
+
 
             elif event.type == pygame.KEYUP or event.type == KEYUP:
                 if event.key == pygame.K_p:
