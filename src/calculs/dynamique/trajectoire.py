@@ -1,4 +1,4 @@
-from math import cos, acos, sin, asin, atan2, pi
+from math import cos, sin, asin, atan2, pi
 
 
 # coord spheriques prenant y comme nord
@@ -26,7 +26,8 @@ def position_soleil (date, latitude, heure, orientation_nord = 0.0, orientation_
     :param date: String en format '29/07'
     :param latitude: string en format '63.2/N', ou '63.2/S'
     :param heure: string en format '18:48'
-    :param orientation_nord:
+    :param orientation_nord: float entre 0.0 et 360.0
+    :param orientation_zenit: float entre 0.0 et 90.0
     :return: coordonnees [sol_azimut, sol_altitude] pour la position solaire vue.
 
     '''
@@ -105,11 +106,13 @@ def position_soleil (date, latitude, heure, orientation_nord = 0.0, orientation_
             soleil_azimut = atan2(y, -x)*180/pi + 270
 
 
-    return [soleil_azimut, soleil_altitude]
+    return [soleil_azimut-orientation_nord, soleil_altitude-orientation_zenit]
 
 
 # test
+
+
 print(position_soleil('03/03', '15.3/N', '12:01'))
 print('')
 for i in range(0, 23):
-    print(position_soleil('03/03', '15.3/N', '{}:00'.format(i)))
+    print(position_soleil('03/03', '15.3/N', '{}:00'.format(i), 40, 30))
