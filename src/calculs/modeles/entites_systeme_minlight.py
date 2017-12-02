@@ -276,9 +276,6 @@ class Pave:
         :return: liste des sommets de la source par rapport au système de repère de la chambre
         '''
 
-        # Sommets
-
-    #    return sommets_pave
 
         S_origine = self.sommets_pave_origine()
 
@@ -430,10 +427,10 @@ class Pave:
         )
         surfaces = (
             (0,2,6,4),
-            (1,3,7,5),
-            (5,7,6,4),
+            (5,7,3,1),
+            (4,6,7,5),
             (1,3,2,0),
-            (7,3,2,6),
+            (6,2,3,7),
             (1,0,4,5)
         )
 
@@ -485,7 +482,7 @@ class Chambre(Pave):
             (3,2),
             (5,4)
         )
-        ground = (0,2,6,4)
+        ground = (4,6,2,0)
 
         normal = get_plane_normal(ground,self.sommets,-self.centre)
         normal_tuple = normal.get_coordonnees()
@@ -530,13 +527,7 @@ class Source(Pave):
 
         angle_max = arcsin(b/r)
 
-    #    for i in range(-angle_max,angle_max + 1):
-    #        if(i%10 == 0):
-
-
-
-
-    def draw(self,origin,drawFaces = True):
+    def draw(self,origin):
         edges = (
             (0,1),
             (0,2),
@@ -558,17 +549,9 @@ class Source(Pave):
             (1,3,7,5),
             (7,3,2,6)
         )
-        light =(5,7,6,4)
 
-    #    glBegin(GL_QUADS)
-    #    for surface in surfaces:
-    #        normal = get_plane_normal(surface,self.sommets,self.centre)
-    #        normal_tuple = normal.get_coordonnees()
-    #        for vertex in surface:
-    #            glColor3fv((0.6,0.6,0.6))
-    #            glNormal3fv(normal_tuple)
-    #            glVertex3fv(self.sommets[vertex] - origin)
-    #    glEnd()
+        light = (4,6,7,5)
+
         normal = get_plane_normal(light,self.sommets,self.centre)
         normal_tuple = normal.get_coordonnees()
         glBegin(GL_QUADS)
@@ -584,4 +567,140 @@ class Source(Pave):
                 glColor3fv((0.0,0.0,0.0))
                 glNormal3fv((0.0,0.0,0.0))
                 glVertex3fv(self.sommets[vertex] - origin)
+        glEnd()
+
+
+class Maisonette(Pave):
+    def __init__(self, centre, ypr_angles, dimensions,window_dimensions,wall_width =150):
+        super().__init__(centre,ypr_angles,dimensions)
+        self.window_dimensions = window_dimensions
+        self.wall_width = wall_width
+        self.set_sommets_inside()
+
+    def set_sommets_inside(self):
+        S0 =  self.sommets[0] - Vecteur3D(-self.wall_width, -self.wall_width,-self.wall_width)
+        S1 =  self.sommets[1] - Vecteur3D(-self.wall_width, -self.wall_width,self.wall_width)
+        S2 =  self.sommets[2] - Vecteur3D(-self.wall_width, self.wall_width,-self.wall_width)
+        S3 =  self.sommets[3] - Vecteur3D(-self.wall_width, self.wall_width,self.wall_width)
+
+        S4 =  self.sommets[4] - Vecteur3D(self.wall_width , -self.wall_width,-self.wall_width)
+        S5 =  self.sommets[5] - Vecteur3D(self.wall_width, -self.wall_width,self.wall_width)
+        S6 =  self.sommets[6] - Vecteur3D(self.wall_width, self.wall_width ,-self.wall_width)
+        S7 =  self.sommets[7] - Vecteur3D(self.wall_width, self.wall_width,self.wall_width )
+
+        S4 =  self.sommets[4] - Vecteur3D(self.wall_width , -self.wall_width,-self.wall_width)
+        S5 =  self.sommets[5] - Vecteur3D(self.wall_width, -self.wall_width,self.wall_width)
+        S6 =  self.sommets[6] - Vecteur3D(self.wall_width, self.wall_width ,-self.wall_width)
+        S7 =  self.sommets[7] - Vecteur3D(self.wall_width, self.wall_width,self.wall_width )
+
+        longueur,largeur, hauteur = self.dimensions.get_tuple_dimensions()
+        # window_inside_points
+        S8 =  self.sommets[1] - Vecteur3D(-self.wall_width, -(largeur/2 - self.window_dimensions['largeur']/2) ,(hauteur/2 - self.window_dimensions['hauteur']/2))
+        S9 =  self.sommets[3] - Vecteur3D(-self.wall_width, (largeur/2 - self.window_dimensions['largeur']/2) ,(hauteur/2 - self.window_dimensions['hauteur']/2))
+        S10 =  self.sommets[2] - Vecteur3D(-self.wall_width, (largeur/2 - self.window_dimensions['largeur']/2) ,-(hauteur/2 - self.window_dimensions['hauteur']/2))
+        S11 =  self.sommets[0] - Vecteur3D(-self.wall_width, -(largeur/2 - self.window_dimensions['largeur']/2) ,-(hauteur/2 - self.window_dimensions['hauteur']/2))
+        #  window_outside_points
+
+        self.sommets_inside = [S0,S1,S2,S3,S4,S5,S6,S7,S8,S9,S10,S11]
+
+    def draw_inside(self,origin):
+        edges = (
+            (0,1),
+            (0,2),
+            (0,4),
+            (1,3),
+            (1,5),
+            (7,3),
+            (7,5),
+            (7,6),
+            (6,2),
+            (6,4),
+            (3,2),
+            (5,4),
+            (8,9),
+            (9,10),
+            (10,11),
+            (11,8)
+        )
+        surfaces = (
+        #    (4,6,7,5),
+            (5,7,6,4),
+        #    (1,0,4,5),
+            (5,4,0,1),
+        #    (6,2,3,7),
+            (7,3,2,6),
+        #    (0,2,6,4),
+            (4,6,2,0),
+        #    (5,7,3,1),
+            (1,3,7,5)
+    )
+        verticies = self.sommets_inside
+        verticiesInOrigin = []
+        for v in verticies:
+            verticiesInOrigin.append(v - origin)
+        glBegin(GL_QUADS)
+        for surface in surfaces:
+            normal = -1*get_plane_normal(surface,self.sommets,self.centre)
+            normal_tuple = normal.get_coordonnees()
+            for vertex in surface:
+                glColor3fv((0.4,0.4,0.4))
+                glNormal3fv(normal_tuple)
+                glVertex3fv(verticiesInOrigin[vertex])
+        glEnd()
+        glBegin(GL_LINES)
+        for edge in edges:
+            for vertex in edge:
+                glColor3fv((0.0,0.0,0.0))
+                glNormal3fv((0.0,0.0,0.0))
+                glVertex3fv(verticiesInOrigin[vertex])
+        glEnd()
+
+    def draw(self,origin):
+        self.draw_inside(origin)
+        edges = (
+            (0,1),
+            (0,2),
+            (0,4),
+            (1,3),
+            (1,5),
+            (7,3),
+            (7,5),
+            (7,6),
+            (6,2),
+            (6,4),
+            (3,2),
+            (5,4)
+        )
+        surfaces = (
+        #    (0,2,6,4), #ground
+            (5,7,3,1),  #ceiling
+            #(4,6,7,5),  #back face
+        #    (6,2,3,7),  # left face,looking from source
+        #    (1,0,4,5)   #right face looking from source
+        #(1,3,2,0)
+        )
+
+
+        verticies = self.sommets_pave()
+        verticiesInOrigin = []
+        for v in verticies:
+            verticiesInOrigin.append(v - origin)
+
+        glBegin(GL_QUADS)
+        for surface in surfaces:
+            normal = get_plane_normal(surface,self.sommets,self.centre)
+            normal_tuple = normal.get_coordonnees()
+            for vertex in surface:
+                glColor3fv((0.4,0.4,0.4))
+                glNormal3fv(normal_tuple)
+                glVertex3fv(verticiesInOrigin[vertex])
+        glEnd()
+
+
+        glBegin(GL_LINES)
+        for edge in edges:
+            for vertex in edge:
+                glColor3fv((0.0,0.0,0.0))
+                glNormal3fv((0.0,0.0,0.0))
+                glVertex3fv(verticiesInOrigin[vertex])
         glEnd()

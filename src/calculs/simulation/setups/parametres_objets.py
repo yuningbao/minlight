@@ -14,7 +14,8 @@ from src.calculs.modeles.entites_systeme_minlight import \
     ConfigurationAncrage,                       \
     ConfigurationCable,                         \
     Source,                                     \
-    Chambre
+    Chambre,                                     \
+    Maisonette
 
 
 '''
@@ -69,12 +70,20 @@ centre_maisonette = \
         z=dimensions_maisonette['hauteur'] / 2
     )
 
+# window dimensions
+window_dimensions = \
+    { 'largeur' : 1200,
+    'hauteur' : 2150
+    }
+
+
 # pave
 maisonette = \
-    Pave(
+    Maisonette(
         centre=centre_maisonette,
         ypr_angles=TupleAnglesRotation.ZERO(),
-        dimensions=dimensions_maisonette
+        dimensions=dimensions_maisonette,
+        window_dimensions = window_dimensions
     )
 
 
