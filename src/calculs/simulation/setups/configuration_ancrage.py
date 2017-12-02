@@ -394,8 +394,7 @@ def get_tourne_sch_sh(points_fixes):
 
 ''' ************************ Tests ************************ '''
 
-# TODO : geração das configs pra testar
-# TODO : demo das configs
+
 
 scs = [SousConfigCableEnum.TOURNE_SENS_CONTRE_HORLOGE,
        SousConfigCableEnum.TOURNE_SENS_HORLOGE,

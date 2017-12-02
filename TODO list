@@ -1,0 +1,71 @@
+TODO : geração das configs pra testar
+TODO : changer le vérificateur de position pour liste de validateurs !!!!!!!!!!!!!!!!!!!!!!!!!
+TODO : faire un gestionnaire de fichier, nom de fichier, dossier
+    criar pasta automaticamente
+    criar nome de arquivo automaticamente
+TODO : barrinha de progresso https://pypi.python.org/pypi/tqdm --> barrinha de progresso
+TODO : demonstração das configurações de ancragem
+TODO : classes verificadoras de posição
+    verificador composto/basico
+    com medição de tempo de cálculo
+TODO : simulador verificadores
+TODO : visulizador de trajetória
+TODO : desenhar parabola no visualização (ou semi esfera)
+TODO : trackball --> controlar o angulo da visualização no mouse
+TODO : teste de ângulo máximo usando método da bisecção
+    com registrador de número de tentativas
+TODO : desenhar janela na visualização
+    usar buraco para deixar a luz passar
+TODO : fazer o visualizador ser configurável nas teclas
+TODO : otimização --> intersecção cabo/pave
+TODO : otimização --> intersecção pave/pave
+TODO : otimização --> intersecção pave/muro
+TODO : usar tensorflow para cálculos
+TODO : otimização --> usar processamento paralelo na simulação de ângulo máximo
+TODO : otimização --> usar processamento paralelo nos testes q usam discretização
+    cabo
+    cubo
+TODO : comparador de posição de comando e posição recuperada pela câmera
+TODO : câmera
+    encontrar posição de ponto/placa no espaço
+    calcula posição
+    retorna posição do móvel
+TODO : tensões
+TODO : tensões --> centro de massa configurável
+TODO : modelizar évaporador
+TODO : modelizar pórtico
+TODO : resultado do angulo máximo --> gerar traj --> checar com vizualização
+TODO : trajetória 2angulos --> 2angulos + rho
+    rho fixo
+    de forma a poder variar o rho para chegar a mais rhos
+TODO : gráfico angulos max --> área sob o gráfico
+TODO : gráfico angulos max --> volume no grafico 3d (2angulos + rho)
+TODO : optimizar configuração em func dos ângulos máx --> ancragem
+TODO : optimizar configuração em func dos ângulos máx --> ponto fixo
+TODO : optimizar configuração em func dos ângulos máx --> diametre de la parabole
+TODO : optimizar configuração em func dos ângulos máx --> ponto de ancragem
+TODO : interface controlador/controlável (bridge)
+    para conectar as várias entradas : joystick, teclado, código
+    para as várias saídas : modelo matemático, controlador de posição do sistema real
+TODO : atualização/geração de consignes de comprimento de cabo para controlar o sistema
+TODO : conversão da trajetória do móvel --> trajetória dos 8 cabos
+TODO : tensões --> calcular a possibilidade variando o roll
+TODO : teste de ângulo máximo podendo variar o roll
+TODO : simulação --> velocidades/acc dos sommets
+TODO : simulação --> velocidades/acc do centro
+TODO : simulação --> ângulo do cabo com a polia
+TODO : rever/documentar arquitetura dos objs
+TODO : ângulo da parede com o solo (mateus)
+TODO : vizualização do sol rodando em volta da casa
+TODO : mostrar a orientação do norte na visualização
+TODO : modelo do sistema robótico (dinâmico) --> com alguma ferramenta (ver artigo)
+TODO : módulo de comunicação para enviar comando para a MAQUETE
+TODO : módulo de comunicação para enviar comando para o SYS REAL
+TODO : módulo de comunicação para enviar comando para o SIMULADOR DINÂMICO
+TODO : mudar intensidade da luz na visualização
+TODO : acoplar código que dá comando de intensidade de luz no modelo
+TODO : código com a lei de comando do sistema de filtro
+TODO : configurar a posição de ancragem no cubo (não necessariamente nos sommets)
+TODO : encapsular comportamento de busca de posição possível (ang max + traj)
+TODO : diametre = 1500
+TODO : gerar sistema inteiro a partir das configs

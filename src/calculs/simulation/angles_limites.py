@@ -103,7 +103,6 @@ class VerificateurAnglesLimites:
         if sauvegarde_automatique:
             self.sauvegarder_limites(nom_fichier_sauvegarde)
 
-    # TODO : changer ça pour liste de validateurs !!!!!!!!!!!!!!!!!!!!!!!!!
     def position_ok(self):
         sommets_source = self.source.get_dictionnaire_sommets()
 
@@ -186,8 +185,7 @@ class VerificateurAnglesLimites:
         self._generer_graphe(xlim, ylim)
         plt.show()
 
-    # TODO : faire un gestionnaire de nom de fichier
-    # TODO : faire un gestionnaire de fichier
+
     def sauvegarder_graphe_limites_png(self, xlim=[0, 90], ylim=[0, 90], nom_fichier='auto'):
 
         self._generer_graphe(xlim, ylim)
