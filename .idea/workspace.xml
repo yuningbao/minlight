@@ -2,19 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e6884895-be16-46aa-8b0d-97e9cae7a772" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/calculs géometriques/fichierCompletColine.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/calculs géometriques/parametrage.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/calculs géometriques/parametrage2.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/calculs géometriques/parametrage3.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/calculs géometriques/parametrage4.py" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/calculs/trash/__init__.py" afterPath="$PROJECT_DIR$/trash/__init__.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/calculs/trash/outils.py" afterPath="$PROJECT_DIR$/trash/outils.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/calculs/trash/testAnglesLimites.py" afterPath="$PROJECT_DIR$/trash/testAnglesLimites.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/calculs/trash/testIntersectsCable.py" afterPath="$PROJECT_DIR$/trash/testIntersectsCable.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/calculs/trash/trash.py" afterPath="$PROJECT_DIR$/trash/trash.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/calculs/trash/verifierPaves.py" afterPath="$PROJECT_DIR$/trash/verifierPaves.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/TODO list" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bibliothèques graphiques.txt" afterPath="$PROJECT_DIR$/bibliothèques graphiques.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/calculs/simulation/angles_limites.py" afterPath="$PROJECT_DIR$/src/calculs/simulation/angles_limites.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/calculs/simulation/banc_tests.py" afterPath="$PROJECT_DIR$/src/calculs/simulation/banc_tests.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/calculs/simulation/setups/configuration_ancrage.py" afterPath="$PROJECT_DIR$/src/calculs/simulation/setups/configuration_ancrage.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -34,20 +27,7 @@
     <fileColor scope="Non-Project Files (Material Palenight)" color="2f2e43" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="robot_visualization.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/calculs/graphics/robot_visualization.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="295" column="0" lean-forward="true" selection-start-line="295" selection-start-column="0" selection-end-line="295" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#17#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -108,7 +88,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/calculGeom/__init__.py" />
         <option value="$PROJECT_DIR$/src/__init__.py" />
         <option value="$PROJECT_DIR$/src/calculGeom/parametres.py" />
         <option value="$PROJECT_DIR$/calculs géometriques/parametrage3.py" />
@@ -149,16 +128,17 @@
         <option value="$PROJECT_DIR$/src/calculs/simulation/__init__.py" />
         <option value="$PROJECT_DIR$/src/calculs/simulation/setups/parametres_ancrage.py" />
         <option value="$PROJECT_DIR$/src/calculs/simulation/setups/__init__.py" />
-        <option value="$PROJECT_DIR$/src/calculs/simulation/setups/configuration_ancrage.py" />
         <option value="$PROJECT_DIR$/src/calculs/modeles/entites_systeme_minlight.py" />
         <option value="$PROJECT_DIR$/src/calculs/simulation/angles_limites_factory.py" />
-        <option value="$PROJECT_DIR$/src/calculs/simulation/angles_limites.py" />
-        <option value="$PROJECT_DIR$/src/calculs/simulation/banc_tests.py" />
         <option value="$PROJECT_DIR$/src/calculs/modeles/entite_cable_robot.py" />
         <option value="$PROJECT_DIR$/src/calculs/shaders/simpleshader.vert" />
         <option value="$PROJECT_DIR$/src/calculs/shaders/simpleshader.frag" />
         <option value="$PROJECT_DIR$/src/calculs/drawCube.py" />
+        <option value="$PROJECT_DIR$/src/calculs/simulation/setups/configuration_ancrage.py" />
+        <option value="$PROJECT_DIR$/src/calculs/simulation/angles_limites.py" />
+        <option value="$PROJECT_DIR$/src/calculs/simulation/banc_tests.py" />
         <option value="$PROJECT_DIR$/bibliothèques graphiques.txt" />
+        <option value="$PROJECT_DIR$/TODO list" />
       </list>
     </option>
   </component>
@@ -772,7 +752,14 @@
       <option name="project" value="LOCAL" />
       <updated>1512238700414</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="trash">
+      <created>1512238860227</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1512238860227</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TodoView">
@@ -837,7 +824,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="apanhando do gráfico" />
     <MESSAGE value="mudança de nome da função de intersec de pave" />
     <MESSAGE value="reoganização dos modulos" />
     <MESSAGE value="mudança no entités système" />
@@ -862,14 +848,15 @@
     <MESSAGE value="simulaçoes rodando" />
     <MESSAGE value="tqdm --&gt; lets add this thing" />
     <MESSAGE value="python 3.6" />
-    <option name="LAST_COMMIT_MESSAGE" value="python 3.6" />
+    <MESSAGE value="trash" />
+    <option name="LAST_COMMIT_MESSAGE" value="trash" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/calculs/simulation/angles_limites.py</url>
-          <line>145</line>
+          <line>144</line>
           <option name="timeStamp" value="127" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -900,7 +887,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/calculs/angles_limites_17_11_12_22_55_19.png" />
     <entry file="file://$PROJECT_DIR$/src/calculs/essaie_graphique_resultats_limites.py" />
     <entry file="file://$PROJECT_DIR$/src/calculs/anenv/bin/python">
       <provider selected="true" editor-type-id="text-editor">
@@ -1070,33 +1056,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/simulation/setups/configuration_ancrage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="396" column="2" lean-forward="false" selection-start-line="396" selection-start-column="2" selection-end-line="396" selection-end-column="2" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/simulation/angles_limites.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="105" column="6" lean-forward="false" selection-start-line="105" selection-start-column="6" selection-end-line="105" selection-end-column="6" />
-          <folding>
-            <element signature="e#0#96#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/simulation/banc_tests.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="15" column="2" lean-forward="false" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/calculs/modeles/entites_systeme_minlight.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4278">
@@ -1144,21 +1103,57 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bibliothèques graphiques.txt">
+    <entry file="file://$PROJECT_DIR$/src/calculs/graphics/robot_visualization.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+        <state relative-caret-position="180">
+          <caret line="295" column="0" lean-forward="false" selection-start-line="295" selection-start-column="0" selection-end-line="295" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#17#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculs/simulation/setups/configuration_ancrage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="145">
+          <caret line="396" column="0" lean-forward="false" selection-start-line="396" selection-start-column="0" selection-end-line="396" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#21#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculs/simulation/angles_limites.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="187" column="0" lean-forward="false" selection-start-line="187" selection-start-column="0" selection-end-line="187" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#96#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculs/simulation/banc_tests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/graphics/robot_visualization.py">
+    <entry file="file://$PROJECT_DIR$/bibliothèques graphiques.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="295" column="0" lean-forward="true" selection-start-line="295" selection-start-column="0" selection-end-line="295" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#17#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="46">
+          <caret line="2" column="41" lean-forward="false" selection-start-line="2" selection-start-column="41" selection-end-line="2" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TODO list">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="70" column="49" lean-forward="false" selection-start-line="70" selection-start-column="49" selection-end-line="70" selection-end-column="49" />
+          <folding />
         </state>
       </provider>
     </entry>
