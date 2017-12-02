@@ -3,6 +3,7 @@ from .entites_mathemathiques import *
 from .enums import *
 from OpenGL.GL import *
 from numpy import random, arcsin
+from src.calculs.graphics.outils import Surface
 
 class DimensionsPave:
 
@@ -178,8 +179,6 @@ class Cable:
             self.sommet_source - origin,self.point_ancrage - origin
             )
         glBegin(GL_LINES)
-    #    glEnable( GL_LINE_SMOOTH )
-    #    glEnable(GL_MULTISAMPLE)
         for vertex in edge:
                 glColor3fv((0.5,0.5,0.3))
                 glNormal3fv((0.0,0.0,0.0))
@@ -594,14 +593,22 @@ class Maisonette(Pave):
         S7 =  self.sommets[7] - Vecteur3D(self.wall_width, self.wall_width,self.wall_width )
 
         longueur,largeur, hauteur = self.dimensions.get_tuple_dimensions()
+
         # window_inside_points
+
         S8 =  self.sommets[1] - Vecteur3D(-self.wall_width, -(largeur/2 - self.window_dimensions['largeur']/2) ,(hauteur/2 - self.window_dimensions['hauteur']/2))
         S9 =  self.sommets[3] - Vecteur3D(-self.wall_width, (largeur/2 - self.window_dimensions['largeur']/2) ,(hauteur/2 - self.window_dimensions['hauteur']/2))
         S10 =  self.sommets[2] - Vecteur3D(-self.wall_width, (largeur/2 - self.window_dimensions['largeur']/2) ,-(hauteur/2 - self.window_dimensions['hauteur']/2))
         S11 =  self.sommets[0] - Vecteur3D(-self.wall_width, -(largeur/2 - self.window_dimensions['largeur']/2) ,-(hauteur/2 - self.window_dimensions['hauteur']/2))
+
         #  window_outside_points
 
-        self.sommets_inside = [S0,S1,S2,S3,S4,S5,S6,S7,S8,S9,S10,S11]
+        S12 =  self.sommets[1] - Vecteur3D(0, -(largeur/2 - self.window_dimensions['largeur']/2) ,(hauteur/2 - self.window_dimensions['hauteur']/2))
+        S13 =  self.sommets[3] - Vecteur3D(0, (largeur/2 - self.window_dimensions['largeur']/2) ,(hauteur/2 - self.window_dimensions['hauteur']/2))
+        S14 =  self.sommets[2] - Vecteur3D(0, (largeur/2 - self.window_dimensions['largeur']/2) ,-(hauteur/2 - self.window_dimensions['hauteur']/2))
+        S15 =  self.sommets[0] - Vecteur3D(0, -(largeur/2 - self.window_dimensions['largeur']/2) ,-(hauteur/2 - self.window_dimensions['hauteur']/2))
+
+        self.sommets_inside = [S0,S1,S2,S3,S4,S5,S6,S7,S8,S9,S10,S11,S12,S13,S14,S15]
 
     def draw_inside(self,origin):
         edges = (
@@ -617,22 +624,35 @@ class Maisonette(Pave):
             (6,4),
             (3,2),
             (5,4),
+            #windows inside
             (8,9),
             (9,10),
             (10,11),
-            (11,8)
+            (11,8),
+            #window outside
+            (12,13),
+            (13,14),
+            (14,15),
+            (15,12),
+            #wall between windows
+            (8,12),
+            (9,13),
+            (10,14),
+            (11,15)
+
         )
         surfaces = (
         #    (4,6,7,5),
-            (5,7,6,4),
+            Surface((5,7,6,4),(1,0,0)),
         #    (1,0,4,5),
-            (5,4,0,1),
+            Surface((5,4,0,1),(0,-1,0)),
         #    (6,2,3,7),
-            (7,3,2,6),
+            Surface((7,3,2,6),(0,1,0)),
         #    (0,2,6,4),
-            (4,6,2,0),
+            Surface((4,6,2,0),(0,0,1)),
         #    (5,7,3,1),
-            (1,3,7,5)
+            Surface((1,3,7,5),(0,0,0-1)),
+        #    (0,1,12,15)
     )
         verticies = self.sommets_inside
         verticiesInOrigin = []
@@ -640,11 +660,9 @@ class Maisonette(Pave):
             verticiesInOrigin.append(v - origin)
         glBegin(GL_QUADS)
         for surface in surfaces:
-            normal = -1*get_plane_normal(surface,self.sommets,self.centre)
-            normal_tuple = normal.get_coordonnees()
-            for vertex in surface:
+            for vertex in surface.edges:
                 glColor3fv((0.4,0.4,0.4))
-                glNormal3fv(normal_tuple)
+                glNormal3fv(surface.normal)
                 glVertex3fv(verticiesInOrigin[vertex])
         glEnd()
         glBegin(GL_LINES)
@@ -674,9 +692,9 @@ class Maisonette(Pave):
         surfaces = (
         #    (0,2,6,4), #ground
             (5,7,3,1),  #ceiling
-            #(4,6,7,5),  #back face
-        #    (6,2,3,7),  # left face,looking from source
-        #    (1,0,4,5)   #right face looking from source
+            (4,6,7,5),  #back face
+            (6,2,3,7),  # left face,looking from source
+            (1,0,4,5)   #right face looking from source
         #(1,3,2,0)
         )
 
