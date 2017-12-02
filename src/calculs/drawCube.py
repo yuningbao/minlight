@@ -10,7 +10,6 @@ config_ancrage = configuration_ancrage.get_simple(points_fixes)
 
 def main():
     my_robot = CableRobot(chambre, maisonette, source, 5, config_ancrage)
-    my_robot.create_cables()
     my_drawer = Robot_Visualization(my_robot)
     # my_drawer.light_on()
     my_drawer.show()

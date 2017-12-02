@@ -1,16 +1,16 @@
-import pygame,sys
+import pygame
 from pygame.locals import *
-from modeles.entite_cable_robot import *
+from src.calculs.modeles.entite_cable_robot import *
 from src.calculs.graphics.trackball import Trackball
 from OpenGL.GL import *
 from OpenGL.GLU import *
-import operator
 import time
 
-class Robot_Visualization:
 
-    def __init__(self,cable_robot):
-        print("initializing cable robot.....")
+class RobotVisualization:
+
+    def __init__(self, cable_robot):
+        print("Initializing cable robot.....")
         self._cable_robot = copy.deepcopy(cable_robot)
         self.reset_mvt_variables()
         self.light_off()
@@ -19,6 +19,7 @@ class Robot_Visualization:
         self.reset_mvt_variables()
         self.trackball = Trackball(self.width,self.height)
         self.mouse_position = (0,0)
+
     def light_on(self):
 
         self.use_shaders = True
