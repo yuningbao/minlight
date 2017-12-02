@@ -2,8 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e6884895-be16-46aa-8b0d-97e9cae7a772" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/minlight.iml" afterPath="$PROJECT_DIR$/.idea/minlight.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/06225159.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/06631240.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/Fiche-équipeDEXTER2013.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/IROS2012_Dallej-3.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/LIRMM RAPPORT D ACTIVITE 2008-2013.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/These_Han_YUAN2.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/pilkingtonsunanglecalculatormanual.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/prints.PDF" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/calculs/dynamique/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/calculs/dynamique/trajectoire.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/calculs/graphics/trackball.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,40 +33,7 @@
     <fileColor scope="Non-Project Files (Material Palenight)" color="2f2e43" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="drawCube.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/calculs/drawCube.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#40#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="error.py" pinned="false" current-in-tab="false">
-        <entry file="file://C:/Program Files/Python36/Lib/site-packages/OpenGL/error.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5313">
-              <caret line="231" column="0" lean-forward="false" selection-start-line="231" selection-start-column="0" selection-end-line="231" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="baseplatform.py" pinned="false" current-in-tab="false">
-        <entry file="file://C:/Program Files/Python36/Lib/site-packages/OpenGL/platform/baseplatform.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="9223">
-              <caret line="406" column="0" lean-forward="false" selection-start-line="406" selection-start-column="0" selection-end-line="406" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -247,6 +223,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="full.screen.before.presentation.mode" value="false" />
+    <property name="ChangesBrowser.SHOW_FLATTEN" value="false" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -767,7 +744,14 @@
       <option name="project" value="LOCAL" />
       <updated>1511047558177</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="python 3.6">
+      <created>1512237515651</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1512237515651</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TodoView">
@@ -784,7 +768,8 @@
     <layout>
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24734446" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.52435315" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32072368" sideWeight="0.5197269" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32072368" sideWeight="0.5197269" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32072368" sideWeight="0.48027313" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24051593" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2814871" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" x="304" y="14" width="374" height="621" />
@@ -800,7 +785,6 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -832,7 +816,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="grafico tá suave" />
     <MESSAGE value="apanhando do gráfico" />
     <MESSAGE value="mudança de nome da função de intersec de pave" />
     <MESSAGE value="reoganização dos modulos" />
@@ -857,7 +840,8 @@
     <MESSAGE value="configs prontas" />
     <MESSAGE value="simulaçoes rodando" />
     <MESSAGE value="tqdm --&gt; lets add this thing" />
-    <option name="LAST_COMMIT_MESSAGE" value="tqdm --&gt; lets add this thing" />
+    <MESSAGE value="python 3.6" />
+    <option name="LAST_COMMIT_MESSAGE" value="python 3.6" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1116,14 +1100,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/calculs/shaders/simpleshader.vert" />
     <entry file="file://$PROJECT_DIR$/src/calculs/shaders/simpleshader.frag" />
-    <entry file="file://C:/Program Files/Python36/Lib/site-packages/OpenGL/platform/baseplatform.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9223">
-          <caret line="406" column="0" lean-forward="false" selection-start-line="406" selection-start-column="0" selection-end-line="406" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/calculs/modeles/entite_cable_robot.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-681">
@@ -1131,21 +1107,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculs/drawCube.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="1" column="75" lean-forward="false" selection-start-line="1" selection-start-column="75" selection-end-line="1" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://C:/Program Files/Python36/Lib/site-packages/OpenGL/error.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5313">
+        <state relative-caret-position="23">
           <caret line="231" column="0" lean-forward="false" selection-start-line="231" selection-start-column="0" selection-end-line="231" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/drawCube.py">
+    <entry file="file://C:/Program Files/Python36/Lib/site-packages/OpenGL/platform/baseplatform.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="23">
+          <caret line="406" column="0" lean-forward="false" selection-start-line="406" selection-start-column="0" selection-end-line="406" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
