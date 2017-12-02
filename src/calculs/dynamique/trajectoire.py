@@ -14,11 +14,21 @@ def y_sph(latitude_angle, longitude_angle):
 def z_sph(latitude_angle):
     return sin(latitude_angle)
 
+
+def secondes_dans_horaire (heure1):
+    return 60* (int(heure1.split(':')[0])*60 + int(heure1.split(':')[1]))
+
+
 # adicionar angulo entre o observador e o norte e também o angulo do observador olhando pra cima
 # basta adicionar os angulos em cada saída, aparentemente...
 
-
 def position_soleil (date, latitude, heure, orientation_nord = 0.0, orientation_zenit=0.0):
+    # nombre de minutes dans l'horaire informé
+    secs = 60 * (int(heure.split(':')[0]) * 60 + int(heure.split(':')[1]))
+    return position_soleil_seconds (date, latitude, secs, orientation_nord, orientation_zenit)
+
+
+def position_soleil_seconds (date, latitude, secs, orientation_nord = 0.0, orientation_zenit=0.0):
     '''
 
     Fonction qui donne la position du soleil vue par un observeur sur Terre.
@@ -33,7 +43,6 @@ def position_soleil (date, latitude, heure, orientation_nord = 0.0, orientation_
     '''
     dic_mois = \
         {
-            '00': 0,
             '01': 31,
             '02': 28,
             '03': 31,
@@ -49,23 +58,19 @@ def position_soleil (date, latitude, heure, orientation_nord = 0.0, orientation_
         }
 
     # calcule le nombre n de jours dans la date (n=1 si date == '01/01')
-    date2 = date.split('/')
-    i = 0
-    n = int(date2[0])
-    while (date2[1] != list(dic_mois.keys())[i]):
-        n += dic_mois[list(dic_mois.keys())[i]]
-        i += 1
 
+    n = int(date.split('/')[0])
+    for key in list(dic_mois.keys()):
+        if key != date.split('/')[1]:
+            n += dic_mois[key]
+        else:
+            break
 
-    # recuperer la valeur de latitude
+# recuperer la valeur de latitude
     if latitude.split('/')[1] == 'N':
         lat = pi/180*float(latitude.split('/')[0])
     else:
         lat = -1*pi/180*float(latitude.split('/')[0])
-
-
-    # nombre de minutes dans l'horaire informé
-    mins = int(heure.split(':')[0])*60 + int(heure.split(':')[1])
 
 
     # declin = angle de declinaison, calculé à partir de n
@@ -73,11 +78,11 @@ def position_soleil (date, latitude, heure, orientation_nord = 0.0, orientation_
 
 
     # determiner la position [soleil_aizmut, soleil_altitude] du soleil:
-    w_Terre = 2*pi/(24*60)  #en rad/mminute
+    w_Terre = 2*pi/(24*60*60)  #en rad/seconde
 
-    x = x_sph(declin, w_Terre*mins)
-    y = y_sph(declin, w_Terre*mins) * sin(lat) + z_sph(declin) * cos(lat)
-    z = -y_sph(declin, w_Terre*mins) * cos(lat) + z_sph(declin) * sin(lat)
+    x = x_sph(declin, w_Terre*secs)
+    y = y_sph(declin, w_Terre*secs) * sin(lat) + z_sph(declin) * cos(lat)
+    z = -y_sph(declin, w_Terre*secs) * cos(lat) + z_sph(declin) * sin(lat)
 
     soleil_altitude = asin(z)*180/pi  # en degres
 
@@ -109,10 +114,25 @@ def position_soleil (date, latitude, heure, orientation_nord = 0.0, orientation_
     return [soleil_azimut-orientation_nord, soleil_altitude-orientation_zenit]
 
 
+def get_trajectoire (date, latitude, heure_init, heure_finale, intervalle, orientation_nord = 0.0, orientation_zenit=0.0):
+    points_trajectoire = []
+
+    n_points = int((secondes_dans_horaire(heure_finale) -secondes_dans_horaire(heure_init))  / intervalle)
+    for i in range(n_points):
+        points_trajectoire.append(position_soleil_seconds(date, latitude, secondes_dans_horaire(heure_init) + i*intervalle,
+                                                  orientation_nord = 0.0, orientation_zenit=0.0));
+    return points_trajectoire
+
+
+
 # test
 
 
+'''
 print(position_soleil('03/03', '15.3/N', '12:01'))
 print('')
 for i in range(0, 23):
     print(position_soleil('03/03', '15.3/N', '{}:00'.format(i), 40, 30))
+'''
+
+#print(get_trajectoire('03/03', '15.3/N', '12:01', '16:30', 600))
