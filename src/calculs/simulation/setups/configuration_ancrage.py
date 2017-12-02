@@ -1,7 +1,5 @@
 from enum import Enum
-
 from pprint import pprint
-
 from src.calculs.modeles.entites_systeme_minlight import ConfigurationAncrage, ConfigurationCable
 
 

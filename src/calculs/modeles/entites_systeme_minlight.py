@@ -5,6 +5,7 @@ from OpenGL.GL import *
 from numpy import random, arcsin
 from src.calculs.graphics.outils import Surface
 
+
 class DimensionsPave:
 
     def __init__(self, longueur, largeur, hauteur):
@@ -56,10 +57,10 @@ class ConfigurationAncrage:
     def get_cables(self, sommets_source, diametre_cable):
         return [
             Cable(
-                nom_sommet_source = nom_sommet,
-                point_ancrage     = self.get_config_cable(nom_sommet).get_point_ancrage(),
-                sommet_source     = sommets_source[nom_sommet],
-                diametre          = diametre_cable
+                nom_sommet_source=nom_sommet,
+                point_ancrage=self.get_config_cable(nom_sommet).get_point_ancrage(),
+                sommet_source=sommets_source[nom_sommet],
+                diametre=diametre_cable
             )
             for nom_sommet in Pave.noms_sommets_pave
         ]
@@ -192,11 +193,13 @@ class Pave:
 
     @staticmethod
     def point_appartient_pave_origine(point, dimensions):
-        '''
+        """
         Fonction qui teste si un point est dans le volume d'un pavé localisé à l'origine.
+        :param point:
         :param dimensions: (dictionnaire) longueur, largeur, hauteur du pave de la source
         :return: False/True
-        '''
+        """
+
         long, larg, haut = dimensions.get_tuple_dimensions()
 
         demi_long, demi_larg, demi_haut = long / 2, larg / 2, haut / 2
@@ -212,7 +215,7 @@ class Pave:
         self.ypr_angles = ypr_angles
         self.dimensions = dimensions
         self.sommets_origine = self.set_sommets_pave_origine()
-        self.sommets = self.set_sommets_pave()
+        self.sommets = self.get_sommets_pave()
 
     def rotate(self,delta_yaw,delta_pitch,delta_row):
         self.ypr_angles.incrementer(delta_yaw,delta_pitch,delta_row)
@@ -262,8 +265,8 @@ class Pave:
     def get_centre(self):
         return self.centre
 
-    def set_sommets_pave(self):
-        '''
+    def get_sommets_pave(self):
+        """
         convention utilisé pour les rotations : z-y’-x″ (intrinsic rotations) = Yaw, pitch, and roll rotations
         http://planning.cs.uiuc.edu/node102.html
         http://planning.cs.uiuc.edu/node104.html
@@ -273,12 +276,10 @@ class Pave:
         On suppose qu'on veut orienter le centre de la source par des angles
         et la position du centre, on calcule les positios des sommets (les coins de la source).
         :return: liste des sommets de la source par rapport au système de repère de la chambre
-        '''
+        """
 
-
-        S_origine = self.sommets_pave_origine()
-
-        return [self.changer_systeme_repere_pave_vers_globale(s) for s in S_origine]
+        s_origine = self.sommets_pave_origine()
+        return [self.changer_systeme_repere_pave_vers_globale(s) for s in s_origine]
 
     def sommets_pave(self):
         return self.sommets
@@ -501,6 +502,7 @@ class Chambre(Pave):
                 glNormal3fv((0.0,0.0,0.0))
                 glVertex3fv(self.sommets[vertex] - origin)
         glEnd()
+
 
 class Source(Pave):
     def __init__(self, centre, ypr_angles, dimensions):
