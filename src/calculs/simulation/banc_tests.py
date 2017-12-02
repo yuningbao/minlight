@@ -1,17 +1,14 @@
-from src.calculs.modeles.enums import UniteAngleEnum
-
-from src.calculs.modeles.entites_mathemathiques import \
-    SpaceRechercheAnglesLimites,                       \
-    IntervalleLineaire
-
-from src.calculs.simulation.setups import faux
-
-from src.calculs.simulation import angles_limites_factory
-
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
 import matplotlib
-matplotlib.use('Agg')
 
+from src.calculs.modeles.entites_mathemathiques import \
+    SpaceRechercheAnglesLimites, \
+    IntervalleLineaire
+from src.calculs.modeles.enums import UniteAngleEnum
+from src.calculs.setups import faux
+from src.calculs.simulation import angles_limites_factory
+
+matplotlib.use('Agg')
 
 
 ''' ************************ Configs Simulation ************************ '''

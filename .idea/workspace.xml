@@ -2,10 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e6884895-be16-46aa-8b0d-97e9cae7a772" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/calculs/simulation/setups/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/calculs/simulation/setups/configuration_ancrage.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/calculs/simulation/setups/faux.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/calculs/simulation/setups/parametres_ancrage.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/calculs/simulation/setups/parametres_objets.py" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/calculs/drawCube.py" afterPath="$PROJECT_DIR$/src/calculs/drawCube.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/calculs/modeles/entite_cable_robot.py" afterPath="$PROJECT_DIR$/src/calculs/modeles/entite_cable_robot.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/calculs/modeles/entites_systeme_minlight.py" afterPath="$PROJECT_DIR$/src/calculs/modeles/entites_systeme_minlight.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/calculs/simulation/setups/configuration_ancrage.py" afterPath="$PROJECT_DIR$/src/calculs/simulation/setups/configuration_ancrage.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/calculs/simulation/angles_limites_factory.py" afterPath="$PROJECT_DIR$/src/calculs/simulation/angles_limites_factory.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/calculs/simulation/banc_tests.py" afterPath="$PROJECT_DIR$/src/calculs/simulation/banc_tests.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -26,6 +32,29 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="drawCube.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/calculs/drawCube.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="69">
+              <caret line="0" column="5" lean-forward="false" selection-start-line="0" selection-start-column="5" selection-end-line="0" selection-end-column="5" />
+              <caret line="1" column="5" lean-forward="false" selection-start-line="1" selection-start-column="5" selection-end-line="1" selection-end-column="5" />
+              <caret line="2" column="5" lean-forward="false" selection-start-line="2" selection-start-column="5" selection-end-line="2" selection-end-column="5" />
+              <caret line="3" column="5" lean-forward="false" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="parametres_ancrage.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/calculs/setups/parametres_ancrage.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="46">
+              <caret line="2" column="41" lean-forward="false" selection-start-line="2" selection-start-column="41" selection-end-line="2" selection-end-column="41" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="trackball.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/calculs/graphics/trackball.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -41,85 +70,10 @@
       <file leaf-file-name="entite_cable_robot.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/calculs/modeles/entite_cable_robot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="59" column="0" lean-forward="true" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+            <state relative-caret-position="259">
+              <caret line="56" column="0" lean-forward="false" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
               <folding>
-                <element signature="e#0#43#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="entites_systeme_minlight.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/calculs/modeles/entites_systeme_minlight.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="279" column="0" lean-forward="false" selection-start-line="279" selection-start-column="0" selection-end-line="279" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#68#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="configuration_ancrage.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/calculs/simulation/setups/configuration_ancrage.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="151">
-              <caret line="343" column="13" lean-forward="false" selection-start-line="343" selection-start-column="13" selection-end-line="343" selection-end-column="13" />
-              <folding>
-                <element signature="e#0#21#0" expanded="true" />
-                <marker date="1512249916128" expanded="true" signature="232:370" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="479:584" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="551:584" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="608:903" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="696:903" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="1029:1171" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="1212:1737" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="1323:1737" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="1857:7017" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="1934:2042" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="2071:2179" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="2208:2316" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="2394:2502" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="2539:2647" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="2684:2792" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="2876:2984" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="3024:3132" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="3172:3280" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="3368:3476" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="3518:3626" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="3668:3776" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="3878:3986" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="4035:4143" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="4192:4300" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="4383:5380" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="4421:4537" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="4586:4726" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="4778:4927" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="4981:5136" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="5197:5373" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="5461:6091" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="6134:6197" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="6221:6281" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="6356:6865" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="6534:6592" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="6674:6842" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="6916:7017" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="7123:7341" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="7372:8192" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="7986:8105" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="8224:8878" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="8917:9600" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="8922:9013" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
-                <marker date="1512249916128" expanded="true" signature="9639:10322" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="9644:9735" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
-                <marker date="1512249916128" expanded="true" signature="10399:10617" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="10763:10877" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="10784:10877" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="11018:12047" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="12105:13134" ph="..." />
-                <marker date="1512249916128" expanded="true" signature="13193:14222" ph="..." />
+                <element signature="e#0#11#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -136,7 +90,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>matrice_rotation_z1_y2_x3</find>
       <find>matrice_rotation_x1_y2_z3</find>
       <find>distance_2_points</find>
       <find>direction_difference_2_points</find>
@@ -166,6 +119,7 @@
       <find>z</find>
       <find>True</find>
       <find>remplir_sous_config_cable</find>
+      <find>dimensions_chambre</find>
     </findStrings>
     <replaceStrings>
       <replace>Vecteur3D</replace>
@@ -186,8 +140,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/__init__.py" />
-        <option value="$PROJECT_DIR$/src/calculGeom/parametres.py" />
         <option value="$PROJECT_DIR$/calculs géometriques/parametrage3.py" />
         <option value="$PROJECT_DIR$/src/calculGeom/bancDeTests.py" />
         <option value="$PROJECT_DIR$/src/calculGeom/outils.py" />
@@ -229,12 +181,14 @@
         <option value="$PROJECT_DIR$/src/calculs/simulation/angles_limites_factory.py" />
         <option value="$PROJECT_DIR$/src/calculs/shaders/simpleshader.vert" />
         <option value="$PROJECT_DIR$/src/calculs/shaders/simpleshader.frag" />
-        <option value="$PROJECT_DIR$/src/calculs/drawCube.py" />
         <option value="$PROJECT_DIR$/src/calculs/simulation/angles_limites.py" />
-        <option value="$PROJECT_DIR$/src/calculs/simulation/banc_tests.py" />
         <option value="$PROJECT_DIR$/bibliothèques graphiques.txt" />
         <option value="$PROJECT_DIR$/TODO list" />
         <option value="$PROJECT_DIR$/src/calculs/simulation/setups/configuration_ancrage.py" />
+        <option value="$PROJECT_DIR$/src/calculs/simulation/banc_tests.py" />
+        <option value="$PROJECT_DIR$/src/calculs/drawCube.py" />
+        <option value="$PROJECT_DIR$/src/calculs/setups/parametres_objets.py" />
+        <option value="$PROJECT_DIR$/src/calculs/setups/parametres_ancrage.py" />
         <option value="$PROJECT_DIR$/src/calculs/modeles/entites_systeme_minlight.py" />
         <option value="$PROJECT_DIR$/src/calculs/modeles/entite_cable_robot.py" />
       </list>
@@ -356,32 +310,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="simulation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="minlight" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="minlight" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="calculs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="simulation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="setups" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -435,11 +363,11 @@
       <recent name="C:\Repository\minlight\calculs géometriques" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Repository\minlight\src\calculs" />
       <recent name="C:\Repository\minlight\trash" />
       <recent name="C:\Repository\minlight" />
       <recent name="C:\Repository\minlight\calculs géometriques" />
       <recent name="C:\Repository\minlight\src" />
-      <recent name="C:\Repository\minlight\src\calculs\trash" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -973,7 +901,14 @@
       <option name="project" value="LOCAL" />
       <updated>1512248173765</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="correção de set/get">
+      <created>1512249957034</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1512249957034</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TodoView">
@@ -988,16 +923,16 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1376" height="754" extended-state="6" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24734446" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24734446" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27769348" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5030349" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.4969651" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32072368" sideWeight="0.48027313" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33717105" sideWeight="0.48027313" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24051593" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2814871" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" x="304" y="14" width="374" height="621" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27010623" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18585527" sideWeight="0.48860183" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4555921" sideWeight="0.48860183" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32928678" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1050,7 +985,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="mudança no entités système" />
     <MESSAGE value="simulação organisada" />
     <MESSAGE value="sauvegarde et chargement de fichier d'angles limites (avec pickle)" />
     <MESSAGE value="simulation prête, ready to go" />
@@ -1075,7 +1009,8 @@
     <MESSAGE value="trash" />
     <MESSAGE value="todo list" />
     <MESSAGE value="camel case" />
-    <option name="LAST_COMMIT_MESSAGE" value="camel case" />
+    <MESSAGE value="correção de set/get" />
+    <option name="LAST_COMMIT_MESSAGE" value="correção de set/get" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1085,11 +1020,16 @@
           <line>144</line>
           <option name="timeStamp" value="127" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <condition expression="noms_points_fixes == None" language="Python" />
-          <url>file://$PROJECT_DIR$/src/calculs/simulation/setups/configuration_ancrage.py</url>
+          <url>file://$PROJECT_DIR$/src/calculs/setups/configuration_ancrage.py</url>
           <line>315</line>
           <option name="timeStamp" value="131" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/calculs/modeles/entites_systeme_minlight.py</url>
+          <line>57</line>
+          <option name="timeStamp" value="145" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -1102,7 +1042,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="139" />
+      <option name="time" value="147" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -1155,14 +1095,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/simulation/setups/faux.py">
+    <entry file="file://$PROJECT_DIR$/src/calculs/setups/faux.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="250">
           <caret line="192" column="30" lean-forward="false" selection-start-line="192" selection-start-column="30" selection-end-line="192" selection-end-column="30" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/simulation/setups/__init__.py">
+    <entry file="file://$PROJECT_DIR$/src/calculs/setups/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
@@ -1236,13 +1176,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/simulation/setups/parametres_objets.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1549">
-          <caret line="128" column="0" lean-forward="true" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/calculs/simulation/graphes/sh_sch_haut_mid.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -1276,13 +1209,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/simulation/banc_tests.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bibliothèques graphiques.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="46">
@@ -1302,6 +1228,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3500">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#13#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1316,89 +1245,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2718">
           <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/drawCube.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="1" column="75" lean-forward="false" selection-start-line="1" selection-start-column="75" selection-end-line="1" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/simulation/setups/configuration_ancrage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="343" column="13" lean-forward="false" selection-start-line="343" selection-start-column="13" selection-end-line="343" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-            <marker date="1512249916128" expanded="true" signature="232:370" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="479:584" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="551:584" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="608:903" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="696:903" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="1029:1171" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="1212:1737" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="1323:1737" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="1857:7017" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="1934:2042" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="2071:2179" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="2208:2316" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="2394:2502" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="2539:2647" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="2684:2792" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="2876:2984" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="3024:3132" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="3172:3280" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="3368:3476" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="3518:3626" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="3668:3776" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="3878:3986" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="4035:4143" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="4192:4300" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="4383:5380" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="4421:4537" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="4586:4726" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="4778:4927" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="4981:5136" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="5197:5373" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="5461:6091" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="6134:6197" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="6221:6281" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="6356:6865" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="6534:6592" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="6674:6842" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="6916:7017" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="7123:7341" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="7372:8192" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="7986:8105" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="8224:8878" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="8917:9600" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="8922:9013" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
-            <marker date="1512249916128" expanded="true" signature="9639:10322" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="9644:9735" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
-            <marker date="1512249916128" expanded="true" signature="10399:10617" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="10763:10877" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="10784:10877" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="11018:12047" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="12105:13134" ph="..." />
-            <marker date="1512249916128" expanded="true" signature="13193:14222" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/simulation/angles_limites_factory.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="121" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/calculs/simulation/setups/parametres_ancrage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="940">
-          <caret line="53" column="8" lean-forward="false" selection-start-line="53" selection-start-column="8" selection-end-line="53" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1422,10 +1268,65 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculs/simulation/angles_limites_factory.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="18" column="67" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculs/simulation/banc_tests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3863">
+          <caret line="51" column="0" lean-forward="true" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+          <folding>
+            <element signature="e#101#118#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculs/drawCube.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="0" column="5" lean-forward="false" selection-start-line="0" selection-start-column="5" selection-end-line="0" selection-end-column="5" />
+          <caret line="1" column="5" lean-forward="false" selection-start-line="1" selection-start-column="5" selection-end-line="1" selection-end-column="5" />
+          <caret line="2" column="5" lean-forward="false" selection-start-line="2" selection-start-column="5" selection-end-line="2" selection-end-column="5" />
+          <caret line="3" column="5" lean-forward="false" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculs/setups/parametres_objets.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculs/setups/parametres_ancrage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="46">
+          <caret line="2" column="41" lean-forward="false" selection-start-line="2" selection-start-column="41" selection-end-line="2" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/calculs/setups/configuration_ancrage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="315" column="0" lean-forward="false" selection-start-line="315" selection-start-column="0" selection-end-line="315" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/calculs/modeles/entites_systeme_minlight.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="279" column="0" lean-forward="false" selection-start-line="279" selection-start-column="0" selection-end-line="279" selection-end-column="0" />
+        <state relative-caret-position="46">
+          <caret line="286" column="32" lean-forward="false" selection-start-line="286" selection-start-column="8" selection-end-line="286" selection-end-column="32" />
           <folding>
             <element signature="e#0#68#0" expanded="true" />
           </folding>
@@ -1434,10 +1335,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/calculs/modeles/entite_cable_robot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="59" column="0" lean-forward="true" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+        <state relative-caret-position="259">
+          <caret line="56" column="0" lean-forward="false" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
           <folding>
-            <element signature="e#0#43#0" expanded="true" />
+            <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>

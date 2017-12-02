@@ -1,5 +1,6 @@
-from src.calculs.simulation.setups import parametres_objets, parametres_ancrage, configuration_ancrage
+from src.calculs.simulation.setups import parametres_objets, parametres_ancrage
 
+from src.calculs.setups import configuration_ancrage
 from src.calculs.simulation.angles_limites import VerificateurAnglesLimites
 
 chambre = parametres_objets.chambre

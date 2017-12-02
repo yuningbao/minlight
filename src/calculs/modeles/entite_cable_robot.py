@@ -1,5 +1,3 @@
-from .entites_systeme_minlight import Cable
-from src.calculs.simulation.setups.parametres_ancrage import Ideal
 import copy
 from enum import Enum
 
@@ -53,8 +51,8 @@ class CableRobot:
     def get_centre(self):
         return self._chambre.get_centre()
 
-    def create_cables(self, configuration_source_down, configuration_source_up, configuration_walls):
-        sommets_source = self._source.get_sommets_pave()
+    def create_cables(self):
+        sommets_source = self._source.get_dictionnaire_sommets()
 
         self._cables = self._config_ancrage.get_cables(sommets_source, self._diametre_cables)
 
