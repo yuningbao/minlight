@@ -1,9 +1,11 @@
 import pygame,sys
 from pygame.locals import *
 from modeles.entite_cable_robot import *
-
+from src.calculs.graphics.trackball import Trackball
 from OpenGL.GL import *
 from OpenGL.GLU import *
+import operator
+import time
 
 class Robot_Visualization:
 
@@ -15,7 +17,8 @@ class Robot_Visualization:
         self.height = 800
         self.width = 1200
         self.reset_mvt_variables()
-
+        self.trackball = Trackball(self.width,self.height)
+        self.mouse_position = (0,0)
     def light_on(self):
 
         self.use_shaders = True
@@ -112,8 +115,9 @@ class Robot_Visualization:
         glLoadIdentity()
         gluPerspective(45, (self.width/self.height), 0.1, 50.0)
         glTranslatef(0,0,-15)
-        glRotatef(-90, 1, 0, 0)
+    #    glRotatef(-90, 1, 0, 0)
         glScalef(0.001,0.001,0.001)
+
 
     def manage_events(self):
 
@@ -121,6 +125,18 @@ class Robot_Visualization:
             if (event.type == pygame.QUIT):
                 pygame.quit()
                 quit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                x,y = event.pos
+                self.trackball.startRotation(x,y)
+                print("clicou")
+            elif event.type == pygame.MOUSEBUTTONUP:
+                self.trackball.stopRotation()
+                print("soltou")
+            elif event.type == pygame.MOUSEMOTION:
+                a,b,c = event.buttons
+                x,y = event.pos
+                if(a or b or c):
+                    self.trackball.updateRotation(x,y)
             elif event.type == pygame.KEYDOWN or event.type == KEYDOWN:
                 if event.key == pygame.K_p:
                     self.rotateX_CW = True
@@ -157,14 +173,11 @@ class Robot_Visualization:
                 elif event.key == pygame.K_g:
                     self.rotate_source_row_neg = True
                 elif event.key == pygame.K_r:
-                    glLoadIdentity()
-                    gluPerspective(45, (display[0]/display[1]), 0.1, 50.0)
-                    glTranslatef(0,0,-5)
-                    glRotatef(-90, 1, 0, 0)
-                    glScalef(0.001,0.001,0.001)
+                    self.reset_viewer_matrix()
                 elif event.key == pygame.K_q:
                     pygame.quit()
                     quit()
+
 
             elif event.type == pygame.KEYUP or event.type == KEYUP:
                 if event.key == pygame.K_p:
@@ -256,6 +269,31 @@ class Robot_Visualization:
             if(self.use_shaders):
                 self.update_uniforms()
             glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
+            self._cable_robot.draw(origin)
+            pygame.display.flip()
+            pygame.time.wait(10)
+
+    def draw_trajectory(self,trajectory, time_step, speed):
+        print("start drawing....")
+        self.create_window()
+        self.set_opengl_parameters()
+        if(self.use_shaders):
+            self.set_shaders()
+            self.set_uniforms()
+        origin = self._cable_robot.get_centre()
+        self.reset_viewer_matrix()
+        initial_time = time.time()
+
+        while True:
+            self.manage_events()
+            self.execute_transformations()
+            if(self.use_shaders):
+                self.update_uniforms()
+            glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
+            i = int((time.time() - initial_time)/time_step)
+            self._cable_robot.set_source_position(trajectory[i].position)
+            self._cable_robot.set_source_angles(trajectory[i].angles)
+
             self._cable_robot.draw(origin)
             pygame.display.flip()
             pygame.time.wait(10)

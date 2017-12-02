@@ -39,6 +39,14 @@ class Vecteur3D(matrix):
     def scalar_product(self,v):
         return self.item(0)*v.item(0) + self.item(1)*v.item(1) + self.item(2)*v.item(2)
 
+    def normalize(self):
+        norme = self.norme()
+        self[0] /= norme
+        self[1] /= norme
+        self[2] /= norme
+
+    def cross(self,v2):
+        return Vecteur3D(self[1]*v2[2] , self[2]*v2[0] , self[0]*v2[1])
 
 class TupleAnglesRotation():
 
