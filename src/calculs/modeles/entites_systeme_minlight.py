@@ -610,7 +610,12 @@ class Maisonette(Pave):
         S14 =  self.sommets[2] - Vecteur3D(0, (largeur/2 - self.window_dimensions['largeur']/2) ,-(hauteur/2 - self.window_dimensions['hauteur']/2))
         S15 =  self.sommets[0] - Vecteur3D(0, -(largeur/2 - self.window_dimensions['largeur']/2) ,-(hauteur/2 - self.window_dimensions['hauteur']/2))
 
-        self.sommets_inside = [S0,S1,S2,S3,S4,S5,S6,S7,S8,S9,S10,S11,S12,S13,S14,S15]
+        S16 = self.sommets[0]
+        S17 = self.sommets[1]
+        S18 = self.sommets[2]
+        S19 = self.sommets[3]
+
+        self.sommets_extras = [S0,S1,S2,S3,S4,S5,S6,S7,S8,S9,S10,S11,S12,S13,S14,S15,S16,S17,S18,S19]
 
     def draw_inside(self,origin):
         edges = (
@@ -643,31 +648,39 @@ class Maisonette(Pave):
             (11,15)
 
         )
-        surfaces = (
-        #    (4,6,7,5),
+        surfaces_inside = (
+        #####inside
             Surface((5,7,6,4),(-1,0,0)),
-        #    (1,0,4,5),
             Surface((5,4,0,1),(0,1,0)),
-        #    (6,2,3,7),
             Surface((7,3,2,6),(0,-1,0)),
-        #    (0,2,6,4),
-            Surface((4,6,2,0),(0,0,-1)),
-        #    (5,7,3,1),
-            Surface((1,3,7,5),(0,0,1)),
-        #    (0,1,12,15)
-            Surface((0,1,12,15),(1,0,0)),
-            Surface((1,15,13,3),(1,0,0)),
-            Surface((13,3,2,14),(1,0,0)),
-            Surface((2,14,15,0),(1,0,0)),
+            Surface((4,6,2,0),(0,0,1)),
+            Surface((1,3,7,5),(0,0,1))
+        )
+        surfaces_outside = (
+        #####outside front face
+            Surface((16,17,12,15),(-1,0,0)),
+            Surface((19,13,12,17),(-1,0,0)),
+            Surface((13,19,18,14),(-1,0,0)),
+            Surface((16,15,14,18 ),(-1,0,0)),
+        #####
+        Surface((8,11,15,12),(0,-1,0)),
+        Surface((12,13,9,8),(0,0,-1)),
+        Surface((13,14,10,9),(0,1,0)),
+        Surface((14,15,11,10),(0,0,1))
     )
-        verticies = self.sommets_inside
+        verticies = self.sommets_extras
         verticiesInOrigin = []
         for v in verticies:
             verticiesInOrigin.append(v - origin)
         glBegin(GL_QUADS)
-        for surface in surfaces:
+        for surface in surfaces_outside:
             for vertex in surface.edges:
                 glColor3fv((0.4,0.4,0.4))
+                glNormal3fv(surface.normal)
+                glVertex3fv(verticiesInOrigin[vertex])
+        for surface in surfaces_inside:
+            for vertex in surface.edges:
+                glColor3fv((0.6,0.6,0.6))
                 glNormal3fv(surface.normal)
                 glVertex3fv(verticiesInOrigin[vertex])
         glEnd()
@@ -696,12 +709,12 @@ class Maisonette(Pave):
             (5,4)
         )
         surfaces = (
-        #    (0,2,6,4), #ground
-            (5,7,3,1),  #ceiling
-            (4,6,7,5),  #back face
-            (6,2,3,7),  # left face,looking from source
-            (1,0,4,5)   #right face looking from source
-        #(1,3,2,0)
+        #    Surface((0,2,6,4),(0,0,1)), #ground
+        Surface((5,7,3,1),(0,0,1)), #ceiling
+        Surface((4,6,7,5),(1,0,0)), #back face
+        Surface((6,2,3,7),(0,1,0)), # left face looking from source
+        Surface((1,0,4,5),(0,-1,0))# right face looking from source
+
         )
 
 
@@ -712,11 +725,9 @@ class Maisonette(Pave):
 
         glBegin(GL_QUADS)
         for surface in surfaces:
-            normal = get_plane_normal(surface,self.sommets,self.centre)
-            normal_tuple = normal.get_coordonnees()
-            for vertex in surface:
+            for vertex in surface.edges:
                 glColor3fv((0.4,0.4,0.4))
-                glNormal3fv(normal_tuple)
+                glNormal3fv(surface.normal)
                 glVertex3fv(verticiesInOrigin[vertex])
         glEnd()
 
