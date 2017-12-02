@@ -5,6 +5,7 @@ from src.calculs.graphics.trackball import Trackball
 from OpenGL.GL import *
 from OpenGL.GLU import *
 import operator
+import time
 
 class Robot_Visualization:
 
@@ -268,6 +269,31 @@ class Robot_Visualization:
             if(self.use_shaders):
                 self.update_uniforms()
             glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
+            self._cable_robot.draw(origin)
+            pygame.display.flip()
+            pygame.time.wait(10)
+
+    def draw_trajectory(self,trajectory, time_step, speed):
+        print("start drawing....")
+        self.create_window()
+        self.set_opengl_parameters()
+        if(self.use_shaders):
+            self.set_shaders()
+            self.set_uniforms()
+        origin = self._cable_robot.get_centre()
+        self.reset_viewer_matrix()
+        initial_time = time.time()
+
+        while True:
+            self.manage_events()
+            self.execute_transformations()
+            if(self.use_shaders):
+                self.update_uniforms()
+            glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
+            i = int((time.time() - initial_time)/time_step)
+            self._cable_robot.set_source_position(trajectory[i].position)
+            self._cable_robot.set_source_angles(trajectory[i].angles)
+
             self._cable_robot.draw(origin)
             pygame.display.flip()
             pygame.time.wait(10)
