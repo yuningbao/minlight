@@ -1,17 +1,18 @@
 import pygame
 from pygame.locals import *
-from src.calculs.modeles.entite_cable_robot import *
 from src.calculs.graphics.trackball import Trackball
 from OpenGL.GL import *
 from OpenGL.GLU import *
 import time
+from src.calculs.control.keyboard_controlers import SourceKeyboardController, ViewKeyboardController
+from src.calculs.control.pygame_view_controlable import PygameViewControlable
 
 
-class RobotVisualization:
+class RobotVisualization2:
 
-    def __init__(self, cable_robot):
+    def __init__(self, cable_robot, source_controlable):
         print("Initializing cable robot.")
-        self._cable_robot = copy.deepcopy(cable_robot)
+        self._cable_robot = cable_robot
         # self.reset_mvt_variables()
         self.light_off()
         self.window_height = 800
@@ -19,6 +20,10 @@ class RobotVisualization:
         self.reset_mvt_variables()
         self.trackball = Trackball(self.window_width, self.window_height)
         self.mouse_position = (0, 0)
+        self._view_controlable = PygameViewControlable()
+        self._source_controlable = source_controlable
+        self._keyboard_source_controller = SourceKeyboardController(source_controlable=self._source_controlable)
+        self._keyboard_view_controller = ViewKeyboardController(view_controlable=self._view_controlable)
 
     def light_on(self):
         self.use_shaders = True
@@ -119,6 +124,9 @@ class RobotVisualization:
 
     def manage_events(self):
         for event in pygame.event.get():
+            self._keyboard_source_controller.manage_event(event)
+            self._keyboard_view_controller.manage_event(event)
+
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
@@ -139,143 +147,35 @@ class RobotVisualization:
                     self.trackball.updateRotation(x, y)
 
             elif event.type == pygame.KEYDOWN or event.type == KEYDOWN:
-                if event.key == pygame.K_p:
-                    self.rotateX_CW = True
-                elif event.key == pygame.K_l:
-                    self.rotateX_CCW = True
-                elif event.key == pygame.K_o:
-                    self.rotateY_CW = True
-                elif event.key == pygame.K_k:
-                    self.rotateY_CCW = True
-                elif event.key == pygame.K_z:
-                    self.zoomIn = True
-                elif event.key == pygame.K_x:
-                    self.zoomOut = True
-                elif event.key == pygame.K_m:
-                    self.rotate_source_pitch= True
-                elif event.key == pygame.K_w:
-                    self.translate_source_X_pos= True
-                elif event.key == pygame.K_s:
-                    self.translate_source_X_neg= True
-                elif event.key == pygame.K_a:
-                    self.translate_source_Z_pos = True
-                elif event.key == pygame.K_d:
-                    self.translate_source_Z_neg = True
-                elif event.key == pygame.K_i:
-                    self.rotate_source_yaw_pos = True
-                elif event.key == pygame.K_j:
-                    self.rotate_source_yaw_neg = True
-                elif event.key == pygame.K_u:
-                    self.rotate_source_pitch_pos = True
-                elif event.key == pygame.K_h:
-                    self.rotate_source_pitch_neg = True
-                elif event.key == pygame.K_y:
-                    self.rotate_source_row_pos = True
-                elif event.key == pygame.K_g:
-                    self.rotate_source_row_neg = True
-                elif event.key == pygame.K_r:
+                if event.key == pygame.K_r:
                     self.reset_viewer_matrix()
                 elif event.key == pygame.K_q:
                     pygame.quit()
                     quit()
 
-            elif event.type == pygame.KEYUP or event.type == KEYUP:
-                if event.key == pygame.K_p:
-                    self.rotateX_CW = False
-                elif event.key == pygame.K_l:
-                    self.rotateX_CCW = False
-                elif event.key == pygame.K_o:
-                    self.rotateY_CW = False
-                elif event.key == pygame.K_k:
-                    self.rotateY_CCW = False
-                elif event.key == pygame.K_z:
-                    self.zoomIn = False
-                elif event.key == pygame.K_x:
-                    self.zoomOut = False
-                elif event.key == pygame.K_w:
-                    self.translate_source_X_pos= False
-                elif event.key == pygame.K_s:
-                    self.translate_source_X_neg= False
-                elif event.key == pygame.K_a:
-                    self.translate_source_Z_pos= False
-                elif event.key == pygame.K_d:
-                    self.translate_source_Z_neg= False
-                elif event.key == pygame.K_m:
-                    self.rotate_source_pitch = False
-                elif event.key == pygame.K_i:
-                    self.rotate_source_yaw_pos = False
-                elif event.key == pygame.K_j:
-                    self.rotate_source_yaw_neg = False
-                elif event.key == pygame.K_u:
-                    self.rotate_source_pitch_pos = False
-                elif event.key == pygame.K_h:
-                    self.rotate_source_pitch_neg = False
-                elif event.key == pygame.K_y:
-                    self.rotate_source_row_pos = False
-                elif event.key == pygame.K_g:
-                    self.rotate_source_row_neg = False
-
-    def execute_transformations(self):
-
-            if(self.rotateX_CW == True):
-                glRotatef(2, 1, 0, 0)
-
-            elif(self.rotateX_CCW == True):
-                glRotatef(-2, 1, 0, 0)
-
-            elif(self.rotateY_CW == True):
-                glRotatef(2, 0, 0, 1)
-            elif(self.rotateY_CCW == True):
-                glRotatef(-2, 0, 0, 1)
-            elif(self.zoomIn == True):
-                glScalef(1.1,1.1,1.1)
-            elif(self.zoomOut == True):
-                glScalef(0.9,0.9,0.9)
-
-            elif(self.translate_source_X_neg == True):
-                self._cable_robot.translate_source(-5, 0, 0)
-            elif(self.translate_source_X_pos == True):
-                self._cable_robot.translate_source(5,0,0)
-            elif(self.translate_source_Z_neg == True):
-                self._cable_robot.translate_source(0,0,-5)
-            elif(self.translate_source_Z_pos == True):
-                self._cable_robot.translate_source(0,0,5)
-
-            elif(self.rotate_source_yaw_pos == True):
-                self._cable_robot.rotate_source(1,0,0)
-            elif(self.rotate_source_yaw_neg == True):
-                self._cable_robot.rotate_source(-1,0,0)
-            elif(self.rotate_source_pitch_pos == True):
-                self._cable_robot.rotate_source(0,1,0)
-            elif(self.rotate_source_pitch_neg == True):
-                self._cable_robot.rotate_source(0,-1,0)
-            elif(self.rotate_source_row_pos == True):
-                self._cable_robot.rotate_source(0,0,1)
-            elif(self.rotate_source_row_neg == True):
-                self._cable_robot.rotate_source(0,0,-1)
-
     def show(self):
         print("start drawing....")
         self.create_window()
         self.set_opengl_parameters()
-        if(self.use_shaders):
+        if self.use_shaders:
             self.set_shaders()
             self.set_uniforms()
         origin = self._cable_robot.get_centre()
 
         self.reset_viewer_matrix()
 
+        self._keyboard_source_controller.plug()
+
         while True:
             self.manage_events()
-            self.execute_transformations()
-            if(self.use_shaders):
+            if self.use_shaders:
                 self.update_uniforms()
-            glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
             self._cable_robot.draw(origin)
             pygame.display.flip()
-            pygame.time.wait(10)
+            #pygame.time.wait(10)
 
-    def draw_trajectory(self,trajectory, time_step, speed):
+    def draw_trajectory(self, trajectory, time_step, speed):
         print("start drawing....")
         self.create_window()
         self.set_opengl_parameters()
@@ -288,7 +188,6 @@ class RobotVisualization:
 
         while True:
             self.manage_events()
-            self.execute_transformations()
             if(self.use_shaders):
                 self.update_uniforms()
             glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)

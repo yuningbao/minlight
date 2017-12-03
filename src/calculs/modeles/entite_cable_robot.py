@@ -21,10 +21,10 @@ class CableRobot:
         self._maisonette.draw(origin)
         self._source.draw(origin)
 
-    def rotate_source(self, delta_yaw, delta_row, delta_pitch):
-        self._source.rotate(delta_yaw, delta_pitch, delta_row)
+    def rotate_source(self, delta_yaw=0, delta_pitch=0, delta_roll=0):
+        self._source.rotate(delta_yaw, delta_pitch, delta_roll)
 
-    def translate_source(self, delta_x, delta_y, delta_z):
+    def translate_source(self, delta_x=0, delta_y=0, delta_z=0):
         self._source.translate(delta_x, delta_y, delta_z)
 
     def set_source_position(self, centre):
