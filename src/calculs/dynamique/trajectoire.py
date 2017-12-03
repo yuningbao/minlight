@@ -1,51 +1,22 @@
-from math import cos, sin, asin, atan2, pi
+#from math import cos, sin, asin, atan2, pi
 #from src.calculs.modeles.entites_mathemathiques import *
+from miscellaneous import *
 
-
-def x_sph(latitude_angle, longitude_angle):
-    return cos(latitude_angle)*sin(longitude_angle)
-
-
-def y_sph(latitude_angle, longitude_angle):
-    return cos(latitude_angle)*cos(longitude_angle)
-
-
-def z_sph(latitude_angle):
-    return sin(latitude_angle)
-
-# secondes dans un horaire donné
-def secondes_dans_horaire (heure1):
-    return 60* (int(heure1.split(':')[0])*60 + int(heure1.split(':')[1]))
-
-
-# angle en degrés entre le nord et le point donné (sens horaire)
-def point_azimut (x, y, x_error=0.001, y_error=0.001):
-    if abs(x) < x_error:
-        if y >= 0:
-            return 0
-        else:
-            return 180
-
-    elif abs(y) < y_error:
-        if x >= 0:
-            return 90
-        else:
-            return 270
-
-    else:
-        if x > 0 and y > 0:
-            return atan2(x, y)
-        elif x > 0 and y < 0:
-            return atan2(-y, x) * 180 / pi + 90
-        elif x < 0 and y < 0:
-            return atan2(-x, -y) * 180 / pi + 180
-        else:
-            return atan2(y, -x) * 180 / pi + 270
 
 
 
 class Trajectoire():
 
+    '''
+    :param date: String en format '29/07'
+    :param latitude: string en format '63.2/N', ou '63.2/S'
+    :param heure: string en format '18:48'
+    :param orientation_nord: float entre 0.0 et 360.0
+    :param orientation_zenit: float entre 0.0 et 90.0
+    '''
+
+    # provavelmente é melhor tirar heure_initiale, heure_finale e intervalle do construtor
+    # e coloca-los como parametro dos metodos
     def __init__(self, date, latitude, heure_initiale, heure_finale,
                 intervalle, orientation_nord = 0.0, orientation_zenit=0.0):
         self.date = date
@@ -57,19 +28,10 @@ class Trajectoire():
         self.orientation_zenit = orientation_zenit
 
 # coord spheriques prenant y comme nord
-
-
-
-
-
     '''
     Fonction qui donne la position du soleil vue par un observeur sur Terre.
 
-    :param date: String en format '29/07'
-    :param latitude: string en format '63.2/N', ou '63.2/S'
-    :param heure: string en format '18:48'
-    :param orientation_nord: float entre 0.0 et 360.0
-    :param orientation_zenit: float entre 0.0 et 90.0
+    
     :return: coordonnees [sol_azimut, sol_altitude] pour la position solaire vue.
 
     '''
@@ -131,9 +93,6 @@ class Trajectoire():
         return [soleil_azimut-self.orientation_nord, soleil_altitude-self.orientation_zenit]
 
 
-
-    # Como resolver o problema de que  metodo position_soleil_seconds não vai mais variar? (o return agora é constante)
-    # definir um metodo separado que transforma '13:21' em segundos
     def get_trajectoire (self):
         points_trajectoire = []
 
@@ -152,11 +111,4 @@ a = traj.position_soleil('12:01')
 print(a)
 
 print(traj.get_trajectoire())
-'''
-print(position_soleil('03/03', '15.3/N', '12:01'))
-print('')
-for i in range(0, 23):
-    print(position_soleil('03/03', '15.3/N', '{}:00'.format(i), 40, 30))
-'''
 
-#print(get_trajectoire('03/03', '15.3/N', '12:01', '16:30', 600))
