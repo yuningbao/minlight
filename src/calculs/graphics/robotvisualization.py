@@ -279,7 +279,7 @@ class RobotVisualization:
             if(self.use_shaders):
                 self.update_uniforms()
             glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
-            self._cable_robot.draw(origin)
+            self._cable_robot.draw(origin,self.draw_maisonette)
             pygame.display.flip()
             pygame.time.wait(10)
 

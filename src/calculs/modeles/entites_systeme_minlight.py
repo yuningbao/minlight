@@ -527,15 +527,41 @@ class Source(Pave):
         longueur,largeur,hauteur = self.dimensions.get_tuple_dimensions()
         r = ((hauteur*hauteur/4) + longueur*longueur)/(2*longueur)
         angle_ouverture = degrees(arcsin(hauteur/(2*r)))
+        self.points_parable_origin = []
         self.points_parable = []
+        rotation = TupleAnglesRotation(0,90,0)
+        matRot = rotation.get_matrice_rotation()
         for theta in range(int(-angle_ouverture),int(angle_ouverture),10):
             for phi in range(0,360,10):
                 theta_rad = radians(theta)
                 phi_rad = radians(phi)
-                self.points_parable.append(Vecteur3D(r*sin(theta_rad)*cos(phi_rad), \
-                                                r*sin(theta_rad)*sin(phi_rad), \
-                                                r*(1 - sqrt( 1 - sin(theta_rad)*sin(theta_rad))) \
-                                                ))
+                x0 = r*sin(theta_rad)*cos(phi_rad)
+                y0 = r*sin(theta_rad)*sin(phi_rad)
+                z0 = r*(1 - sqrt( 1 - sin(theta_rad)*sin(theta_rad)))
+                p = Vecteur3D(x0,y0,z0)
+                p = matRot*p
+                p = Vecteur3D(p.item(0),p.item(1),p.item(2))
+                self.points_parable_origin.append(p)
+                self.points_parable.append(p)
+        #a = 3
+        self.update_sommets()
+
+    def update_sommets(self):
+        longueur,largeur,hauteur = self.dimensions.get_tuple_dimensions()
+        newSommets =[]
+        newSommetsParable = []
+        Rot = self.ypr_angles.get_matrice_rotation()
+        for sommet in self.sommets_origine:
+            newPoint = (Rot * sommet) + self.centre
+            newSommets.append(newPoint)
+        for i in range(len(newSommets)):
+            self.sommets[i].set_xyz(newSommets[i].item(0),newSommets[i].item(1),newSommets[i].item(2) )
+
+        for sommet in self.points_parable_origin:
+            newPoint = (Rot * sommet) + self.centre - Vecteur3D(longueur/2,0,0)
+            newSommetsParable.append(newPoint)
+        for i in range(len(self.points_parable)):
+            self.points_parable[i].set_xyz(newSommetsParable[i].item(0),newSommetsParable[i].item(1),newSommetsParable[i].item(2))
 
 
 #    def draw_parable(self):
