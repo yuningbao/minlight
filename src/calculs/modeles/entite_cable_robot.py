@@ -14,11 +14,12 @@ class CableRobot:
         sommets_source = self._source.get_dictionnaire_sommets()
         self._cables = self._config_ancrage.get_cables(sommets_source, self._diametre_cables)
 
-    def draw(self, origin):
+    def draw(self, origin,draw_maisonette):
         for cable in self._cables:
             cable.draw(origin)
         self._chambre.draw(origin)
-        #self._maisonette.draw(origin)
+        if( draw_maisonette):
+            self._maisonette.draw(origin)
         self._source.draw(origin)
 
     def rotate_source(self, delta_yaw=0, delta_pitch=0, delta_roll=0):

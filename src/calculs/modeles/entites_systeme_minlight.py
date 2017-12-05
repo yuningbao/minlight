@@ -522,14 +522,19 @@ class Source(Pave):
     def get_light_direction(self):
         return (self.get_light_centre() - self.centre).get_vecteur_diretion()
 
-    def create_parable(): # creates visualization of the parable, must finish!!!!!!!
+    def create_parable(self): # creates visualization of the parable, must finish!!!!!!!
         longueur,largeur,hauteur = self.dimensions.get_tuple_dimensions()
         r = ((hauteur*hauteur/4) + longueur*longueur)/(2*longueur)
-        angle_ouverture = arcsin(hauteur/(2*r))
-        #points_parable
-        #for theta in range(-angle_ouverture,angle_ouverture):
-        #    for phi in range(-angle_ouverture,angle_ouverture):
-
+        angle_ouverture = degrees(arcsin(hauteur/(2*r)))
+        points_parable
+        for theta in range(-angle_ouverture,angle_ouverture):
+            for phi in range(0,360):
+                theta_rad = radians(theta)
+                phi_rad = radians(phi)
+                points_parable.append(Vecteur3D(r*sin(theta_rad)*cos(phi_rad), \
+                                                r*sin(theta_rad)*sin(phi_rad), \
+                                                r*(1 - sqrt( 1 - sin(theta_rad)*sin(theta_rad))) \
+                                                ))
 
 
     def draw(self,origin):

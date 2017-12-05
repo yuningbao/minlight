@@ -9,7 +9,7 @@ import time
 
 class RobotVisualization:
 
-    def __init__(self, cable_robot):
+    def __init__(self, cable_robot,draw_maisonette ):
         print("Initializing cable robot.")
         self._cable_robot = copy.deepcopy(cable_robot)
         # self.reset_mvt_variables()
@@ -19,6 +19,7 @@ class RobotVisualization:
         self.reset_mvt_variables()
         self.trackball = Trackball(self.window_width, self.window_height)
         self.mouse_position = (0, 0)
+        self.draw_maisonette = draw_maisonette
 
     def light_on(self):
         self.use_shaders = True
@@ -301,11 +302,11 @@ class RobotVisualization:
             if(self.use_shaders):
                 self.update_uniforms()
             glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
-            i = int((time.time() - initial_time)*speed/time_step)
-            #if(i < len(trajectory) - 1):
-        #        i = i + 1
-        #    else:
-        #        i = 0
+            i = (time.time() - initial_time)
+            i = i/time_step
+            i = int(i*speed)
+            if(i == len(trajectory) ):
+                i = 0
 
             print("i : "+ str(i))
         #    print(" delta t" + str((time.time() - initial_time)))
@@ -315,6 +316,6 @@ class RobotVisualization:
             self._cable_robot.set_source_angles(trajectory[int(i)].get_angle())
         #    print(" anglo : " + str(trajectory[100*i].get_angle()))
 
-            self._cable_robot.draw(origin)
+            self._cable_robot.draw(origin,self.draw_maisonette)
             pygame.display.flip()
             pygame.time.wait(10)
