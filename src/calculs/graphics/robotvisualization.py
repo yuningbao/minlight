@@ -275,7 +275,7 @@ class RobotVisualization:
             pygame.display.flip()
             pygame.time.wait(10)
 
-    def draw_trajectory(self,trajectory, time_step, speed):
+    def draw_trajectory(self,trajectory, time_step):
         print("start drawing....")
         self.create_window()
         self.set_opengl_parameters()
@@ -292,9 +292,9 @@ class RobotVisualization:
             if(self.use_shaders):
                 self.update_uniforms()
             glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
-            i = int((time.time() - initial_time)/time_step)
-            self._cable_robot.set_source_position(trajectory[i].position)
-            self._cable_robot.set_source_angles(trajectory[i].angles)
+            i = int((time.time() - initial_time)/trajectory.intervalle)
+            self._cable_robot.set_source_position(trajectory.get_coordinates(i).position)
+            self._cable_robot.set_source_angles(trajectory.get_coordinates(i).angle)
 
             self._cable_robot.draw(origin)
             pygame.display.flip()

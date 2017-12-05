@@ -376,7 +376,10 @@ class Pave:
     def entierement_dans_autre_pave(self, autre):
         return all(autre.point_appartient_pave(sommet) for sommet in self.sommets_pave())
 
-    def changer_a_partir_de_coordonnes_spheriques(source, coordonnees_spheriques, systeme_spherique):
+    def changer_a_partir_de_coordonnes_spheriques(self, coordonnees_spheriques, systeme_spherique):
+        '''
+        source changed to self, not sure if it works
+        '''
         roh, theta, phi = coordonnees_spheriques.get_coordonnees_spheriques(unite_desiree=UniteAngleEnum.DEGRE)
 
         # p = centre de la source pour le systeme cartesien à partir du quel le spherique est defini
@@ -390,9 +393,9 @@ class Pave:
         res = Rot * p + centre_systeme
 
         # il faut faire ça sinon le retour est une matrice rot
-        source.centre = Vecteur3D(res.__getitem__((0, 0)), res.__getitem__((1, 0)), res.__getitem__((2, 0)))
+        self.centre = Vecteur3D(res.__getitem__((0, 0)), res.__getitem__((1, 0)), res.__getitem__((2, 0)))
 
-        source.ypr_angles = \
+        self.ypr_angles = \
             TupleAnglesRotation(
                 row=0,
                 pitch=phi,
@@ -521,12 +524,11 @@ class Source(Pave):
 
     def create_parable(): # creates visualization of the parable, must finish!!!!!!!
         longueur,largeur,hauteur = self.dimensions.get_tuple_dimensions()
-        b = hauteur/2
-        x = longueur
+        r = ((hauteur*hauteur/4) + longueur*longueur)/(2*longueur)
+        angle_ouverture = arcsin(hauteur/(2*r))
+        for theta in range(-angle_ouverture,angle_ouverture):
+            for phi in range(-angle_ouverture,angle_ouverture):
 
-        r = ((x*x) + (b*b))/(2*x)
-
-        angle_max = arcsin(b/r)
 
     def draw(self,origin):
         edges = (
