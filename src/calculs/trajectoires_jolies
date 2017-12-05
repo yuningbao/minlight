@@ -1,0 +1,6 @@
+my_trajectoire = Trajectoire('03/03','60.3/N','8:01','15:00',100,2000)
+
+
+paris:
+my_trajectoire = Trajectoire('7/03','48.8/N','08:01','15:00',100,2000)
+my_trajectoire = Trajectoire('7/12','48.8/N','8:01','15:00',100,2000)
