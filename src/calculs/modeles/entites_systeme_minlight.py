@@ -2,7 +2,7 @@ from .outils2 import solutions_formule_quadratique, get_plane_normal
 from .entites_mathemathiques import *
 from .enums import *
 from OpenGL.GL import *
-from numpy import random, arcsin
+from numpy import random, arcsin,degrees,radians,cos,sin,arccos
 from src.calculs.graphics.outils import Surface
 
 
@@ -510,6 +510,7 @@ class Chambre(Pave):
 class Source(Pave):
     def __init__(self, centre, ypr_angles, dimensions):
         super().__init__(centre,ypr_angles,dimensions)
+        self.create_parable()
 
     def get_light_radius(self):
         longueur,largeur,hauteur = self.dimensions.get_tuple_dimensions()
@@ -526,22 +527,31 @@ class Source(Pave):
         longueur,largeur,hauteur = self.dimensions.get_tuple_dimensions()
         r = ((hauteur*hauteur/4) + longueur*longueur)/(2*longueur)
         angle_ouverture = degrees(arcsin(hauteur/(2*r)))
-        points_parable
-        for theta in range(-angle_ouverture,angle_ouverture):
-            for phi in range(0,360):
+        self.points_parable = []
+        for theta in range(int(-angle_ouverture),int(angle_ouverture),10):
+            for phi in range(0,360,10):
                 theta_rad = radians(theta)
                 phi_rad = radians(phi)
-                points_parable.append(Vecteur3D(r*sin(theta_rad)*cos(phi_rad), \
+                self.points_parable.append(Vecteur3D(r*sin(theta_rad)*cos(phi_rad), \
                                                 r*sin(theta_rad)*sin(phi_rad), \
                                                 r*(1 - sqrt( 1 - sin(theta_rad)*sin(theta_rad))) \
                                                 ))
 
+
 #    def draw_parable(self):
 
+    def draw_parable(self,origin):
+        glBegin(GL_LINES)
+        for i in range(len(self.points_parable )  - 1):
+            for j in range(i,i + 1):
+                glColor3fv((0.0,0.0,0.0))
+                glNormal3fv((0.0,0.0,0.0))
+                glVertex3fv(self.points_parable[j] - origin)
+        glEnd()
 
 
     def draw(self,origin):
-    #    self.draw_variable
+        self.draw_parable(origin)
         edges = (
             (0,1),
             (0,2),

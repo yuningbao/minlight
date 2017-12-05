@@ -13,7 +13,7 @@ def main():
     my_robot = CableRobot(chambre, maisonette, source, 5, config_ancrage)
     my_drawer = RobotVisualization(my_robot,True)
 #    my_drawer.light_on()
-    my_trajectoire = Trajectoire('03/03','60.3/N','8:01','15:00',100,2000)
+    my_trajectoire = Trajectoire('03/03','0.3/N','8:01','15:00',100,2000)
     trajectory = my_trajectoire.get_configurations()
     for p in trajectory:
         print("ponto + " + str(p.get_centre()))
