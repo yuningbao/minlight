@@ -49,8 +49,9 @@ class RobotVisualization:
 
     def create_window(self):
         print("Creating window.")
-        pygame.display.set_mode((self.window_width, self.window_height), DOUBLEBUF | OPENGL | RESIZABLE)
+        self.screen = pygame.display.set_mode((self.window_width, self.window_height), DOUBLEBUF | OPENGL | RESIZABLE | OPENGLBLIT)
         glClearColor(1.0, 1.0, 1.0, 1.0)
+        pygame.init()
 
     def set_opengl_parameters(self):
         print("Setting opengl parameters.")
@@ -281,7 +282,7 @@ class RobotVisualization:
             pygame.display.flip()
             pygame.time.wait(10)
 
-    def draw_trajectory(self,trajectory, time_step):
+    def draw_trajectory(self,trajectory, time_step,speed):
         print("start drawing trajectory....")
         print("step + " + str(time_step))
         self.create_window()
@@ -300,17 +301,20 @@ class RobotVisualization:
             if(self.use_shaders):
                 self.update_uniforms()
             glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
-            #i = int((time.time() - initial_time)/time_step)
-            if(i < len(trajectory) - 1):
-                i = i + 1
-        #    print("i : "+ str(i))
+            i = int((time.time() - initial_time)*speed/time_step)
+            #if(i < len(trajectory) - 1):
+        #        i = i + 1
+        #    else:
+        #        i = 0
+
+            print("i : "+ str(i))
         #    print(" delta t" + str((time.time() - initial_time)))
         #    print(" delta t real" + str(i*600))
-            self._cable_robot.set_source_position(trajectory[i].get_centre())
-        #    print("posicao : " + str(trajectory[100*i].get_centre()))
-            self._cable_robot.set_source_angles(trajectory[i].get_angle())
+            self._cable_robot.set_source_position(trajectory[int(i)].get_centre())
+        #    print("posicao : " + str(trajectory[int(i/10)].get_centre()))
+            self._cable_robot.set_source_angles(trajectory[int(i)].get_angle())
         #    print(" anglo : " + str(trajectory[100*i].get_angle()))
 
             self._cable_robot.draw(origin)
             pygame.display.flip()
-            pygame.time.wait(100)
+            pygame.time.wait(10)
