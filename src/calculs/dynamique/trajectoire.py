@@ -1,9 +1,8 @@
 #from math import cos, sin, asin, atan2, pi
 from src.calculs.modeles.entites_mathemathiques import *
 from src.calculs.modeles.entites_systeme_minlight import *
-from src.calculs.setups.parametres_objets import systeme_spherique_baie_vitree
 from src.calculs.dynamique.miscellaneous import *
-
+from src.calculs.setups import parametres_objets
 
 
 
@@ -96,7 +95,7 @@ class Trajectoire():
         soleil_altitude = asin(z)*180/pi  # en degres
         soleil_azimut = point_azimut(x, y)
 
-        return [soleil_azimut-self.orientation_nord, soleil_altitude-self.orientation_zenit]
+        return [soleil_azimut-self.orientation_nord + 180, soleil_altitude-self.orientation_zenit]
 
 
     def get_trajectoire (self):
@@ -123,10 +122,10 @@ class Configuration:
         self.position_theta = pair_theta_phi[0]
         self.position_phi = pair_theta_phi[1]
         self.ro = ro
-        self.set_centre_xyz()
+        self.set_centre_xyz(parametres_objets.systeme_spherique_baie_vitree)
 
 
-    def set_centre_xyz(self, systeme_spherique = systeme_spherique_baie_vitree):
+    def set_centre_xyz(self, systeme_spherique):
 
       #  roh, theta, phi = coordonnees_spheriques.get_coordonnees_spheriques(unite_desiree=UniteAngleEnum.DEGRE)
         coordonnees_spheriques = CoordonnesSpherique(self.ro, self.position_theta, self.position_phi, UniteAngleEnum.DEGRE)
