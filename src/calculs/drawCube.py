@@ -3,7 +3,7 @@ from src.calculs.graphics.robotvisualization import *
 from setups import parametres_ancrage, configuration_ancrage
 from src.calculs.setups.parametres_objets import source, maisonette, chambre
 
-points_fixes = parametres_ancrage.Ideal.get_haut_haut()
+points_fixes = parametres_ancrage.Ideal.get_haut_bas()
 
 config_ancrage = configuration_ancrage.get_simple(points_fixes)
 

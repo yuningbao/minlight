@@ -526,24 +526,28 @@ class Source(Pave):
     def create_parable(self): # creates visualization of the parable, must finish!!!!!!!
         longueur,largeur,hauteur = self.dimensions.get_tuple_dimensions()
         r = ((hauteur*hauteur/4) + longueur*longueur)/(2*longueur)
-        angle_ouverture = degrees(arcsin(hauteur/(2*r)))
+        self.angle_ouverture = degrees(arcsin(hauteur/(2*r)))
         self.points_parable_origin = []
         self.points_parable = []
         rotation = TupleAnglesRotation(0,90,0)
+        self.points_per_level = 10
+        self.angle_levels = 10
         matRot = rotation.get_matrice_rotation()
-        for theta in range(int(-angle_ouverture),int(angle_ouverture),10):
-            for phi in range(0,360,10):
+        for theta in range(0,int(self.angle_ouverture),self.angle_levels):
+            for phi in range(0,360,int(360/self.points_per_level)):
                 theta_rad = radians(theta)
                 phi_rad = radians(phi)
                 x0 = r*sin(theta_rad)*cos(phi_rad)
                 y0 = r*sin(theta_rad)*sin(phi_rad)
                 z0 = r*(1 - sqrt( 1 - sin(theta_rad)*sin(theta_rad)))
                 p = Vecteur3D(x0,y0,z0)
-                p = matRot*p
+                p = matRot*p - Vecteur3D(longueur/2,0,0)
                 p = Vecteur3D(p.item(0),p.item(1),p.item(2))
+                p2 = Vecteur3D(p.item(0),p.item(1),p.item(2))
                 self.points_parable_origin.append(p)
-                self.points_parable.append(p)
-        #a = 3
+                self.points_parable.append(p2)
+        self.squares_edges = []
+        #for()
         self.update_sommets()
 
     def update_sommets(self):
@@ -558,7 +562,7 @@ class Source(Pave):
             self.sommets[i].set_xyz(newSommets[i].item(0),newSommets[i].item(1),newSommets[i].item(2) )
 
         for sommet in self.points_parable_origin:
-            newPoint = (Rot * sommet) + self.centre - Vecteur3D(longueur/2,0,0)
+            newPoint = (Rot * sommet) + self.centre
             newSommetsParable.append(newPoint)
         for i in range(len(self.points_parable)):
             self.points_parable[i].set_xyz(newSommetsParable[i].item(0),newSommetsParable[i].item(1),newSommetsParable[i].item(2))
@@ -567,13 +571,35 @@ class Source(Pave):
 #    def draw_parable(self):
 
     def draw_parable(self,origin):
+        number_levels = int(self.angle_ouverture/self.angle_levels)
+    #    self.points_per_level = len(self.points_parable)
+        glBegin(GL_QUADS)
+        for j in range(number_levels -2):
+            for i in range(self.points_per_level ):
+                glColor3fv((0.95,0.95,0))
+                glNormal3fv((0.0,0.0,0.0))
+                glVertex3fv(self.points_parable[i%self.points_per_level + (j+1)*self.points_per_level ] - origin)
+                glVertex3fv(self.points_parable[i + 1 + (j+1)*self.points_per_level] - origin)
+                glVertex3fv(self.points_parable[(i + 1 )%self.points_per_level + j*self.points_per_level ] - origin)
+                glVertex3fv(self.points_parable[i + j*self.points_per_level] - origin)
+        glEnd()
         glBegin(GL_LINES)
-        for i in range(len(self.points_parable )  - 1):
-            for j in range(i,i + 1):
-                glColor3fv((0.0,0.0,0.0))
+        for j in range(number_levels ):
+            for i in range(self.points_per_level ):
+                glColor3fv((0.5,0.5,0.5))
+                glNormal3fv((0.0,0.0,0.0))
+                glVertex3fv(self.points_parable[i + j*self.points_per_level] - origin)
+                glVertex3fv(self.points_parable[(i + 1 )%self.points_per_level + j*self.points_per_level ] - origin)
+        glEnd()
+
+        glBegin(GL_LINES)
+        for i in range(len(self.points_parable ) - self.points_per_level ):
+            for j in (i,i + self.points_per_level):
+                glColor3fv((0.5,0.5,0.5))
                 glNormal3fv((0.0,0.0,0.0))
                 glVertex3fv(self.points_parable[j] - origin)
         glEnd()
+
 
 
     def draw(self,origin):
@@ -592,6 +618,8 @@ class Source(Pave):
             (3,2),
             (5,4)
         )
+
+    #    edges = ()
         surfaces = (
             (1,3,2,0),
             (1,0,4,5),
@@ -605,10 +633,10 @@ class Source(Pave):
         normal = get_plane_normal(light,self.sommets,self.centre)
         normal_tuple = normal.get_coordonnees()
         glBegin(GL_QUADS)
-        for vertex in light:
-            glNormal3fv(normal_tuple)
-            glColor3fv((0.95,0.95,0))
-            glVertex3fv(self.sommets[vertex] - origin)
+    #    for vertex in light:
+    #        glNormal3fv(normal_tuple)
+    #        glColor3fv((0.95,0.95,0))
+    #        glVertex3fv(self.sommets[vertex] - origin)
         glEnd()
 
         glBegin(GL_LINES)
