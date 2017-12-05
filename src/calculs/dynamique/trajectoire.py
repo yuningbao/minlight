@@ -1,6 +1,9 @@
 #from math import cos, sin, asin, atan2, pi
-#from src.calculs.modeles.entites_mathemathiques import *
+from src.calculs.modeles.entites_mathemathiques import *
+from src.calculs.modeles.entites_systeme_minlight import *
+from src.calculs.setups.parametres_objets import systeme_spherique_baie_vitree
 from miscellaneous import *
+
 
 
 
@@ -100,15 +103,74 @@ class Trajectoire():
         for i in range(n_points):
             points_trajectoire.append(
                 self.position_soleil_secondes(secondes_dans_horaire(self.heure_initiale) + i* self.intervalle));
+
+            '''
+            '''
         return points_trajectoire
 
+    def get_configurations(self):
+        lista_config = []
+        for pos in self.get_trajectoire():
+            config = Configuration(pos)
+            lista_config.append(config)
+        return lista_config
 
+class Configuration:
+    def __init__(self, pair_theta_phi):
+        self.position_theta = pair_theta_phi[0]
+        self.position_phi = pair_theta_phi[1]
+        self.set_centre_xyz()
+
+
+    def set_centre_xyz(self, systeme_spherique = systeme_spherique_baie_vitree):
+
+      #  roh, theta, phi = coordonnees_spheriques.get_coordonnees_spheriques(unite_desiree=UniteAngleEnum.DEGRE)
+        coordonnees_spheriques = CoordonnesSpherique(1000, self.position_theta, self.position_phi, UniteAngleEnum.DEGRE)
+        # p = centre de la source pour le systeme cartesien à partir du quel le spherique est defini
+        p = systeme_spherique.convertir_en_cartesien(coordonnees_spheriques)
+
+        centre_systeme, ypr_angles_systeme = systeme_spherique.get_centre_et_ypr_angles()
+
+        Rot = ypr_angles_systeme.get_tuple_angles_pour_inverser_rotation() \
+            .get_matrice_rotation()
+
+        res = Rot * p + centre_systeme
+
+        # il faut faire ça sinon le retour est une matrice rot
+        self.centre = Vecteur3D(res.__getitem__((0, 0)), res.__getitem__((1, 0)), res.__getitem__((2, 0)))
+
+        self.ypr_angles = \
+            TupleAnglesRotation(
+                row=0,
+                pitch=self.position_phi,
+                yaw=self.position_theta,
+                sequence=SequenceAnglesRotationEnum.YPR,
+                unite=UniteAngleEnum.DEGRE  # !!!!!!!!!!!!!!!!!!!!!!!!
+            )
+
+    def get_angle(self):
+        return self.ypr_angles
+
+    def get_centre(self):
+        return self.centre
+        '''
+    def get_coords(self):
+        x =
+        y =
+        z =
+
+        return Vecteur3D(),
+        '''
 
 # test
 
-traj = Trajectoire('03/03', '15.3/N', '12:01', '16:00', 600)
+traj = Trajectoire('03/03', '60.3/N', '12:01', '16:00', 600)
 a = traj.position_soleil('12:01')
 print(a)
 
-print(traj.get_trajectoire())
+#print(traj.get_trajectoire())
+print('')
+config = Configuration(a)
+print(config.get_centre())
 
+print(traj.get_configurations())
