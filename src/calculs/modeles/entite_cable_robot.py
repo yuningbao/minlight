@@ -18,7 +18,7 @@ class CableRobot:
         for cable in self._cables:
             cable.draw(origin)
         self._chambre.draw(origin)
-        self._maisonette.draw(origin)
+        #self._maisonette.draw(origin)
         self._source.draw(origin)
 
     def rotate_source(self, delta_yaw=0, delta_pitch=0, delta_roll=0):

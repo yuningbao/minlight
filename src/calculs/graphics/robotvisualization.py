@@ -36,11 +36,16 @@ class RobotVisualization:
         self.light_position_uniform = glGetUniformLocation(self.gl_program, "light_position")
         self.light_direction_uniform = glGetUniformLocation(self.gl_program, "light_direction")
         self.light_radius_uniform = glGetUniformLocation(self.gl_program, "light_radius")
+        self.window_limit_top = glGetUniformLocation(self.gl_program,"window_limit_top")
+        self.window_limit_bottom = glGetUniformLocation(self.gl_program, "window_limit_bottom")
 
     def update_uniforms(self):
         glUniform4fv(self.light_position_uniform, 1, self._cable_robot.get_light_centre() - self._cable_robot.get_centre() + (1,))
         glUniform4fv(self.light_direction_uniform, 1, self._cable_robot.get_light_direction() + (0,))
         glUniform1fv(self.light_radius_uniform, 1, self._cable_robot.get_light_radius())
+        #glUniform1fv(self.window_limit_bottom, 1, )
+        #glUniform1fv(self.window_limit_top,1, )
+
 
     def create_window(self):
         print("Creating window.")
@@ -59,6 +64,7 @@ class RobotVisualization:
         glLineWidth(1.5)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
         print("opengl parameters set.")
+        glRotatef(-90, 1, 0, 0)
 
     def set_shaders(self):
         print("Setting shaders.")
@@ -114,7 +120,7 @@ class RobotVisualization:
         glLoadIdentity()
         gluPerspective(45, (self.window_width / self.window_height), 0.1, 50.0)
         glTranslatef(0, 0, -15)
-    #    glRotatef(-90, 1, 0, 0)
+        glRotatef(-90, 1, 0, 0)
         glScalef(0.001, 0.001, 0.001)
 
     def manage_events(self):
@@ -276,7 +282,8 @@ class RobotVisualization:
             pygame.time.wait(10)
 
     def draw_trajectory(self,trajectory, time_step):
-        print("start drawing....")
+        print("start drawing trajectory....")
+        print("step + " + str(time_step))
         self.create_window()
         self.set_opengl_parameters()
         if(self.use_shaders):
@@ -285,6 +292,7 @@ class RobotVisualization:
         origin = self._cable_robot.get_centre()
         self.reset_viewer_matrix()
         initial_time = time.time()
+        i = 0
 
         while True:
             self.manage_events()
@@ -292,10 +300,17 @@ class RobotVisualization:
             if(self.use_shaders):
                 self.update_uniforms()
             glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
-            i = int((time.time() - initial_time)/trajectory.intervalle)
-            self._cable_robot.set_source_position(trajectory.get_coordinates(i).position)
-            self._cable_robot.set_source_angles(trajectory.get_coordinates(i).angle)
+            #i = int((time.time() - initial_time)/time_step)
+            if(i < len(trajectory) - 1):
+                i = i + 1
+        #    print("i : "+ str(i))
+        #    print(" delta t" + str((time.time() - initial_time)))
+        #    print(" delta t real" + str(i*600))
+            self._cable_robot.set_source_position(trajectory[i].get_centre())
+        #    print("posicao : " + str(trajectory[100*i].get_centre()))
+            self._cable_robot.set_source_angles(trajectory[i].get_angle())
+        #    print(" anglo : " + str(trajectory[100*i].get_angle()))
 
             self._cable_robot.draw(origin)
             pygame.display.flip()
-            pygame.time.wait(10)
+            pygame.time.wait(100)
