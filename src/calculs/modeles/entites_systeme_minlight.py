@@ -526,8 +526,10 @@ class Source(Pave):
         longueur,largeur,hauteur = self.dimensions.get_tuple_dimensions()
         r = ((hauteur*hauteur/4) + longueur*longueur)/(2*longueur)
         angle_ouverture = arcsin(hauteur/(2*r))
-        for theta in range(-angle_ouverture,angle_ouverture):
-            for phi in range(-angle_ouverture,angle_ouverture):
+        #points_parable
+        #for theta in range(-angle_ouverture,angle_ouverture):
+        #    for phi in range(-angle_ouverture,angle_ouverture):
+
 
 
     def draw(self,origin):

@@ -69,3 +69,4 @@ TODO : configurar a posição de ancragem no cubo (não necessariamente nos somm
 TODO : encapsular comportamento de busca de posição possível (ang max + traj)
 TODO : diametre = 1500
 TODO : gerar sistema inteiro a partir das configs
+TODO : tirar as velocidades / deslocamentos do cabo + source a partir da trajetoria
