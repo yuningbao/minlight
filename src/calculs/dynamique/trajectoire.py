@@ -174,7 +174,7 @@ print(a)
 
 #print(traj.get_trajectoire())
 print('')
-config = Configuration(a)
-print(config.get_centre())
+#config = Configuration(a)
+#print(config.get_centre())
 
 print(traj.get_configurations())
