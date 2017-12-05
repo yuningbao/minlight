@@ -2,7 +2,7 @@
 from src.calculs.modeles.entites_mathemathiques import *
 from src.calculs.modeles.entites_systeme_minlight import *
 from src.calculs.setups.parametres_objets import systeme_spherique_baie_vitree
-from miscellaneous import *
+from src.calculs.dynamique.miscellaneous import *
 
 
 
