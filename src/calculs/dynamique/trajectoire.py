@@ -21,12 +21,15 @@ class Trajectoire():
     # provavelmente é melhor tirar heure_initiale, heure_finale e intervalle do construtor
     # e coloca-los como parametro dos metodos
     def __init__(self, date, latitude, heure_initiale, heure_finale,
-                intervalle, orientation_nord = 0.0, orientation_zenit=0.0):
+                intervalle, ro, orientation_nord = 0.0, orientation_zenit=0.0):
         self.date = date
         self.latitude = latitude
         self.heure_initiale =heure_initiale
         self.heure_finale = heure_finale
         self.intervalle = intervalle
+        #
+        self.ro = ro
+        #
         self.orientation_nord = orientation_nord
         self.orientation_zenit = orientation_zenit
 
@@ -111,21 +114,22 @@ class Trajectoire():
     def get_configurations(self):
         lista_config = []
         for pos in self.get_trajectoire():
-            config = Configuration(pos)
+            config = Configuration(pos, self.ro)
             lista_config.append(config)
         return lista_config
 
 class Configuration:
-    def __init__(self, pair_theta_phi):
+    def __init__(self, pair_theta_phi, ro):
         self.position_theta = pair_theta_phi[0]
         self.position_phi = pair_theta_phi[1]
+        self.ro = ro
         self.set_centre_xyz()
 
 
     def set_centre_xyz(self, systeme_spherique = systeme_spherique_baie_vitree):
 
       #  roh, theta, phi = coordonnees_spheriques.get_coordonnees_spheriques(unite_desiree=UniteAngleEnum.DEGRE)
-        coordonnees_spheriques = CoordonnesSpherique(1000, self.position_theta, self.position_phi, UniteAngleEnum.DEGRE)
+        coordonnees_spheriques = CoordonnesSpherique(self.ro, self.position_theta, self.position_phi, UniteAngleEnum.DEGRE)
         # p = centre de la source pour le systeme cartesien à partir du quel le spherique est defini
         p = systeme_spherique.convertir_en_cartesien(coordonnees_spheriques)
 
@@ -164,7 +168,7 @@ class Configuration:
 
 # test
 
-traj = Trajectoire('03/03', '60.3/N', '12:01', '16:00', 600)
+traj = Trajectoire('03/03', '60.3/N', '16:01', '20:00', 600, 2000)
 a = traj.position_soleil('12:01')
 print(a)
 
