@@ -536,8 +536,12 @@ class Source(Pave):
                                                 r*(1 - sqrt( 1 - sin(theta_rad)*sin(theta_rad))) \
                                                 ))
 
+#    def draw_parable(self):
+
+
 
     def draw(self,origin):
+    #    self.draw_variable
         edges = (
             (0,1),
             (0,2),

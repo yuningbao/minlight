@@ -305,15 +305,13 @@ class RobotVisualization:
             i = (time.time() - initial_time)
             i = i/time_step
             i = int(i*speed)
-            if(i == len(trajectory) ):
-                i = 0
 
             print("i : "+ str(i))
         #    print(" delta t" + str((time.time() - initial_time)))
         #    print(" delta t real" + str(i*600))
-            self._cable_robot.set_source_position(trajectory[int(i)].get_centre())
+            self._cable_robot.set_source_position(trajectory[int(i% len(trajectory))].get_centre())
         #    print("posicao : " + str(trajectory[int(i/10)].get_centre()))
-            self._cable_robot.set_source_angles(trajectory[int(i)].get_angle())
+            self._cable_robot.set_source_angles(trajectory[int(i% len(trajectory))].get_angle())
         #    print(" anglo : " + str(trajectory[100*i].get_angle()))
 
             self._cable_robot.draw(origin,self.draw_maisonette)
